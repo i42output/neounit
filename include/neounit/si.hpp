@@ -68,6 +68,14 @@ namespace neounit::si
     using mole = unit<double, dimension, 0, 0, 0, 0, 0, 1, 0>;
     using candela = unit<double, dimension, 0, 0, 0, 0, 0, 0, 1>;
 
+    using second_sq = unit<double, dimension, 2, 0, 0, 0, 0, 0, 0>;
+    using metre_sq = unit<double, dimension, 0, 2, 0, 0, 0, 0, 0>;
+    using kilogram_sq = unit<double, dimension, 0, 0, 2, 0, 0, 0, 0>;
+    using ampere_sq = unit<double, dimension, 0, 0, 0, 2, 0, 0, 0>;
+    using kelvin_sq = unit<double, dimension, 0, 0, 0, 0, 2, 0, 0>;
+    using mole_sq = unit<double, dimension, 0, 0, 0, 0, 0, 2, 0>;
+    using candela_sq = unit<double, dimension, 0, 0, 0, 0, 0, 0, 2>;
+
     using inv_second = unit<double, dimension, -1, 0, 0, 0, 0, 0, 0>;
     using inv_metre = unit<double, dimension, 0, -1, 0, 0, 0, 0, 0>;
     using inv_kilogram = unit<double, dimension, 0, 0, -1, 0, 0, 0, 0>;

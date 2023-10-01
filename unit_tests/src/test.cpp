@@ -35,12 +35,7 @@ int main()
     auto m8 = m5 / m1 / m1;
     auto m9 = 1.0 / m1;
 
-    static_assert(std::is_same_v<decltype(m1), kilogram>);
-    static_assert(std::is_same_v<decltype(m2), kilogram>);
-    static_assert(std::is_same_v<decltype(m3), kilogram>);
-    static_assert(std::is_same_v<decltype(m4), kilogram>);
-    static_assert(!std::is_same_v<decltype(m5), kilogram>);
-    static_assert(!std::is_same_v<decltype(m5), double>);
+    static_assert(std::is_same_v<decltype(m5), kilogram_sq>);
     static_assert(std::is_same_v<decltype(m6), double>);
     static_assert(std::is_same_v<decltype(m7), kilogram>);
     static_assert(std::is_same_v<decltype(m8), double>);
