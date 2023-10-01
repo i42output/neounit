@@ -49,6 +49,13 @@ int main()
     auto m35 = conversion_cast<inv_kilometre_sq>(m33);
 
     auto m36 = m30 * 2.0;
+    auto m37 = 2.0 * m30;
+    auto m38 = m30 / 2.0;
+    auto m39 = 2.0 / m30;
+    auto m40 = m30 + 2.0;
+    auto m41 = 2.0 + m30;
+    auto m42 = m30 - 2.0;
+    auto m43 = 2.0 - m30;
 
     static_assert(std::is_same_v<decltype(m5), kilogram_sq>);
     static_assert(std::is_same_v<decltype(m6), double>);
@@ -82,4 +89,12 @@ int main()
     test_assert(near_enough(m33, 1.0 / 42000000.0));
     test_assert(near_enough(m34, 42000000.0));
     test_assert(near_enough(m35, 1.0 / 42.0));
+    test_assert(near_enough(m36, 42.0 * 2.0));
+    test_assert(near_enough(m37, 2.0 * 42.0));
+    test_assert(near_enough(m38, 42.0 / 2.0));
+    test_assert(near_enough(m39, 2.0 / 42.0));
+    test_assert(near_enough(m40, 42.0 + 2.0));
+    test_assert(near_enough(m41, 2.0 + 42.0));
+    test_assert(near_enough(m42, 42.0 - 2.0));
+    test_assert(near_enough(m43, 2.0 - 42.0));
 }
