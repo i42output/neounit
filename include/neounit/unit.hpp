@@ -102,7 +102,7 @@ namespace neounit
         {
         }
     public:
-        operator value_type() const
+        constexpr operator value_type() const
         {
             return iValue;
         }
@@ -120,7 +120,7 @@ namespace neounit
     };
 
     template <typename To, typename T, typename Dimension, typename Exponents, typename Ratios>
-    inline std::enable_if_t<std::is_same_v<typename To::exponents_type, Exponents>, To> conversion_cast(unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    constexpr inline std::enable_if_t<std::is_same_v<typename To::exponents_type, Exponents>, To> conversion_cast(unit<T, Dimension, Exponents, Ratios> const& aRhs)
     {
         using rhs_type = std::decay_t<decltype(aRhs)>;
         if constexpr (std::is_same_v<To, rhs_type>)
@@ -166,21 +166,21 @@ namespace neounit
     constexpr bool is_dimensionless_v = ((0 == First) && ((First == Rest) && ...));
 
     template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    inline unit<T, Dimension, Exponents, Ratios> operator+(
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator+(
         unit<T, Dimension, Exponents, Ratios> const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
     {
         return static_cast<T>(aLhs) + static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    inline unit<T, Dimension, Exponents, Ratios> operator-(
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator-(
         unit<T, Dimension, Exponents, Ratios> const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
     {
         return static_cast<T>(aLhs) - static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
-    inline std::enable_if_t<!is_dimensionless_v<(LhsExponents + RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, LhsRatios>> operator*(
+    constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents + RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, LhsRatios>> operator*(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         /// @todo transform LHS & RHS ratios
@@ -188,7 +188,7 @@ namespace neounit
     }
 
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
-    inline std::enable_if_t<is_dimensionless_v<(LhsExponents + RhsExponents)...>, T> operator*(
+    constexpr inline std::enable_if_t<is_dimensionless_v<(LhsExponents + RhsExponents)...>, T> operator*(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         /// @todo transform LHS & RHS ratios
@@ -196,7 +196,7 @@ namespace neounit
     }
 
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
-    inline std::enable_if_t<!is_dimensionless_v<(LhsExponents - RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents - RhsExponents)...>, LhsRatios>> operator/(
+    constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents - RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents - RhsExponents)...>, LhsRatios>> operator/(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         /// @todo transform LHS & RHS ratios
@@ -204,7 +204,7 @@ namespace neounit
     }
 
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
-    inline std::enable_if_t<is_dimensionless_v<(LhsExponents - RhsExponents)...>, T> operator/(
+    constexpr inline std::enable_if_t<is_dimensionless_v<(LhsExponents - RhsExponents)...>, T> operator/(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         /// @todo transform LHS & RHS ratios
@@ -212,14 +212,14 @@ namespace neounit
     }
 
     template <typename T, typename Dimension, dimensional_exponent... RhsExponents, typename RhsRatios>
-    inline std::enable_if_t<!is_dimensionless_v<(0 - RhsExponents)...>, unit<T, Dimension, exponents<(0 - RhsExponents)...>, RhsRatios>> operator/(
+    constexpr inline std::enable_if_t<!is_dimensionless_v<(0 - RhsExponents)...>, unit<T, Dimension, exponents<(0 - RhsExponents)...>, RhsRatios>> operator/(
         T const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         return static_cast<T>(aLhs) / static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, dimensional_exponent... RhsExponents, typename RhsRatios>
-    inline std::enable_if_t<is_dimensionless_v<(0 - RhsExponents)...>, T> operator/(
+    constexpr inline std::enable_if_t<is_dimensionless_v<(0 - RhsExponents)...>, T> operator/(
         T const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         return static_cast<T>(aLhs) / static_cast<T>(aRhs);
