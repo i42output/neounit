@@ -108,7 +108,7 @@ namespace neounit
         }
         self_type operator+() const
         {
-            return *this;
+            return +iValue;
         }
         self_type operator-() const
         {
