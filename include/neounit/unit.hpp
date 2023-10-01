@@ -106,11 +106,11 @@ namespace neounit
         {
             return iValue;
         }
-        self_type operator+() const
+        constexpr self_type operator+() const
         {
             return +iValue;
         }
-        self_type operator-() const
+        constexpr self_type operator-() const
         {
             return -iValue;
         }
