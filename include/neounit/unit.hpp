@@ -106,6 +106,14 @@ namespace neounit
         {
             return iValue;
         }
+        self_type operator+() const
+        {
+            return *this;
+        }
+        self_type operator-() const
+        {
+            return -iValue;
+        }
     public:
         auto constexpr operator<=>(self_type const& aRhs) const
         {

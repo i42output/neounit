@@ -57,6 +57,9 @@ int main()
     auto m42 = m30 - 2.0;
     auto m43 = 2.0 - m30;
 
+    auto m50 = -m30;
+    auto m51 = +m30;
+
     static_assert(std::is_same_v<decltype(m5), kilogram_sq>);
     static_assert(std::is_same_v<decltype(m6), double>);
     static_assert(std::is_same_v<decltype(m7), kilogram>);
@@ -97,4 +100,6 @@ int main()
     test_assert(near_enough(m41, 2.0 + 42.0));
     test_assert(near_enough(m42, 42.0 - 2.0));
     test_assert(near_enough(m43, 2.0 - 42.0));
+    test_assert(near_enough(m50, -42.0));
+    test_assert(near_enough(m51, 42.0));
 }
