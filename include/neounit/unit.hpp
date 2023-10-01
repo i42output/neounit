@@ -179,6 +179,34 @@ namespace neounit
         return static_cast<T>(aLhs) - static_cast<T>(aRhs);
     }
 
+    template <typename T, typename Dimension, typename Exponents, typename Ratios>
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator*(
+        unit<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
+    {
+        return static_cast<T>(aLhs) * aRhs;
+    }
+
+    template <typename T, typename Dimension, typename Exponents, typename Ratios>
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator*(
+        T const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    {
+        return aLhs * static_cast<T>(aRhs);
+    }
+
+    template <typename T, typename Dimension, typename Exponents, typename Ratios>
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator/(
+        unit<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
+    {
+        return static_cast<T>(aLhs) / aRhs;
+    }
+
+    template <typename T, typename Dimension, typename Exponents, typename Ratios>
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator/(
+        T const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    {
+        return aLhs / static_cast<T>(aRhs);
+    }
+
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
     constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents + RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, LhsRatios>> operator*(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)

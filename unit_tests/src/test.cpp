@@ -48,6 +48,8 @@ int main()
     auto m34 = 1.0 / m33;
     auto m35 = conversion_cast<inv_kilometre_sq>(m33);
 
+    auto m36 = m30 * 2.0;
+
     static_assert(std::is_same_v<decltype(m5), kilogram_sq>);
     static_assert(std::is_same_v<decltype(m6), double>);
     static_assert(std::is_same_v<decltype(m7), kilogram>);
@@ -62,6 +64,7 @@ int main()
     static_assert(std::is_same_v<decltype(m33), inv_metre_sq>);
     static_assert(std::is_same_v<decltype(m34), metre_sq>);
     static_assert(std::is_same_v<decltype(m35), inv_kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m30), decltype(m36)>);
 
     test_assert(m0 == 0.0);
     test_assert(0.0 == m0);
