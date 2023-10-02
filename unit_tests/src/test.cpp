@@ -60,6 +60,7 @@ int main()
     auto m50 = -m30;
     auto m51 = +m30;
 
+    static_assert(std::is_same_v<second, s<1>>);
     static_assert(std::is_same_v<second, s<1, double>>);
     static_assert(!std::is_same_v<second, s<1, long double>>);
     static_assert(std::is_same_v<kilogram, kg<1>>);
