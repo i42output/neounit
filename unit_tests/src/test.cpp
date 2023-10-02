@@ -20,7 +20,7 @@ namespace
     }
 }
 
-//#define CHECK_STATIC_ASSERTS
+//#define STATIC_CHECKS
 
 int main()
 {
@@ -39,13 +39,17 @@ int main()
     auto m10 = 1.0 / m1;
     auto m11 = 1.0 / m1 / m1;
     auto m12 = 1.0 / (m1 * m1);
+#ifdef STATIC_CHECKS
+    gram g1 = 1.0;
+    auto bad1 = m0 * g1; // compilation failure if enabled
+#endif
 
     using cm_per_s = decltype(cm<1>{} / s<1>{});
     cm_per_s v1 = 1.0;
     using m_per_s = decltype(m<1>{} / s<1>{});
     auto v2 = conversion_cast<m_per_s>(v1);
-#ifdef CHECK_STATIC_ASSERTS
-    auto mixingUnitsBad = v1 + v2; // compilation failure if enabled
+#ifdef STATIC_CHECKS
+    auto bad2 = v1 + v2; // compilation failure if enabled
 #endif
 
     auto m20 = conversion_cast<kilogram>(m1);

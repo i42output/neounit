@@ -66,30 +66,20 @@ namespace neounit
         }
     };
 
+    using none = std::ratio<0>;
+
     template <typename Ratio1, typename Ratio2>
-    struct ratio_multiply_if {};
+    struct ratio_combine_if {};
     template <>
-    struct ratio_multiply_if<std::ratio<1>, std::ratio<1>> { using result_type = std::ratio<1>; };
+    struct ratio_combine_if<none, none> { using result_type = none; };
     template <typename Ratio>
-    struct ratio_multiply_if<Ratio, Ratio> { using result_type = Ratio; };
+    struct ratio_combine_if<Ratio, Ratio> { using result_type = Ratio; };
     template <typename Ratio>
-    struct ratio_multiply_if<Ratio, std::ratio<1>> { using result_type = Ratio; };
+    struct ratio_combine_if<Ratio, none> { using result_type = Ratio; };
     template <typename Ratio>
-    struct ratio_multiply_if<std::ratio<1>, Ratio> { using result_type = Ratio; };
+    struct ratio_combine_if<none, Ratio> { using result_type = Ratio; };
     template <typename Ratio1, typename Ratio2>
-    using ratio_multiply_if_t = typename ratio_multiply_if<Ratio1, Ratio2>::result_type;
-    template <typename Ratio1, typename Ratio2>
-    struct ratio_divide_if {};
-    template <>
-    struct ratio_divide_if<std::ratio<1>, std::ratio<1>> { using result_type = std::ratio<1>; };
-    template <typename Ratio>
-    struct ratio_divide_if<Ratio, Ratio> { using result_type = Ratio; };
-    template <typename Ratio>
-    struct ratio_divide_if<Ratio, std::ratio<1>> { using result_type = Ratio; };
-    template <typename Ratio>
-    struct ratio_divide_if<std::ratio<1>, Ratio> { using result_type = std::ratio_divide<std::ratio<1>, Ratio>; };
-    template <typename Ratio1, typename Ratio2>
-    using ratio_divide_if_t = typename ratio_divide_if<Ratio1, Ratio2>::result_type;
+    using ratio_combine_if_t = typename ratio_combine_if<Ratio1, Ratio2>::result_type;
 
     template <typename... Ratios>
     class ratios : public std::tuple<Ratios...>
@@ -97,17 +87,17 @@ namespace neounit
     public:
         using value_type = std::tuple<Ratios...>;
         template <typename Rhs>
-        struct multiply_ratios {};
+        struct combine_ratios {};
         template <typename... Ratios2>
-        struct multiply_ratios<ratios<Ratios2...>> { using result_type = ratios<ratio_multiply_if_t<Ratios, Ratios2>...>; };
+        struct combine_ratios<ratios<Ratios2...>> { using result_type = ratios<ratio_combine_if_t<Ratios, Ratios2>...>; };
         template <typename Rhs>
-        using multiply_t = typename multiply_ratios<Rhs>::result_type;
+        using combine_t = typename combine_ratios<Rhs>::result_type;
         template <typename Rhs>
-        struct divide_ratios {};
+        struct compatible {};
         template <typename... Ratios2>
-        struct divide_ratios<ratios<Ratios2...>> { using result_type = ratios<ratio_divide_if_t<Ratios, Ratios2>...>; };
+        struct compatible<ratios<Ratios2...>> { static constexpr bool result = ((std::is_same_v<Ratios, Ratios2> || std::is_same_v<Ratios, none> || std::is_same_v<Ratios2, none>) && ...); };
         template <typename Rhs>
-        using divide_t = typename divide_ratios<Rhs>::result_type;
+        static constexpr bool compatible_v = compatible<Rhs>::result;
     public:
         ratios() : value_type{ Ratios{}... }
         {
@@ -173,20 +163,23 @@ namespace neounit
         typename To::value_type result = aRhs;
         auto transform = [&result](auto&& r1, auto&& r2, dimensional_exponent e)
         {
-            using op_type = std::ratio_divide<std::decay_t<decltype(r1)>, std::decay_t<decltype(r2)>>;
-            while (e < 0)
+            if constexpr (!std::is_same_v<std::decay_t<decltype(r1)>, none> && !std::is_same_v<std::decay_t<decltype(r2)>, none>)
             {
-                result /= op_type::num;
-                result *= op_type::den;
-                ++e;
+                using op_type = std::ratio_divide<std::decay_t<decltype(r1)>, std::decay_t<decltype(r2)>>;
+                while (e < 0)
+                {
+                    result /= op_type::num;
+                    result *= op_type::den;
+                    ++e;
+                }
+                while (e > 0)
+                {
+                    result *= op_type::num;
+                    result /= op_type::den;
+                    --e;
+                }
             }
-            while (e > 0)
-            {
-                result *= op_type::num;
-                result /= op_type::den;
-                --e;
-            }
-            return op_type{};
+            return 0;
         };
         std::apply(
             [&](auto&& ...r1)
@@ -255,9 +248,10 @@ namespace neounit
     }
 
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
-    constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents + RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, typename LhsRatios::template multiply_t<RhsRatios>>> operator*(
+    constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents + RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, typename LhsRatios::template combine_t<RhsRatios>>> operator*(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
+        static_assert(LhsRatios::template compatible_v<RhsRatios>);
         return static_cast<T>(aLhs) * static_cast<T>(aRhs);
     }
 
@@ -265,13 +259,15 @@ namespace neounit
     constexpr inline std::enable_if_t<is_dimensionless_v<(LhsExponents + RhsExponents)...>, T> operator*(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
+        static_assert(LhsRatios::template compatible_v<RhsRatios>);
         return static_cast<T>(aLhs) * static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
-    constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents - RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents - RhsExponents)...>, typename LhsRatios::template divide_t<RhsRatios>>> operator/(
+    constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents - RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents - RhsExponents)...>, typename LhsRatios::template combine_t<RhsRatios>>> operator/(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
+        static_assert(LhsRatios::template compatible_v<RhsRatios>);
         return static_cast<T>(aLhs) / static_cast<T>(aRhs);
     }
 
@@ -279,7 +275,7 @@ namespace neounit
     constexpr inline std::enable_if_t<is_dimensionless_v<(LhsExponents - RhsExponents)...>, T> operator/(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
-        /// @todo transform LHS & RHS ratios
+        static_assert(LhsRatios::template compatible_v<RhsRatios>);
         return static_cast<T>(aLhs) / static_cast<T>(aRhs);
     }
 
