@@ -60,20 +60,20 @@ namespace neounit::si
         J = LuminousIntensity
     };
 
-    template<dimensional_exponent E>
-    using s = unit<double, dimension, exponents<E, 0, 0, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
-    template<dimensional_exponent E>
-    using m = unit<double, dimension, exponents<0, E, 0, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
-    template<dimensional_exponent E>
-    using g = unit<double, dimension, exponents<0, 0, E, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
-    template<dimensional_exponent E>
-    using A = unit<double, dimension, exponents<0, 0, 0, E, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
-    template<dimensional_exponent E>
-    using K = unit<double, dimension, exponents<0, 0, 0, 0, E, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
-    template<dimensional_exponent E>
-    using mol = unit<double, dimension, exponents<0, 0, 0, 0, 0, E, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
-    template<dimensional_exponent E>
-    using cd = unit<double, dimension, exponents<0, 0, 0, 0, 0, 0, E>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
+    template<dimensional_exponent E, typename T = double>
+    using s = unit<T, dimension, exponents<E, 0, 0, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
+    template<dimensional_exponent E, typename T = double>
+    using m = unit<T, dimension, exponents<0, E, 0, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
+    template<dimensional_exponent E, typename T = double>
+    using g = unit<T, dimension, exponents<0, 0, E, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
+    template<dimensional_exponent E, typename T = double>
+    using A = unit<T, dimension, exponents<0, 0, 0, E, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
+    template<dimensional_exponent E, typename T = double>
+    using K = unit<T, dimension, exponents<0, 0, 0, 0, E, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
+    template<dimensional_exponent E, typename T = double>
+    using mol = unit<T, dimension, exponents<0, 0, 0, 0, 0, E, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
+    template<dimensional_exponent E, typename T = double>
+    using cd = unit<T, dimension, exponents<0, 0, 0, 0, 0, 0, E>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;
 
     using s_sq = s<2>;
     using m_sq = m<2>;
@@ -132,20 +132,20 @@ namespace neounit::si
     using inv_candela_sq = cd<-2>;
 
     #define define_si_prefix(ShortPrefix, LongPrefix, Ratio)\
-    template<dimensional_exponent E>\
-    using ShortPrefix ## s = unit<double, dimension, exponents<E, 0, 0, 0, 0, 0, 0>, ratios<Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
-    template<dimensional_exponent E>\
-    using ShortPrefix ## m = unit<double, dimension, exponents<0, E, 0, 0, 0, 0, 0>, ratios<std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
-    template<dimensional_exponent E>\
-    using ShortPrefix ## g = unit<double, dimension, exponents<0, 0, E, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
-    template<dimensional_exponent E>\
-    using ShortPrefix ## A = unit<double, dimension, exponents<0, 0, 0, E, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
-    template<dimensional_exponent E>\
-    using ShortPrefix ## K = unit<double, dimension, exponents<0, 0, 0, 0, E, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>>>;\
-    template<dimensional_exponent E>\
-    using ShortPrefix ## mol = unit<double, dimension, exponents<0, 0, 0, 0, 0, E, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, Ratio, std::ratio<1>>>;\
-    template<dimensional_exponent E>\
-    using ShortPrefix ## cd = unit<double, dimension, exponents<0, 0, 0, 0, 0, 0, E>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, Ratio>>;\
+    template<dimensional_exponent E, typename T = double>\
+    using ShortPrefix ## s = unit<T, dimension, exponents<E, 0, 0, 0, 0, 0, 0>, ratios<Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
+    template<dimensional_exponent E, typename T = double>\
+    using ShortPrefix ## m = unit<T, dimension, exponents<0, E, 0, 0, 0, 0, 0>, ratios<std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
+    template<dimensional_exponent E, typename T = double>\
+    using ShortPrefix ## g = unit<T, dimension, exponents<0, 0, E, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
+    template<dimensional_exponent E, typename T = double>\
+    using ShortPrefix ## A = unit<T, dimension, exponents<0, 0, 0, E, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
+    template<dimensional_exponent E, typename T = double>\
+    using ShortPrefix ## K = unit<T, dimension, exponents<0, 0, 0, 0, E, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>>>;\
+    template<dimensional_exponent E, typename T = double>\
+    using ShortPrefix ## mol = unit<T, dimension, exponents<0, 0, 0, 0, 0, E, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, Ratio, std::ratio<1>>>;\
+    template<dimensional_exponent E, typename T = double>\
+    using ShortPrefix ## cd = unit<T, dimension, exponents<0, 0, 0, 0, 0, 0, E>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, Ratio>>;\
     using ShortPrefix ## s_sq = unit<double, dimension, exponents<2, 0, 0, 0, 0, 0, 0>, ratios<Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
     using ShortPrefix ## m_sq = unit<double, dimension, exponents<0, 2, 0, 0, 0, 0, 0>, ratios<std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
     using ShortPrefix ## g_sq = unit<double, dimension, exponents<0, 0, 2, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, Ratio, std::ratio<1>, std::ratio<1>, std::ratio<1>, std::ratio<1>>>;\
