@@ -67,7 +67,7 @@ namespace neounit
     };
 
     template <typename Ratio1, typename Ratio2>
-    struct ratio_multiply_if { using result_type = std::ratio_multiply<Ratio1, Ratio2>; };
+    struct ratio_multiply_if {};
     template <>
     struct ratio_multiply_if<std::ratio<1>, std::ratio<1>> { using result_type = std::ratio<1>; };
     template <typename Ratio>
@@ -79,7 +79,7 @@ namespace neounit
     template <typename Ratio1, typename Ratio2>
     using ratio_multiply_if_t = typename ratio_multiply_if<Ratio1, Ratio2>::result_type;
     template <typename Ratio1, typename Ratio2>
-    struct ratio_divide_if { using result_type = std::ratio_divide<Ratio1, Ratio2>; };
+    struct ratio_divide_if {};
     template <>
     struct ratio_divide_if<std::ratio<1>, std::ratio<1>> { using result_type = std::ratio<1>; };
     template <typename Ratio>
