@@ -20,6 +20,8 @@ namespace
     }
 }
 
+//#define CHECK_STATIC_ASSERTS
+
 int main()
 {
     using namespace neounit::si;
@@ -37,6 +39,14 @@ int main()
     auto m10 = 1.0 / m1;
     auto m11 = 1.0 / m1 / m1;
     auto m12 = 1.0 / (m1 * m1);
+
+    using cm_per_s = decltype(cm<1>{} / s<1>{});
+    cm_per_s v1 = 1.0;
+    using m_per_s = decltype(m<1>{} / s<1>{});
+    auto v2 = conversion_cast<m_per_s>(v1);
+#ifdef CHECK_STATIC_ASSERTS
+    auto mixingUnitsBad = v1 + v2; // compilation failure if enabled
+#endif
 
     auto m20 = conversion_cast<kilogram>(m1);
     auto m21 = conversion_cast<gram>(m1);
