@@ -25,7 +25,7 @@ int main()
     using namespace neounit::si;
 
     kilogram m0 = 0.0;
-    kilogram m1 = 7.0;
+    kg<1> m1 = 7.0;
     kilogram m2 = 42.0;
     kilogram m3 = m1 + m2;
     kilogram m4 = m3 - m2;
@@ -60,6 +60,16 @@ int main()
     auto m50 = -m30;
     auto m51 = +m30;
 
+    static_assert(std::is_same_v<kilogram, kg<1>>);
+    static_assert(std::is_same_v<gram, g<1>>);
+    static_assert(std::is_same_v<kilometre_sq, km<2>>);
+    static_assert(std::is_same_v<kilometre_sq, km_sq>);
+    static_assert(std::is_same_v<metre_sq, m<2>>);
+    static_assert(std::is_same_v<metre_sq, m_sq>);
+    static_assert(std::is_same_v<inv_metre_sq, m<-2>>);
+    static_assert(std::is_same_v<inv_metre_sq, inv_m_sq>);
+    static_assert(std::is_same_v<inv_kilometre_sq, km<-2>>);
+    static_assert(std::is_same_v<inv_kilometre_sq, inv_km_sq>);
     static_assert(std::is_same_v<decltype(m5), kilogram_sq>);
     static_assert(std::is_same_v<decltype(m6), double>);
     static_assert(std::is_same_v<decltype(m7), kilogram>);
