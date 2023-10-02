@@ -107,6 +107,8 @@ int main()
     test_assert(m5 != 0.0);
     test_assert(0.0 != m5);
     test_assert(near_enough(m11, m12));
+    test_assert(near_enough(v1, 1.0));
+    test_assert(near_enough(v2, 0.01));
     test_assert(m20 == m1);
     test_assert(near_enough(m21, 7000.0));
     test_assert(near_enough(m30, 42.0));
