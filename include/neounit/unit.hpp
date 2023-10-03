@@ -203,6 +203,34 @@ namespace neounit
     template <dimensional_exponent First, dimensional_exponent... Rest>
     constexpr bool is_dimensionless_v = ((0 == First) && ((First == Rest) && ...));
 
+    template <typename T, typename Dimension, typename Exponents, typename Ratios>
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator+(
+        unit<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
+    {
+        return static_cast<T>(aLhs) + aRhs;
+    }
+
+    template <typename T, typename Dimension, typename Exponents, typename Ratios>
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator+(
+        T const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    {
+        return aLhs + static_cast<T>(aRhs);
+    }
+
+    template <typename T, typename Dimension, typename Exponents, typename Ratios>
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator-(
+        unit<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
+    {
+        return static_cast<T>(aLhs) - aRhs;
+    }
+
+    template <typename T, typename Dimension, typename Exponents, typename Ratios>
+    constexpr inline unit<T, Dimension, Exponents, Ratios> operator-(
+        T const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    {
+        return aLhs - static_cast<T>(aRhs);
+    }
+
     template <typename T, typename Dimension, typename Exponents1, typename Ratios1, typename Exponents2, typename Ratios2>
     constexpr inline unit<T, Dimension, Exponents1, Ratios1> operator+(
         unit<T, Dimension, Exponents1, Ratios1> const& aLhs, unit<T, Dimension, Exponents2, Ratios2> const& aRhs)
