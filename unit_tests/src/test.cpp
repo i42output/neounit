@@ -18,6 +18,11 @@ namespace
     {
         return std::abs(lhs - rhs) < 1e-6;
     }
+
+    bool near_enough(long double lhs, long double rhs)
+    {
+        return std::abs(lhs - rhs) < 1e-6;
+    }
 }
 
 //#define STATIC_CHECKS
@@ -25,6 +30,7 @@ namespace
 int main()
 {
     using namespace neounit::si;
+    using namespace neounit::si::literals;
 
     kilogram m0 = 0.0;
     kg<1> m1 = 7.0;
@@ -43,6 +49,15 @@ int main()
     gram g1 = 1.0;
     auto bad1 = m0 * g1; // compilation failure if enabled
 #endif
+
+    auto l0 = 0.2_km;
+    auto l1 = 0.3_km;
+    auto l2 = l0 * l1;
+    auto l3 = l2;
+    km_sq l4 = l2;
+    l3 = 42.0;
+    auto l5 = l2 * 2.0;
+    auto l6 = conversion_cast<km<2>>(l2) * km<2, double>{ 1.0 };
 
     using cm_per_s = decltype(cm<1>{} / s<1>{});
     cm_per_s v1 = 1.0;
@@ -95,6 +110,13 @@ int main()
     static_assert(std::is_same_v<decltype(m10), inv_kilogram>);
     static_assert(std::is_same_v<decltype(m11), inv_kilogram_sq>);
     static_assert(std::is_same_v<decltype(m12), inv_kilogram_sq>);
+    static_assert(std::is_same_v<decltype(l0), km<1, double>>);
+    static_assert(std::is_same_v<decltype(l1), km<1, double>>);
+    static_assert(std::is_same_v<decltype(l2), km<2, double>>);
+    static_assert(std::is_same_v<decltype(l3), km<2, double>>);
+    static_assert(std::is_same_v<decltype(l4), km<2, double>>);
+    static_assert(std::is_same_v<decltype(l5), km<2, double>>);
+    static_assert(std::is_same_v<decltype(l6), km<4, double>>);
     static_assert(std::is_same_v<decltype(m20), kilogram>);
     static_assert(std::is_same_v<decltype(m21), gram>);
     static_assert(std::is_same_v<decltype(m31), metre_sq>);
@@ -120,6 +142,13 @@ int main()
     test_assert(m5 != 0.0);
     test_assert(0.0 != m5);
     test_assert(near_enough(m11, m12));
+    test_assert(near_enough(l0, 0.2));
+    test_assert(near_enough(l1, 0.3));
+    test_assert(near_enough(l2, 0.06));
+    test_assert(near_enough(l3, 42.0));
+    test_assert(near_enough(l4, 0.06));
+    test_assert(near_enough(l5, 0.12));
+    test_assert(near_enough(l6, 0.06));
     test_assert(near_enough(v1, 1.0));
     test_assert(near_enough(v2, 0.01));
     test_assert(m20 == m1);

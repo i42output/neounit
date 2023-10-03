@@ -122,14 +122,28 @@ namespace neounit
         unit() : iValue{}
         {
         }
-        unit(value_type aValue) : iValue{ aValue }
+        template <typename U = T>
+        unit(U aValue, std::enable_if_t<std::is_same_v<std::decay_t<U>, T>, int> = {}) : iValue{ aValue }
         {
         }
         unit(self_type const& aValue) : iValue{ aValue }
         {
         }
     public:
-        constexpr operator value_type() const
+        template <typename U = T>
+        std::enable_if_t<std::is_same_v<std::decay_t<U>, value_type>, self_type>& operator=(U aValue)
+        {
+            iValue = aValue;
+            return *this;
+        }
+        self_type& operator=(self_type const& aValue)
+        {
+            iValue = aValue;
+            return *this;
+        }
+    public:
+        template <typename U = value_type>
+        constexpr operator std::enable_if_t<std::is_same_v<std::decay_t<U>, value_type>, value_type>() const
         {
             return iValue;
         }
@@ -142,13 +156,29 @@ namespace neounit
             return -iValue;
         }
     public:
-        auto constexpr operator<=>(self_type const& aRhs) const
+        friend auto constexpr operator==(self_type const& aLhs, self_type const& aRhs)
         {
-            return iValue <=> aRhs.iValue;
+            return aLhs.iValue == aRhs.iValue;
         }
-        auto constexpr operator<=>(value_type const& aRhs) const
+        friend auto constexpr operator<=>(self_type const& aLhs, self_type const& aRhs)
         {
-            return iValue <=> aRhs;
+            return aLhs.iValue <=> aRhs.iValue;
+        }
+        friend auto constexpr operator==(self_type const& aLhs, value_type const& aRhs)
+        {
+            return aLhs.iValue == aRhs;
+        }
+        friend auto constexpr operator<=>(self_type const& aLhs, value_type const& aRhs)
+        {
+            return aLhs.iValue <=> aRhs;
+        }
+        friend auto constexpr operator==(value_type const& aLhs, self_type const& aRhs)
+        {
+            return aLhs == aRhs.iValue;
+        }
+        friend auto constexpr operator<=>(value_type const& aLhs, self_type const& aRhs)
+        {
+            return aLhs <=> aRhs.iValue;
         }
     private:
         value_type iValue;
@@ -160,7 +190,7 @@ namespace neounit
         using rhs_type = std::decay_t<decltype(aRhs)>;
         if constexpr (std::is_same_v<To, rhs_type>)
             return aRhs;
-        typename To::value_type result = aRhs;
+        auto result = static_cast<typename To::value_type>(static_cast<T>(aRhs));
         auto transform = [&result](auto&& r1, auto&& r2, dimensional_exponent e)
         {
             if constexpr (!std::is_same_v<std::decay_t<decltype(r1)>, none> && !std::is_same_v<std::decay_t<decltype(r2)>, none>)

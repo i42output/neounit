@@ -77,6 +77,17 @@ namespace neounit::si
     template<dimensional_exponent E, typename T = double>
     using cd = unit<T, dimension, exponents<0, 0, 0, 0, 0, 0, E>, ratios<none, none, none, none, none, none, std::ratio<1>>>;
 
+    namespace literals
+    {
+        inline auto operator "" _s(long double n) { return unit<double, dimension, exponents<1, 0, 0, 0, 0, 0, 0>, ratios<std::ratio<1>, none, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _m(long double n) { return unit<double, dimension, exponents<0, 1, 0, 0, 0, 0, 0>, ratios<none, std::ratio<1>, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _g(long double n) { return unit<double, dimension, exponents<0, 0, 1, 0, 0, 0, 0>, ratios<none, none, std::ratio<1>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _A(long double n) { return unit<double, dimension, exponents<0, 0, 0, 1, 0, 0, 0>, ratios<none, none, none, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _K(long double n) { return unit<double, dimension, exponents<0, 0, 0, 0, 1, 0, 0>, ratios<none, none, none, none, std::ratio<1>, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _mol(long double n) { return unit<double, dimension, exponents<0, 0, 0, 0, 0, 1, 0>, ratios<none, none, none, none, none, std::ratio<1>, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _cd(long double n) { return unit<double, dimension, exponents<0, 0, 0, 0, 0, 0, 1>, ratios<none, none, none, none, none, none, std::ratio<1>>>{ static_cast<double>(n) }; }
+    }
+
     using s_sq = s<2>;
     using m_sq = m<2>;
     using g_sq = g<2>;
@@ -196,7 +207,17 @@ namespace neounit::si
     using inv_ ## LongPrefix ## ampere_sq = unit<double, dimension, exponents<0, 0, 0, -2, 0, 0, 0>, ratios<none, none, none, Ratio, none, none, none>>;\
     using inv_ ## LongPrefix ## kelvin_sq = unit<double, dimension, exponents<0, 0, 0, 0, -2, 0, 0>, ratios<none, none, none, none, Ratio, none, none>>;\
     using inv_ ## LongPrefix ## mole_sq = unit<double, dimension, exponents<0, 0, 0, 0, 0, -2, 0>, ratios<none, none, none, none, none, Ratio, none>>;\
-    using inv_ ## LongPrefix ## candela_sq = unit<double, dimension, exponents<0, 0, 0, 0, 0, 0, -2>, ratios<none, none, none, none, none, none, Ratio>>;
+    using inv_ ## LongPrefix ## candela_sq = unit<double, dimension, exponents<0, 0, 0, 0, 0, 0, -2>, ratios<none, none, none, none, none, none, Ratio>>;\
+    namespace literals\
+    {\
+        inline auto operator "" _ ## ShortPrefix ## s(long double n) { return unit<double, dimension, exponents<1, 0, 0, 0, 0, 0, 0>, ratios<Ratio, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## m(long double n) { return unit<double, dimension, exponents<0, 1, 0, 0, 0, 0, 0>, ratios<none, Ratio, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## g(long double n) { return unit<double, dimension, exponents<0, 0, 1, 0, 0, 0, 0>, ratios<none, none, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## A(long double n) { return unit<double, dimension, exponents<0, 0, 0, 1, 0, 0, 0>, ratios<none, none, none, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## K(long double n) { return unit<double, dimension, exponents<0, 0, 0, 0, 1, 0, 0>, ratios<none, none, none, none, Ratio, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## mol(long double n) { return unit<double, dimension, exponents<0, 0, 0, 0, 0, 1, 0>, ratios<none, none, none, none, none, Ratio, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## cd(long double n) { return unit<double, dimension, exponents<0, 0, 0, 0, 0, 0, 1>, ratios<none, none, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
+    }
 
     define_si_prefix(a, atto, std::atto)
     define_si_prefix(f, femto, std::femto)
