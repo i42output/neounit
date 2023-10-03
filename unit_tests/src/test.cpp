@@ -101,7 +101,16 @@ int main()
     static_assert(std::is_same_v<decltype(m33), inv_metre_sq>);
     static_assert(std::is_same_v<decltype(m34), metre_sq>);
     static_assert(std::is_same_v<decltype(m35), inv_kilometre_sq>);
-    static_assert(std::is_same_v<decltype(m30), decltype(m36)>);
+    static_assert(std::is_same_v<decltype(m36), kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m37), kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m38), kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m39), inv_kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m40), kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m41), kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m42), kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m43), kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m50), kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m51), kilometre_sq>);
 
     test_assert(m0 == 0.0);
     test_assert(0.0 == m0);
