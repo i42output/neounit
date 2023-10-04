@@ -4,7 +4,7 @@
 #include <type_traits>
 #include <cmath>
 #include <iostream>
-#include <neounit/si.hpp>
+#include <neounit/neounit.hpp>
 
 namespace
 {
@@ -133,6 +133,9 @@ int main()
     static_assert(std::is_same_v<decltype(m43), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m50), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m51), kilometre_sq>);
+
+    static_assert(std::is_same_v<decltype(1.0 / 1.0_s), hertz>);
+    static_assert(std::is_same_v<decltype(1.0 / 1.0_Hz), second>);
 
     test_assert(m0 == 0.0);
     test_assert(0.0 == m0);

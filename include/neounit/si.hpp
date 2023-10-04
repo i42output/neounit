@@ -1,4 +1,4 @@
-// neounit.hpp
+// si.hpp
 /*
  *  Copyright (c) 2023 Leigh Johnston.
  *
@@ -59,8 +59,6 @@ namespace neounit::si
         N = AmountOfSubstance,
         J = LuminousIntensity
     };
-
-
 
     template<dimensional_exponent E, typename T = double>
     using s = unit<T, dimension, exponents<E, 0, 0, 0, 0, 0, 0>, ratios<std::ratio<1>, none, none, none, none, none, none>>;

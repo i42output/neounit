@@ -35,6 +35,6 @@
 
 #pragma once
 
-namespace neounit
-{
-}
+#include <neounit/unit.hpp>
+#include <neounit/si.hpp>
+#include <neounit/si_derived.hpp>
