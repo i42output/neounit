@@ -63,11 +63,11 @@ namespace neounit::si
     template<typename T = double>
     using V = unit<T, dimension, exponents<-3, 2, 1, -1, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>;
     template<typename T = double>
-    using F = unit<T, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>;
+    using F = unit<T, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1, 1000>, std::ratio<1>, none, none, none>>;
     template<typename T = double>
     using Ω = unit<T, dimension, exponents<-3, 2, 1, -2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>;
     template<typename T = double>
-    using S = unit<T, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>;
+    using S = unit<T, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1, 1000>, std::ratio<1>, none, none, none>>;
     template<typename T = double>
     using Wb = unit<T, dimension, exponents<-2, 2, 1, -1, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>;
     template<typename T_ = double>
@@ -123,9 +123,9 @@ namespace neounit::si
         inline auto operator "" _W(long double n) { return unit<double, dimension, exponents<-3, 2, 1, 0, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, none, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _C(long double n) { return unit<double, dimension, exponents<1, 0, 0, 1, 0, 0, 0>, ratios<std::ratio<1>, none, none, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _V(long double n) { return unit<double, dimension, exponents<-3, 2, 1, -1, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _F(long double n) { return unit<double, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _F(long double n) { return unit<double, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1, 1000>, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _Ω(long double n) { return unit<double, dimension, exponents<-3, 2, 1, -2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _S(long double n) { return unit<double, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _S(long double n) { return unit<double, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1, 1000>, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _Wb(long double n) { return unit<double, dimension, exponents<-2, 2, 1, -1, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _T(long double n) { return unit<double, dimension, exponents<-2, 0, 1, -1, 0, 0, 0>, ratios<std::ratio<1>, none, std::ratio<1000>, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _H(long double n) { return unit<double, dimension, exponents<-2, 2, 1, -2, 0, 0, 0>, ratios<std::ratio<1>, std::ratio<1>, std::ratio<1000>, std::ratio<1>, none, none, none>>{ static_cast<double>(n) }; }
@@ -138,69 +138,69 @@ namespace neounit::si
         inline auto operator "" _kat(long double n) { return unit<double, dimension, exponents<-1, 0, 0, 0, 0, 1, 0>, ratios<std::ratio<1>, none, none, none, none, std::ratio<1>, none>>{ static_cast<double>(n) }; }
     }
 
-    #define define_si_derived_prefix(ShortPrefix, LongPrefix, Ratio)\
-    using ShortPrefix ## Hz = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<Ratio, none, none, none, none, none, none>>;\
+    #define define_si_derived_prefix(ShortPrefix, LongPrefix, Ratio, InvRatio)\
+    using ShortPrefix ## Hz = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<InvRatio, none, none, none, none, none, none>>;\
     using ShortPrefix ## N = unit<double, dimension, exponents<-2, 1, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using ShortPrefix ## Pa = unit<double, dimension, exponents<-2, -1, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using ShortPrefix ## J = unit<double, dimension, exponents<-2, 2, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using ShortPrefix ## W = unit<double, dimension, exponents<-3, 2, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using ShortPrefix ## C = unit<double, dimension, exponents<1, 0, 0, 1, 0, 0, 0>, ratios<Ratio, none, none, Ratio, none, none, none>>;\
-    using ShortPrefix ## V = unit<double, dimension, exponents<-3, 2, 1, -1, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## F = unit<double, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## Ω = unit<double, dimension, exponents<-3, 2, 1, -2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## S = unit<double, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## Wb = unit<double, dimension, exponents<-2, 2, 1, -1, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## T = unit<double, dimension, exponents<-2, 0, 1, -1, 0, 0, 0>, ratios<Ratio, none, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## H = unit<double, dimension, exponents<-2, 2, 1, -2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
+    using ShortPrefix ## Pa = unit<double, dimension, exponents<-2, -1, 1, 0, 0, 0, 0>, ratios<InvRatio, InvRatio, Ratio, none, none, none, none>>;\
+    using ShortPrefix ## J = unit<double, dimension, exponents<-2, 2, 1, 0, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, none, none, none, none>>;\
+    using ShortPrefix ## W = unit<double, dimension, exponents<-3, 2, 1, 0, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, none, none, none, none>>;\
+    using ShortPrefix ## C = unit<double, dimension, exponents<1, 0, 0, 1, 0, 0, 0>, ratios<Ratio, none, none, InvRatio, none, none, none>>;\
+    using ShortPrefix ## V = unit<double, dimension, exponents<-3, 2, 1, -1, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>;\
+    using ShortPrefix ## F = unit<double, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<Ratio, InvRatio, InvRatio, Ratio, none, none, none>>;\
+    using ShortPrefix ## Ω = unit<double, dimension, exponents<-3, 2, 1, -2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, InvRatio, none, none, none>>;\
+    using ShortPrefix ## S = unit<double, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<Ratio, InvRatio, InvRatio, Ratio, none, none, none>>;\
+    using ShortPrefix ## Wb = unit<double, dimension, exponents<-2, 2, 1, -1, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>;\
+    using ShortPrefix ## T = unit<double, dimension, exponents<-2, 0, 1, -1, 0, 0, 0>, ratios<InvRatio, none, Ratio, InvRatio, none, none, none>>;\
+    using ShortPrefix ## H = unit<double, dimension, exponents<-2, 2, 1, -2, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>;\
     using ShortPrefix ## degC = unit<double, dimension, exponents<0, 0, 0, 0, 1, 0, 0>, ratios<none, none, none, none, Ratio, none, none>>;\
     using ShortPrefix ## lm = unit<double, dimension, exponents<0, 0, 0, 0, 0, 0, 1>, ratios<none, none, none, none, none, none, Ratio>>;\
-    using ShortPrefix ## lx = unit<double, dimension, exponents<0, -2, 0, 0, 0, 0, 1>, ratios<none, Ratio, none, none, none, none, Ratio>>;\
-    using ShortPrefix ## Bq = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<Ratio, none, none, none, none, none, none>>;\
-    using ShortPrefix ## Gy = unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
-    using ShortPrefix ## Sv = unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
-    using ShortPrefix ## kat = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 1, 0>, ratios<Ratio, none, none, none, none, Ratio, none>>;\
-    using LongPrefix ## hertz = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<Ratio, none, none, none, none, none, none>>;\
-    using LongPrefix ## newton = unit<double, dimension, exponents<-2, 1, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using LongPrefix ## pascal = unit<double, dimension, exponents<-2, -1, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using LongPrefix ## joule = unit<double, dimension, exponents<-2, 2, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using LongPrefix ## watt = unit<double, dimension, exponents<-3, 2, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
+    using ShortPrefix ## lx = unit<double, dimension, exponents<0, -2, 0, 0, 0, 0, 1>, ratios<none, InvRatio, none, none, none, none, Ratio>>;\
+    using ShortPrefix ## Bq = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<InvRatio, none, none, none, none, none, none>>;\
+    using ShortPrefix ## Gy = unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<InvRatio, Ratio, none, none, none, none, none>>;\
+    using ShortPrefix ## Sv = unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<InvRatio, Ratio, none, none, none, none, none>>;\
+    using ShortPrefix ## kat = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 1, 0>, ratios<InvRatio, none, none, none, none, Ratio, none>>;\
+    using LongPrefix ## hertz = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<InvRatio, none, none, none, none, none, none>>;\
+    using LongPrefix ## newton = unit<double, dimension, exponents<-2, 1, 1, 0, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, none, none, none, none>>;\
+    using LongPrefix ## pascal = unit<double, dimension, exponents<-2, -1, 1, 0, 0, 0, 0>, ratios<InvRatio, InvRatio, Ratio, none, none, none, none>>;\
+    using LongPrefix ## joule = unit<double, dimension, exponents<-2, 2, 1, 0, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, none, none, none, none>>;\
+    using LongPrefix ## watt = unit<double, dimension, exponents<-3, 2, 1, 0, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, none, none, none, none>>;\
     using LongPrefix ## coulomb = unit<double, dimension, exponents<1, 0, 0, 1, 0, 0, 0>, ratios<Ratio, none, none, Ratio, none, none, none>>;\
-    using LongPrefix ## volt = unit<double, dimension, exponents<-3, 2, 1, -1, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## farad = unit<double, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## ohm = unit<double, dimension, exponents<-3, 2, 1, -2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## siemens = unit<double, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## weber = unit<double, dimension, exponents<-2, 2, 1, -1, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## tesla = unit<double, dimension, exponents<-2, 0, 1, -1, 0, 0, 0>, ratios<Ratio, none, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## henry = unit<double, dimension, exponents<-2, 2, 1, -2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
+    using LongPrefix ## volt = unit<double, dimension, exponents<-3, 2, 1, -1, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>;\
+    using LongPrefix ## farad = unit<double, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<Ratio, InvRatio, InvRatio, Ratio, none, none, none>>;\
+    using LongPrefix ## ohm = unit<double, dimension, exponents<-3, 2, 1, -2, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>;\
+    using LongPrefix ## siemens = unit<double, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<Ratio, InvRatio, InvRatio, Ratio, none, none, none>>;\
+    using LongPrefix ## weber = unit<double, dimension, exponents<-2, 2, 1, -1, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>;\
+    using LongPrefix ## tesla = unit<double, dimension, exponents<-2, 0, 1, -1, 0, 0, 0>, ratios<InvRatio, none, Ratio, InvRatio, none, none, none>>;\
+    using LongPrefix ## henry = unit<double, dimension, exponents<-2, 2, 1, -2, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>;\
     using LongPrefix ## Celsius = unit<double, dimension, exponents<0, 0, 0, 0, 1, 0, 0>, ratios<none, none, none, none, Ratio, none, none>>;\
     using LongPrefix ## lumen = unit<double, dimension, exponents<0, 0, 0, 0, 0, 0, 1>, ratios<none, none, none, none, none, none, Ratio>>;\
-    using LongPrefix ## lux = unit<double, dimension, exponents<0, -2, 0, 0, 0, 0, 1>, ratios<none, Ratio, none, none, none, none, Ratio>>;\
-    using LongPrefix ## becquerel = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<Ratio, none, none, none, none, none, none>>;\
-    using LongPrefix ## gray = unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
-    using LongPrefix ## sievert = unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
+    using LongPrefix ## lux = unit<double, dimension, exponents<0, -2, 0, 0, 0, 0, 1>, ratios<none, InvRatio, none, none, none, none, Ratio>>;\
+    using LongPrefix ## becquerel = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<InvRatio, none, none, none, none, none, none>>;\
+    using LongPrefix ## gray = unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<InvRatio, Ratio, none, none, none, none, none>>;\
+    using LongPrefix ## sievert = unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<InvRatio, Ratio, none, none, none, none, none>>;\
     using LongPrefix ## katal = unit<double, dimension, exponents<-1, 0, 0, 0, 0, 1, 0>, ratios<Ratio, none, none, none, none, Ratio, none>>;\
     namespace literals\
     {\
-        inline auto operator "" _ ## ShortPrefix ## Hz(long double n) { return unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<Ratio, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## N(long double n) { return unit<double, dimension, exponents<-2, 1, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Pa(long double n) { return unit<double, dimension, exponents<-2, -1, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## J(long double n) { return unit<double, dimension, exponents<-2, 2, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## W(long double n) { return unit<double, dimension, exponents<-3, 2, 1, 0, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Hz(long double n) { return unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<InvRatio, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## N(long double n) { return unit<double, dimension, exponents<-2, 1, 1, 0, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Pa(long double n) { return unit<double, dimension, exponents<-2, -1, 1, 0, 0, 0, 0>, ratios<InvRatio, InvRatio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## J(long double n) { return unit<double, dimension, exponents<-2, 2, 1, 0, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## W(long double n) { return unit<double, dimension, exponents<-3, 2, 1, 0, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## C(long double n) { return unit<double, dimension, exponents<1, 0, 0, 1, 0, 0, 0>, ratios<Ratio, none, none, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## V(long double n) { return unit<double, dimension, exponents<-3, 2, 1, -1, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## F(long double n) { return unit<double, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Ω(long double n) { return unit<double, dimension, exponents<-3, 2, 1, -2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## S(long double n) { return unit<double, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Wb(long double n) { return unit<double, dimension, exponents<-2, 2, 1, -1, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## T(long double n) { return unit<double, dimension, exponents<-2, 0, 1, -1, 0, 0, 0>, ratios<Ratio, none, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## H(long double n) { return unit<double, dimension, exponents<-2, 2, 1, -2, 0, 0, 0>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## V(long double n) { return unit<double, dimension, exponents<-3, 2, 1, -1, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## F(long double n) { return unit<double, dimension, exponents<4, -2, -1, 2, 0, 0, 0>, ratios<Ratio, InvRatio, InvRatio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Ω(long double n) { return unit<double, dimension, exponents<-3, 2, 1, -2, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## S(long double n) { return unit<double, dimension, exponents<3, -2, -1, 2, 0, 0, 0>, ratios<Ratio, InvRatio, InvRatio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Wb(long double n) { return unit<double, dimension, exponents<-2, 2, 1, -1, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## T(long double n) { return unit<double, dimension, exponents<-2, 0, 1, -1, 0, 0, 0>, ratios<InvRatio, none, Ratio, InvRatio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## H(long double n) { return unit<double, dimension, exponents<-2, 2, 1, -2, 0, 0, 0>, ratios<InvRatio, Ratio, Ratio, InvRatio, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## degC(long double n) { return unit<double, dimension, exponents<0, 0, 0, 0, 1, 0, 0>, ratios<none, none, none, none, Ratio, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## lm(long double n) { return unit<double, dimension, exponents<0, 0, 0, 0, 0, 0, 1>, ratios<none, none, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## lx(long double n) { return unit<double, dimension, exponents<0, -2, 0, 0, 0, 0, 1>, ratios<none, Ratio, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Bq(long double n) { return unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<Ratio, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Gy(long double n) { return unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<Ratio, Ratio, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Sv(long double n) { return unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<Ratio, Ratio, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## kat(long double n) { return unit<double, dimension, exponents<-1, 0, 0, 0, 0, 1, 0>, ratios<Ratio, none, none, none, none, Ratio, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## lx(long double n) { return unit<double, dimension, exponents<0, -2, 0, 0, 0, 0, 1>, ratios<none, InvRatio, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Bq(long double n) { return unit<double, dimension, exponents<-1, 0, 0, 0, 0, 0, 0>, ratios<InvRatio, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Gy(long double n) { return unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<InvRatio, Ratio, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Sv(long double n) { return unit<double, dimension, exponents<-2, 2, 0, 0, 0, 0, 0>, ratios<InvRatio, Ratio, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## kat(long double n) { return unit<double, dimension, exponents<-1, 0, 0, 0, 0, 1, 0>, ratios<InvRatio, none, none, none, none, Ratio, none>>{ static_cast<double>(n) }; }\
     }
 
     // Visual Studio hack
@@ -209,22 +209,22 @@ namespace neounit::si
     #undef _MT
     #endif
 
-    define_si_derived_prefix(a, atto, std::atto)
-    define_si_derived_prefix(f, femto, std::femto)
-    define_si_derived_prefix(p, pico, std::pico)
-    define_si_derived_prefix(n, nano, std::nano)
-    define_si_derived_prefix(u, micro, std::micro)
-    define_si_derived_prefix(m, milli, std::milli)
-    define_si_derived_prefix(c, centi, std::centi)
-    define_si_derived_prefix(d, deci, std::deci)
-    define_si_derived_prefix(da, deca, std::deca)
-    define_si_derived_prefix(h, hecto, std::hecto)
-    define_si_derived_prefix(k, kilo, std::kilo)
-    define_si_derived_prefix(M, mega, std::mega)
-    define_si_derived_prefix(G, giga, std::giga)
-    define_si_derived_prefix(T, tera, std::tera)
-    define_si_derived_prefix(P, peta, std::peta)
-    define_si_derived_prefix(E, exa, std::exa)
+    define_si_derived_prefix(a, atto, std::atto, std::exa)
+    define_si_derived_prefix(f, femto, std::femto, std::peta)
+    define_si_derived_prefix(p, pico, std::pico, std::tera)
+    define_si_derived_prefix(n, nano, std::nano, std::giga)
+    define_si_derived_prefix(u, micro, std::micro, std::mega)
+    define_si_derived_prefix(m, milli, std::milli, std::kilo)
+    define_si_derived_prefix(c, centi, std::centi, std::hecto)
+    define_si_derived_prefix(d, deci, std::deci, std::deca)
+    define_si_derived_prefix(da, deca, std::deca, std::deci)
+    define_si_derived_prefix(h, hecto, std::hecto, std::centi)
+    define_si_derived_prefix(k, kilo, std::kilo, std::milli)
+    define_si_derived_prefix(M, mega, std::mega, std::micro)
+    define_si_derived_prefix(G, giga, std::giga, std::nano)
+    define_si_derived_prefix(T, tera, std::tera, std::pico)
+    define_si_derived_prefix(P, peta, std::peta, std::femto)
+    define_si_derived_prefix(E, exa, std::exa, std::atto)
 
     // Visual Studio hack
     #ifdef MT_
