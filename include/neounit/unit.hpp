@@ -37,6 +37,8 @@
 
 #include <cstdint>
 #include <tuple>
+#include <numeric>
+#include <limits>
 #include <ratio>
 
 namespace neounit
@@ -67,37 +69,173 @@ namespace neounit
     };
 
     using none = std::ratio<0>;
+    using one = std::ratio<1>;
 
-    template <typename Ratio1, typename Ratio2>
-    struct ratio_combine_if {};
+    template <typename Ratio>
+    struct apply_inverse { using result_type = std::ratio<Ratio::den, Ratio::num>; };
     template <>
-    struct ratio_combine_if<none, none> { using result_type = none; };
+    struct apply_inverse<none> { using result_type = none; };
     template <typename Ratio>
-    struct ratio_combine_if<Ratio, Ratio> { using result_type = Ratio; };
+    using apply_inverse_t = typename apply_inverse<Ratio>::result_type;
+
+    template <typename R1, typename R2, bool>
+    struct safe_ratio_multiply_impl;
+
+    template <typename R1, typename R2>
+    struct safe_ratio_multiply_impl<R1, R2, true>
+    {
+        using type = std::ratio_multiply<R1, R2>;
+    };
+
+    template <typename R1, typename R2>
+    struct safe_ratio_multiply_impl<R1, R2, false>
+    {
+        using type = one;
+    };
+
+    constexpr std::intmax_t log(std::intmax_t number, std::intmax_t acc = 0) 
+    {
+        return number <= 1 ? acc : log(number / 2, acc + 1);
+    }
+
+    constexpr bool is_safe_multiple(std::intmax_t N1, std::intmax_t D1, std::intmax_t N2, std::intmax_t D2)
+    {
+        auto limit = log(std::numeric_limits<std::intmax_t>::max()) + log(std::gcd(N1, D2)) + log(std::gcd(N2, D1));
+        auto num = (log(N1) + log(N2)) < limit;
+        auto den = (log(D2) + log(D1)) < limit;
+        return num && den;
+    }
+
+    template <typename R1, typename R2>
+    struct safe_ratio_multiply
+    {
+        using result_type = typename safe_ratio_multiply_impl<R1, R2, is_safe_multiple(R1::num, R1::den, R2::num, R2::den)>::type;
+    };
+
+    template <typename R1>
+    struct safe_ratio_multiply<R1, none>
+    {
+        using result_type = R1;
+    };
+
+    template <typename R2>
+    struct safe_ratio_multiply<none, R2>
+    {
+        using result_type = R2;
+    };
+
+    template <>
+    struct safe_ratio_multiply<none, none>
+    {
+        using result_type = none;
+    };
+
+    template <typename R1, typename R2>
+    using safe_ratio_multiply_t = typename safe_ratio_multiply<R1, R2>::result_type;
+
+    template <typename Ratio, dimensional_exponent E>
+    struct apply_power {};
+    template <>
+    struct apply_power<none, 0> { using result_type = none; };
+    template <>
+    struct apply_power<none, 1> { using result_type = none; };
+    template <>
+    struct apply_power<none, 2> { using result_type = none; };
+    template <>
+    struct apply_power<none, 3> { using result_type = none; };
+    template <>
+    struct apply_power<none, 4> { using result_type = none; };
+    template <>
+    struct apply_power<none, 5> { using result_type = none; };
+    template <>
+    struct apply_power<none, 6> { using result_type = none; };
+    template <>
+    struct apply_power<none, 7> { using result_type = none; };
+    template <>
+    struct apply_power<none, 8> { using result_type = none; };
+    template <>
+    struct apply_power<none, 9> { using result_type = none; };
+    template <>
+    struct apply_power<none, 10> { using result_type = none; };
+    template <>
+    struct apply_power<none, -1> { using result_type = none; };
+    template <>
+    struct apply_power<none, -2> { using result_type = none; };
+    template <>
+    struct apply_power<none, -3> { using result_type = none; };
+    template <>
+    struct apply_power<none, -4> { using result_type = none; };
+    template <>
+    struct apply_power<none, -5> { using result_type = none; };
+    template <>
+    struct apply_power<none, -6> { using result_type = none; };
+    template <>
+    struct apply_power<none, -7> { using result_type = none; };
+    template <>
+    struct apply_power<none, -8> { using result_type = none; };
+    template <>
+    struct apply_power<none, -9> { using result_type = none; };
+    template <>
+    struct apply_power<none, -10> { using result_type = none; };
     template <typename Ratio>
-    struct ratio_combine_if<Ratio, none> { using result_type = Ratio; };
+    struct apply_power<Ratio, 0> { using result_type = one; };
     template <typename Ratio>
-    struct ratio_combine_if<none, Ratio> { using result_type = Ratio; };
-    template <typename Ratio1, typename Ratio2>
-    using ratio_combine_if_t = typename ratio_combine_if<Ratio1, Ratio2>::result_type;
+    struct apply_power<Ratio, 1> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 0>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, 2> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 1>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, 3> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 2>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, 4> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 3>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, 5> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 4>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, 6> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 5>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, 7> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 6>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, 8> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 7>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, 9> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 8>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, 10> { using result_type = typename safe_ratio_multiply_t<Ratio, typename apply_power<Ratio, 9>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -1> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 1>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -2> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 2>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -3> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 3>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -4> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 4>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -5> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 5>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -6> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 6>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -7> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 7>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -8> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 8>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -9> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 9>::result_type>; };
+    template <typename Ratio>
+    struct apply_power<Ratio, -10> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 10>::result_type>; };
+    template <typename Ratio, dimensional_exponent E>
+    using apply_power_t = typename apply_power<Ratio, E>::result_type;
 
     template <typename... Ratios>
     class ratios : public std::tuple<Ratios...>
     {
     public:
         using value_type = std::tuple<Ratios...>;
-        template <typename Rhs>
-        struct combine_ratios {};
-        template <typename... Ratios2>
-        struct combine_ratios<ratios<Ratios2...>> { using result_type = ratios<ratio_combine_if_t<Ratios, Ratios2>...>; };
-        template <typename Rhs>
-        using combine_t = typename combine_ratios<Rhs>::result_type;
+        using inverse_t = typename ratios<apply_inverse_t<Ratios>...>;
         template <typename Rhs>
         struct compatible {};
         template <typename... Ratios2>
         struct compatible<ratios<Ratios2...>> { static constexpr bool result = ((std::is_same_v<Ratios, Ratios2> || std::is_same_v<Ratios, none> || std::is_same_v<Ratios2, none>) && ...); };
         template <typename Rhs>
         static constexpr bool compatible_v = compatible<Rhs>::result;
+        template <dimensional_exponent... E>
+        using apply_power_t = ratios<typename neounit::apply_power_t<Ratios, E>...>;
     public:
         ratios() : value_type{ Ratios{}... }
         {
@@ -195,19 +333,8 @@ namespace neounit
         {
             if constexpr (!std::is_same_v<std::decay_t<decltype(r1)>, none> && !std::is_same_v<std::decay_t<decltype(r2)>, none>)
             {
-                using op_type = std::ratio_divide<std::decay_t<decltype(r1)>, std::decay_t<decltype(r2)>>;
-                while (e < 0)
-                {
-                    result /= op_type::num;
-                    result *= op_type::den;
-                    ++e;
-                }
-                while (e > 0)
-                {
-                    result *= op_type::num;
-                    result /= op_type::den;
-                    --e;
-                }
+                result = result * r1.num / r1.den;
+                result = result * r2.den / r2.num;
             }
             return 0;
         };
@@ -298,18 +425,10 @@ namespace neounit
         return static_cast<T>(aLhs) / aRhs;
     }
 
-    template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    constexpr inline unit<T, Dimension, Exponents, Ratios> operator/(
-        T const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename... LhsRatios, typename... RhsRatios>
+    constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents + RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, ratios<safe_ratio_multiply_t<LhsRatios, RhsRatios>...>>> operator*(
+        unit<T, Dimension, exponents<LhsExponents...>, ratios<LhsRatios...>> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, ratios<RhsRatios...>> const& aRhs)
     {
-        return aLhs / static_cast<T>(aRhs);
-    }
-
-    template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
-    constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents + RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, typename LhsRatios::template combine_t<RhsRatios>>> operator*(
-        unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
-    {
-        static_assert(LhsRatios::template compatible_v<RhsRatios>);
         return static_cast<T>(aLhs) * static_cast<T>(aRhs);
     }
 
@@ -317,28 +436,11 @@ namespace neounit
     constexpr inline std::enable_if_t<is_dimensionless_v<(LhsExponents + RhsExponents)...>, T> operator*(
         unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
-        static_assert(LhsRatios::template compatible_v<RhsRatios>);
         return static_cast<T>(aLhs) * static_cast<T>(aRhs);
     }
 
-    template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
-    constexpr inline std::enable_if_t<!is_dimensionless_v<(LhsExponents - RhsExponents)...>, unit<T, Dimension, exponents<(LhsExponents - RhsExponents)...>, typename LhsRatios::template combine_t<RhsRatios>>> operator/(
-        unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
-    {
-        static_assert(LhsRatios::template compatible_v<RhsRatios>);
-        return static_cast<T>(aLhs) / static_cast<T>(aRhs);
-    }
-
-    template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
-    constexpr inline std::enable_if_t<is_dimensionless_v<(LhsExponents - RhsExponents)...>, T> operator/(
-        unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
-    {
-        static_assert(LhsRatios::template compatible_v<RhsRatios>);
-        return static_cast<T>(aLhs) / static_cast<T>(aRhs);
-    }
-
     template <typename T, typename Dimension, dimensional_exponent... RhsExponents, typename RhsRatios>
-    constexpr inline std::enable_if_t<!is_dimensionless_v<(0 - RhsExponents)...>, unit<T, Dimension, exponents<(0 - RhsExponents)...>, RhsRatios>> operator/(
+    constexpr inline std::enable_if_t<!is_dimensionless_v<(0 - RhsExponents)...>, unit<T, Dimension, exponents<(0 - RhsExponents)...>, typename RhsRatios::inverse_t>> operator/(
         T const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         return static_cast<T>(aLhs) / static_cast<T>(aRhs);
@@ -349,5 +451,12 @@ namespace neounit
         T const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         return static_cast<T>(aLhs) / static_cast<T>(aRhs);
+    }
+
+    template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
+    constexpr inline auto operator/(
+        unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
+    {
+        return aLhs * (static_cast<T>(1.0) / aRhs);
     }
 }

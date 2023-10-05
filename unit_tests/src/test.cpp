@@ -32,6 +32,8 @@ int main()
     using namespace neounit::si;
     using namespace neounit::si::literals;
 
+    auto d0 = 1.0_us;
+    auto f0 = 1.0 / d0;
     auto f1 = 10.0_MHz;
     auto d1 = 1.0 / f1;
     auto f2 = 1.0 / d1;
@@ -95,7 +97,9 @@ int main()
     auto m51 = +m30;
 
     auto p1 = 100.0_V;
+    auto p2 = 7.0_mV;
     auto r1 = p1 / conversion_cast<ampere>(42.0_mA);
+    auto r2 = p2 / conversion_cast<milliampere>(0.007_A);
 
     static_assert(std::is_same_v<second, s<1>>);
     static_assert(std::is_same_v<second, s<1, double>>);
@@ -146,6 +150,9 @@ int main()
     static_assert(std::is_same_v<decltype(m43), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m50), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m51), kilometre_sq>);
+    static_assert(std::is_same_v<decltype(p1), volt>);
+    static_assert(std::is_same_v<decltype(p2), millivolt>);
+    static_assert(std::is_same_v<decltype(r1), ohm>);
 
     static_assert(std::is_same_v<decltype(1.0 / 1.0_s), hertz>);
     static_assert(std::is_same_v<decltype(1.0 / 1.0_Hz), second>);
@@ -189,4 +196,6 @@ int main()
     test_assert(near_enough(m43, 2.0 - 42.0));
     test_assert(near_enough(m50, -42.0));
     test_assert(near_enough(m51, 42.0));
+    test_assert(near_enough(p1, 100.0));
+    test_assert(near_enough(r1, 100.0 / 0.042));
 }
