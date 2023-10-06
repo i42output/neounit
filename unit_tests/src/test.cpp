@@ -204,4 +204,5 @@ int main()
     test_assert(near_enough(m51, 42.0));
     test_assert(near_enough(p1, 100.0));
     test_assert(near_enough(r1, 100.0 / 0.042));
+    test_assert(near_enough(r2, 1.0));
 }
