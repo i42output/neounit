@@ -25,7 +25,8 @@ namespace
     }
 }
 
-//#define STATIC_CHECKS
+//#define STATIC_CHECK_1
+//#define STATIC_CHECK_2
 
 int main()
 {
@@ -52,8 +53,8 @@ int main()
     auto m10 = 1.0 / m1;
     auto m11 = 1.0 / m1 / m1;
     auto m12 = 1.0 / (m1 * m1);
-#ifdef STATIC_CHECKS
-    gram g1 = 1.0;
+#ifdef STATIC_CHECK_1
+    gram g1 = 2.0;
     auto bad1 = m0 * g1; // compilation failure if enabled
 #endif
 
@@ -70,7 +71,7 @@ int main()
     cm_per_s v1 = 1.0;
     using m_per_s = decltype(m<1>{} / s<1>{});
     auto v2 = conversion_cast<m_per_s>(v1);
-#ifdef STATIC_CHECKS
+#ifdef STATIC_CHECK_2
     auto bad2 = v1 + v2; // compilation failure if enabled
 #endif
 
@@ -157,6 +158,7 @@ int main()
     static_assert(std::is_same_v<decltype(1.0 / 1.0_s), hertz>);
     static_assert(std::is_same_v<decltype(1.0 / 1.0_Hz), second>);
     static_assert(std::is_same_v<decltype(1.0 / 1.0_us), megahertz>);
+    static_assert(std::is_same_v<decltype(1.0 / 1.0_MHz), microsecond>);
 
     test_assert(near_enough(d1, 0.1_s));
     test_assert(near_enough(f2, 10.0_MHz));

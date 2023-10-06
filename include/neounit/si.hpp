@@ -69,29 +69,29 @@ namespace neounit::si
     #define cd_EXPONENTS(E) 0, 0, 0, 0, 0, 0, E
 
     template<dimensional_exponent E, typename T = double>
-    using s = unit<T, dimension, exponents<s_EXPONENTS(E)>, ratios<one, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(E)>>;
+    using s = unit<T, dimension, exponents<s_EXPONENTS(E)>, ratios<one, none, none, none, none, none, none>>;
     template<dimensional_exponent E, typename T = double>
-    using m = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, one, none, none, none, none, none>::apply_power_t<m_EXPONENTS(E)>>;
+    using m = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, one, none, none, none, none, none>>;
     template<dimensional_exponent E, typename T = double>
-    using g = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, one, none, none, none, none>::apply_power_t<g_EXPONENTS(E)>>;
+    using g = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, one, none, none, none, none>>;
     template<dimensional_exponent E, typename T = double>
-    using A = unit<T, dimension, exponents<A_EXPONENTS(E)>, ratios<none, none, none, one, none, none, none>::apply_power_t<A_EXPONENTS(E)>>;
+    using A = unit<T, dimension, exponents<A_EXPONENTS(E)>, ratios<none, none, none, one, none, none, none>>;
     template<dimensional_exponent E, typename T = double>
-    using K = unit<T, dimension, exponents<K_EXPONENTS(E)>, ratios<none, none, none, none, one, none, none>::apply_power_t<K_EXPONENTS(E)>>;
+    using K = unit<T, dimension, exponents<K_EXPONENTS(E)>, ratios<none, none, none, none, one, none, none>>;
     template<dimensional_exponent E, typename T = double>
-    using mol = unit<T, dimension, exponents<mol_EXPONENTS(E)>, ratios<none, none, none, none, none, one, none>::apply_power_t<mol_EXPONENTS(E)>>;
+    using mol = unit<T, dimension, exponents<mol_EXPONENTS(E)>, ratios<none, none, none, none, none, one, none>>;
     template<dimensional_exponent E, typename T = double>
-    using cd = unit<T, dimension, exponents<cd_EXPONENTS(E)>, ratios<none, none, none, none, none, none, one>::apply_power_t<cd_EXPONENTS(E)>>;
+    using cd = unit<T, dimension, exponents<cd_EXPONENTS(E)>, ratios<none, none, none, none, none, none, one>>;
 
     namespace literals
     {
-        inline auto operator "" _s(long double n) { return unit<double, dimension, exponents<s_EXPONENTS(1)>, ratios<one, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(1)>>{ static_cast<double>(n) }; }
-        inline auto operator "" _m(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, one, none, none, none, none, none>::apply_power_t<m_EXPONENTS(1)>>{ static_cast<double>(n) }; }
-        inline auto operator "" _g(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, one, none, none, none, none>::apply_power_t<g_EXPONENTS(1)>>{ static_cast<double>(n) }; }
-        inline auto operator "" _A(long double n) { return unit<double, dimension, exponents<A_EXPONENTS(1)>, ratios<none, none, none, one, none, none, none>::apply_power_t<A_EXPONENTS(1)>>{ static_cast<double>(n) }; }
-        inline auto operator "" _K(long double n) { return unit<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, one, none, none>::apply_power_t<K_EXPONENTS(1)>>{ static_cast<double>(n) }; }
-        inline auto operator "" _mol(long double n) { return unit<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, one, none>::apply_power_t<mol_EXPONENTS(1)>>{ static_cast<double>(n) }; }
-        inline auto operator "" _cd(long double n) { return unit<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, one>::apply_power_t<cd_EXPONENTS(1)>>{ static_cast<double>(n) }; }
+        inline auto operator "" _s(long double n) { return unit<double, dimension, exponents<s_EXPONENTS(1)>, ratios<one, none, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _m(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, one, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _g(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, one, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _A(long double n) { return unit<double, dimension, exponents<A_EXPONENTS(1)>, ratios<none, none, none, one, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _K(long double n) { return unit<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, one, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _mol(long double n) { return unit<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, one, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _cd(long double n) { return unit<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, one>>{ static_cast<double>(n) }; }
     }
 
     using s_sq = s<2>;
@@ -152,77 +152,77 @@ namespace neounit::si
 
     #define define_si_prefix(ShortPrefix, LongPrefix, Ratio)\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## s = unit<T, dimension, exponents<s_EXPONENTS(E)>, typename ratios<Ratio, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(E)>>;\
+    using ShortPrefix ## s = unit<T, dimension, exponents<s_EXPONENTS(E)>, ratios<Ratio, none, none, none, none, none, none>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## m = unit<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, Ratio, none, none, none, none, none>::apply_power_t<m_EXPONENTS(E)>>;\
+    using ShortPrefix ## m = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, Ratio, none, none, none, none, none>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## g = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, Ratio, none, none, none, none>::apply_power_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## g = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, Ratio, none, none, none, none>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## A = unit<T, dimension, exponents<A_EXPONENTS(E)>, typename ratios<none, none, none, Ratio, none, none, none>::apply_power_t<A_EXPONENTS(E)>>;\
+    using ShortPrefix ## A = unit<T, dimension, exponents<A_EXPONENTS(E)>, ratios<none, none, none, Ratio, none, none, none>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## K = unit<T, dimension, exponents<K_EXPONENTS(E)>, typename ratios<none, none, none, none, Ratio, none, none>::apply_power_t<K_EXPONENTS(E)>>;\
+    using ShortPrefix ## K = unit<T, dimension, exponents<K_EXPONENTS(E)>, ratios<none, none, none, none, Ratio, none, none>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## mol = unit<T, dimension, exponents<mol_EXPONENTS(E)>, typename ratios<none, none, none, none, none, Ratio, none>::apply_power_t<mol_EXPONENTS(E)>>;\
+    using ShortPrefix ## mol = unit<T, dimension, exponents<mol_EXPONENTS(E)>, ratios<none, none, none, none, none, Ratio, none>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## cd = unit<T, dimension, exponents<cd_EXPONENTS(E)>, typename ratios<none, none, none, none, none, none, Ratio>::apply_power_t<cd_EXPONENTS(E)>>;\
-    using ShortPrefix ## s_sq = unit<double, dimension, exponents<s_EXPONENTS(2)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(2)>>;\
-    using ShortPrefix ## m_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_t<m_EXPONENTS(2)>>;\
-    using ShortPrefix ## g_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_t<g_EXPONENTS(2)>>;\
-    using ShortPrefix ## A_sq = unit<double, dimension, exponents<A_EXPONENTS(2)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_t<A_EXPONENTS(2)>>;\
-    using ShortPrefix ## K_sq = unit<double, dimension, exponents<K_EXPONENTS(2)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_t<K_EXPONENTS(2)>>;\
-    using ShortPrefix ## mol_sq = unit<double, dimension, exponents<mol_EXPONENTS(2)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_t<mol_EXPONENTS(2)>>;\
-    using ShortPrefix ## cd_sq = unit<double, dimension, exponents<cd_EXPONENTS(2)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_t<cd_EXPONENTS(2)>>;\
-    using inv_ ## ShortPrefix ## s = unit<double, dimension, exponents<s_EXPONENTS(-1)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## m = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## g = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_t<g_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## A = unit<double, dimension, exponents<A_EXPONENTS(-1)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_t<A_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## K = unit<double, dimension, exponents<K_EXPONENTS(-1)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_t<K_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## mol = unit<double, dimension, exponents<mol_EXPONENTS(-1)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_t<mol_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## cd = unit<double, dimension, exponents<cd_EXPONENTS(-1)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_t<cd_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## s_sq = unit<double, dimension, exponents<s_EXPONENTS(-2)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## m_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## g_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_t<g_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## A_sq = unit<double, dimension, exponents<A_EXPONENTS(-2)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_t<A_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## K_sq = unit<double, dimension, exponents<K_EXPONENTS(-2)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_t<K_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## mol_sq = unit<double, dimension, exponents<mol_EXPONENTS(-2)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_t<mol_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## cd_sq = unit<double, dimension, exponents<cd_EXPONENTS(-2)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_t<cd_EXPONENTS(-2)>>;\
-    using LongPrefix ## second = unit<double, dimension, exponents<s_EXPONENTS(1)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(1)>>;\
-    using LongPrefix ## metre = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_t<m_EXPONENTS(1)>>;\
-    using LongPrefix ## gram = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_t<g_EXPONENTS(1)>>;\
-    using LongPrefix ## ampere = unit<double, dimension, exponents<A_EXPONENTS(1)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_t<A_EXPONENTS(1)>>;\
-    using LongPrefix ## kelvin = unit<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_t<K_EXPONENTS(1)>>;\
-    using LongPrefix ## mole = unit<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_t<mol_EXPONENTS(1)>>;\
-    using LongPrefix ## candela = unit<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_t<cd_EXPONENTS(1)>>;\
-    using LongPrefix ## second_sq = unit<double, dimension, exponents<s_EXPONENTS(2)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(2)>>;\
-    using LongPrefix ## metre_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_t<m_EXPONENTS(2)>>;\
-    using LongPrefix ## gram_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_t<g_EXPONENTS(2)>>;\
-    using LongPrefix ## ampere_sq = unit<double, dimension, exponents<A_EXPONENTS(2)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_t<A_EXPONENTS(2)>>;\
-    using LongPrefix ## kelvin_sq = unit<double, dimension, exponents<K_EXPONENTS(2)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_t<K_EXPONENTS(2)>>;\
-    using LongPrefix ## mole_sq = unit<double, dimension, exponents<mol_EXPONENTS(2)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_t<mol_EXPONENTS(2)>>;\
-    using LongPrefix ## candela_sq = unit<double, dimension, exponents<cd_EXPONENTS(2)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_t<cd_EXPONENTS(2)>>;\
-    using inv_ ## LongPrefix ## second = unit<double, dimension, exponents<s_EXPONENTS(-1)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## metre = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## gram = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_t<g_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## ampere = unit<double, dimension, exponents<A_EXPONENTS(-1)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_t<A_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## kelvin = unit<double, dimension, exponents<K_EXPONENTS(-1)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_t<K_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## mole = unit<double, dimension, exponents<mol_EXPONENTS(-1)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_t<mol_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## candela = unit<double, dimension, exponents<cd_EXPONENTS(-1)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_t<cd_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## second_sq = unit<double, dimension, exponents<s_EXPONENTS(-2)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## metre_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## gram_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_t<g_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## ampere_sq = unit<double, dimension, exponents<A_EXPONENTS(-2)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_t<A_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## kelvin_sq = unit<double, dimension, exponents<K_EXPONENTS(-2)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_t<K_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## mole_sq = unit<double, dimension, exponents<mol_EXPONENTS(-2)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_t<mol_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## candela_sq = unit<double, dimension, exponents<cd_EXPONENTS(-2)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_t<cd_EXPONENTS(-2)>>;\
+    using ShortPrefix ## cd = unit<T, dimension, exponents<cd_EXPONENTS(E)>, ratios<none, none, none, none, none, none, Ratio>>;\
+    using ShortPrefix ## s_sq = unit<double, dimension, exponents<s_EXPONENTS(2)>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using ShortPrefix ## m_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, Ratio, none, none, none, none, none>>;\
+    using ShortPrefix ## g_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, Ratio, none, none, none, none>>;\
+    using ShortPrefix ## A_sq = unit<double, dimension, exponents<A_EXPONENTS(2)>, ratios<none, none, none, Ratio, none, none, none>>;\
+    using ShortPrefix ## K_sq = unit<double, dimension, exponents<K_EXPONENTS(2)>, ratios<none, none, none, none, Ratio, none, none>>;\
+    using ShortPrefix ## mol_sq = unit<double, dimension, exponents<mol_EXPONENTS(2)>, ratios<none, none, none, none, none, Ratio, none>>;\
+    using ShortPrefix ## cd_sq = unit<double, dimension, exponents<cd_EXPONENTS(2)>, ratios<none, none, none, none, none, none, Ratio>>;\
+    using inv_ ## ShortPrefix ## s = unit<double, dimension, exponents<s_EXPONENTS(-1)>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using inv_ ## ShortPrefix ## m = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, Ratio, none, none, none, none, none>>;\
+    using inv_ ## ShortPrefix ## g = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, Ratio, none, none, none, none>>;\
+    using inv_ ## ShortPrefix ## A = unit<double, dimension, exponents<A_EXPONENTS(-1)>, ratios<none, none, none, Ratio, none, none, none>>;\
+    using inv_ ## ShortPrefix ## K = unit<double, dimension, exponents<K_EXPONENTS(-1)>, ratios<none, none, none, none, Ratio, none, none>>;\
+    using inv_ ## ShortPrefix ## mol = unit<double, dimension, exponents<mol_EXPONENTS(-1)>, ratios<none, none, none, none, none, Ratio, none>>;\
+    using inv_ ## ShortPrefix ## cd = unit<double, dimension, exponents<cd_EXPONENTS(-1)>, ratios<none, none, none, none, none, none, Ratio>>;\
+    using inv_ ## ShortPrefix ## s_sq = unit<double, dimension, exponents<s_EXPONENTS(-2)>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using inv_ ## ShortPrefix ## m_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, Ratio, none, none, none, none, none>>;\
+    using inv_ ## ShortPrefix ## g_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, Ratio, none, none, none, none>>;\
+    using inv_ ## ShortPrefix ## A_sq = unit<double, dimension, exponents<A_EXPONENTS(-2)>, ratios<none, none, none, Ratio, none, none, none>>;\
+    using inv_ ## ShortPrefix ## K_sq = unit<double, dimension, exponents<K_EXPONENTS(-2)>, ratios<none, none, none, none, Ratio, none, none>>;\
+    using inv_ ## ShortPrefix ## mol_sq = unit<double, dimension, exponents<mol_EXPONENTS(-2)>, ratios<none, none, none, none, none, Ratio, none>>;\
+    using inv_ ## ShortPrefix ## cd_sq = unit<double, dimension, exponents<cd_EXPONENTS(-2)>, ratios<none, none, none, none, none, none, Ratio>>;\
+    using LongPrefix ## second = unit<double, dimension, exponents<s_EXPONENTS(1)>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using LongPrefix ## metre = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, Ratio, none, none, none, none, none>>;\
+    using LongPrefix ## gram = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, Ratio, none, none, none, none>>;\
+    using LongPrefix ## ampere = unit<double, dimension, exponents<A_EXPONENTS(1)>, ratios<none, none, none, Ratio, none, none, none>>;\
+    using LongPrefix ## kelvin = unit<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, Ratio, none, none>>;\
+    using LongPrefix ## mole = unit<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, Ratio, none>>;\
+    using LongPrefix ## candela = unit<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, Ratio>>;\
+    using LongPrefix ## second_sq = unit<double, dimension, exponents<s_EXPONENTS(2)>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using LongPrefix ## metre_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, Ratio, none, none, none, none, none>>;\
+    using LongPrefix ## gram_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, Ratio, none, none, none, none>>;\
+    using LongPrefix ## ampere_sq = unit<double, dimension, exponents<A_EXPONENTS(2)>, ratios<none, none, none, Ratio, none, none, none>>;\
+    using LongPrefix ## kelvin_sq = unit<double, dimension, exponents<K_EXPONENTS(2)>, ratios<none, none, none, none, Ratio, none, none>>;\
+    using LongPrefix ## mole_sq = unit<double, dimension, exponents<mol_EXPONENTS(2)>, ratios<none, none, none, none, none, Ratio, none>>;\
+    using LongPrefix ## candela_sq = unit<double, dimension, exponents<cd_EXPONENTS(2)>, ratios<none, none, none, none, none, none, Ratio>>;\
+    using inv_ ## LongPrefix ## second = unit<double, dimension, exponents<s_EXPONENTS(-1)>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using inv_ ## LongPrefix ## metre = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, Ratio, none, none, none, none, none>>;\
+    using inv_ ## LongPrefix ## gram = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, Ratio, none, none, none, none>>;\
+    using inv_ ## LongPrefix ## ampere = unit<double, dimension, exponents<A_EXPONENTS(-1)>, ratios<none, none, none, Ratio, none, none, none>>;\
+    using inv_ ## LongPrefix ## kelvin = unit<double, dimension, exponents<K_EXPONENTS(-1)>, ratios<none, none, none, none, Ratio, none, none>>;\
+    using inv_ ## LongPrefix ## mole = unit<double, dimension, exponents<mol_EXPONENTS(-1)>, ratios<none, none, none, none, none, Ratio, none>>;\
+    using inv_ ## LongPrefix ## candela = unit<double, dimension, exponents<cd_EXPONENTS(-1)>, ratios<none, none, none, none, none, none, Ratio>>;\
+    using inv_ ## LongPrefix ## second_sq = unit<double, dimension, exponents<s_EXPONENTS(-2)>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using inv_ ## LongPrefix ## metre_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, Ratio, none, none, none, none, none>>;\
+    using inv_ ## LongPrefix ## gram_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, Ratio, none, none, none, none>>;\
+    using inv_ ## LongPrefix ## ampere_sq = unit<double, dimension, exponents<A_EXPONENTS(-2)>, ratios<none, none, none, Ratio, none, none, none>>;\
+    using inv_ ## LongPrefix ## kelvin_sq = unit<double, dimension, exponents<K_EXPONENTS(-2)>, ratios<none, none, none, none, Ratio, none, none>>;\
+    using inv_ ## LongPrefix ## mole_sq = unit<double, dimension, exponents<mol_EXPONENTS(-2)>, ratios<none, none, none, none, none, Ratio, none>>;\
+    using inv_ ## LongPrefix ## candela_sq = unit<double, dimension, exponents<cd_EXPONENTS(-2)>, ratios<none, none, none, none, none, none, Ratio>>;\
     namespace literals\
     {\
-        inline auto operator "" _ ## ShortPrefix ## s(long double n) { return unit<double, dimension, exponents<s_EXPONENTS(1)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<s_EXPONENTS(1)>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## m(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_t<m_EXPONENTS(1)>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## g(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_t<g_EXPONENTS(1)>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## A(long double n) { return unit<double, dimension, exponents<A_EXPONENTS(1)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_t<A_EXPONENTS(1)>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## K(long double n) { return unit<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_t<K_EXPONENTS(1)>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## mol(long double n) { return unit<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_t<mol_EXPONENTS(1)>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## cd(long double n) { return unit<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_t<cd_EXPONENTS(1)>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## s(long double n) { return unit<double, dimension, exponents<s_EXPONENTS(1)>, ratios<Ratio, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## m(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, Ratio, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## g(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## A(long double n) { return unit<double, dimension, exponents<A_EXPONENTS(1)>, ratios<none, none, none, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## K(long double n) { return unit<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, Ratio, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## mol(long double n) { return unit<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, Ratio, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## cd(long double n) { return unit<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
     }
 
     define_si_prefix(a, atto, std::atto)

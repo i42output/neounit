@@ -68,7 +68,7 @@ namespace neounit::si
     #define kat_EXPONENTS -1, 0, 0, 0, 0, 1, 0
 
     template<typename T = double>
-    using Hz = unit<T, dimension, exponents<Hz_EXPONENTS>, ratios<one, none, none, none, none, none, none>>;
+    using Hz = unit<T, dimension, exponents<Hz_EXPONENTS>, typename ratios<one, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>;
     template<typename T = double>
     using rad = T;
     template<typename T = double>
@@ -137,7 +137,7 @@ namespace neounit::si
 
     namespace literals
     {
-        inline auto operator "" _Hz(long double n) { return unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<one, none, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _Hz(long double n) { return unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<one, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>{ static_cast<double>(n) }; }
         inline auto operator "" _rad(long double n) { return static_cast<double>(n); }
         inline auto operator "" _sr(long double n) { return static_cast<double>(n); }
         inline auto operator "" _N(long double n) { return unit<double, dimension, exponents<N_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>>{ static_cast<double>(n) }; }
@@ -162,7 +162,7 @@ namespace neounit::si
     }
 
     #define define_si_derived_prefix(ShortPrefix, LongPrefix, Ratio)\
-    using ShortPrefix ## Hz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using ShortPrefix ## Hz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>;\
     using ShortPrefix ## N = unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
     using ShortPrefix ## Pa = unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
     using ShortPrefix ## J = unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
@@ -182,7 +182,7 @@ namespace neounit::si
     using ShortPrefix ## Gy = unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
     using ShortPrefix ## Sv = unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
     using ShortPrefix ## kat = unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>>;\
-    using LongPrefix ## hertz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using LongPrefix ## hertz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>;\
     using LongPrefix ## newton = unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
     using LongPrefix ## pascal = unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
     using LongPrefix ## joule = unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
@@ -204,7 +204,7 @@ namespace neounit::si
     using LongPrefix ## katal = unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>>;\
     namespace literals\
     {\
-        inline auto operator "" _ ## ShortPrefix ## Hz(long double n) { return unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Hz(long double n) { return unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## N(long double n) { return unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## Pa(long double n) { return unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## J(long double n) { return unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
