@@ -68,49 +68,49 @@ namespace neounit::si
     #define kat_EXPONENTS -1, 0, 0, 0, 0, 1, 0
 
     template<typename T = double>
-    using Hz = unit<T, dimension, exponents<Hz_EXPONENTS>, typename ratios<one, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>;
+    using Hz = unit<T, dimension, exponents<Hz_EXPONENTS>, typename ratios<one, none, none, none, none, none, none>::dont_apply_power_sign_t<Hz_EXPONENTS>>;
     template<typename T = double>
     using rad = T;
     template<typename T = double>
     using sr = T;
     template<typename T = double>
-    using N = unit<T, dimension, exponents<N_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>>;
+    using N = unit<T, dimension, exponents<N_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>::dont_apply_power_sign_t<N_EXPONENTS>>;
     template<typename T = double>
-    using Pa = unit<T, dimension, exponents<Pa_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>>;
+    using Pa = unit<T, dimension, exponents<Pa_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>::dont_apply_power_sign_t<Pa_EXPONENTS>>;
     template<typename T = double>
-    using J = unit<T, dimension, exponents<J_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>>;
+    using J = unit<T, dimension, exponents<J_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>::dont_apply_power_sign_t<J_EXPONENTS>>;
     template<typename T = double>
-    using W = unit<T, dimension, exponents<W_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>>;
+    using W = unit<T, dimension, exponents<W_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>::dont_apply_power_sign_t<W_EXPONENTS>>;
     template<typename T = double>
-    using C = unit<T, dimension, exponents<C_EXPONENTS>, ratios<one, none, none, one, none, none, none>>;
+    using C = unit<T, dimension, exponents<C_EXPONENTS>, ratios<one, none, none, one, none, none, none>::dont_apply_power_sign_t<C_EXPONENTS>>;
     template<typename T = double>
-    using V = unit<T, dimension, exponents<V_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>;
+    using V = unit<T, dimension, exponents<V_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<V_EXPONENTS>>;
     template<typename T = double>
-    using F = unit<T, dimension, exponents<F_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>;
+    using F = unit<T, dimension, exponents<F_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<F_EXPONENTS>>;
     template<typename T = double>
-    using Ω = unit<T, dimension, exponents<Ω_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>;
+    using Ω = unit<T, dimension, exponents<Ω_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<Ω_EXPONENTS>>;
     template<typename T = double>
-    using S = unit<T, dimension, exponents<S_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>;
+    using S = unit<T, dimension, exponents<S_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<S_EXPONENTS>>;
     template<typename T = double>
-    using Wb = unit<T, dimension, exponents<Wb_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>;
+    using Wb = unit<T, dimension, exponents<Wb_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<Wb_EXPONENTS>>;
     template<typename T_ = double>
-    using T = unit<T_, dimension, exponents<T_EXPONENTS>, ratios<one, none, kilo, one, none, none, none>>;
+    using T = unit<T_, dimension, exponents<T_EXPONENTS>, ratios<one, none, kilo, one, none, none, none>::dont_apply_power_sign_t<T_EXPONENTS>>;
     template<typename T = double>
-    using H = unit<T, dimension, exponents<H_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>;
+    using H = unit<T, dimension, exponents<H_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<H_EXPONENTS>>;
     template<typename T = double>
-    using degC = unit<T, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, one, none, none>>;
+    using degC = unit<T, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, one, none, none>::dont_apply_power_sign_t<degC_EXPONENTS>>;
     template<typename T = double>
-    using lm = unit<T, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, one>>;
+    using lm = unit<T, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, one>::dont_apply_power_sign_t<lm_EXPONENTS>>;
     template<typename T = double>
-    using lx = unit<T, dimension, exponents<lx_EXPONENTS>, ratios<none, one, none, none, none, none, one>>;
+    using lx = unit<T, dimension, exponents<lx_EXPONENTS>, ratios<none, one, none, none, none, none, one>::dont_apply_power_sign_t<lx_EXPONENTS>>;
     template<typename T = double>
-    using Bq = unit<T, dimension, exponents<Bq_EXPONENTS>, ratios<one, none, none, none, none, none, none>>;
+    using Bq = unit<T, dimension, exponents<Bq_EXPONENTS>, ratios<one, none, none, none, none, none, none>::dont_apply_power_sign_t<Bq_EXPONENTS>>;
     template<typename T = double>
-    using Gy  = unit<T, dimension, exponents<Gy_EXPONENTS>, ratios<one, one, none, none, none, none, none>>;
+    using Gy  = unit<T, dimension, exponents<Gy_EXPONENTS>, ratios<one, one, none, none, none, none, none>::dont_apply_power_sign_t<Gy_EXPONENTS>>;
     template<typename T = double>
-    using Sv = unit<T, dimension, exponents<Sv_EXPONENTS>, ratios<one, one, none, none, none, none, none>>;
+    using Sv = unit<T, dimension, exponents<Sv_EXPONENTS>, ratios<one, one, none, none, none, none, none>::dont_apply_power_sign_t<Sv_EXPONENTS>>;
     template<typename T = double>
-    using kat = unit<T, dimension, exponents<kat_EXPONENTS>, ratios<one, none, none, none, none, one, none>>;
+    using kat = unit<T, dimension, exponents<kat_EXPONENTS>, ratios<one, none, none, none, none, one, none>::dont_apply_power_sign_t<kat_EXPONENTS>>;
 
     using hertz = Hz<>;
     using radian = rad<>;
@@ -137,93 +137,93 @@ namespace neounit::si
 
     namespace literals
     {
-        inline auto operator "" _Hz(long double n) { return unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<one, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _Hz(long double n) { return unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<one, none, none, none, none, none, none>::dont_apply_power_sign_t<Hz_EXPONENTS>>{ static_cast<double>(n) }; }
         inline auto operator "" _rad(long double n) { return static_cast<double>(n); }
         inline auto operator "" _sr(long double n) { return static_cast<double>(n); }
-        inline auto operator "" _N(long double n) { return unit<double, dimension, exponents<N_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _Pa(long double n) { return unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _J(long double n) { return unit<double, dimension, exponents<J_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _W(long double n) { return unit<double, dimension, exponents<W_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _C(long double n) { return unit<double, dimension, exponents<C_EXPONENTS>, ratios<one, none, none, one, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _V(long double n) { return unit<double, dimension, exponents<V_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _F(long double n) { return unit<double, dimension, exponents<F_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>> { static_cast<double>(n) }; }
-        inline auto operator "" _Ω(long double n) { return unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _S(long double n) { return unit<double, dimension, exponents<S_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _Wb(long double n) { return unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _T(long double n) { return unit<double, dimension, exponents<T_EXPONENTS>, ratios<one, none, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _H(long double n) { return unit<double, dimension, exponents<H_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _degC(long double n) { return unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, one, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _lm(long double n) { return unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, one>>{ static_cast<double>(n) }; }
-        inline auto operator "" _lx(long double n) { return unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, one, none, none, none, none, one>>{ static_cast<double>(n) }; }
-        inline auto operator "" _Bq(long double n) { return unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<one, none, none, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _Gy(long double n) { return unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<one, one, none, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _Sv(long double n) { return unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<one, one, none, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _kat(long double n) { return unit<double, dimension, exponents<kat_EXPONENTS>, ratios<one, none, none, none, none, one, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _N(long double n) { return unit<double, dimension, exponents<N_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>::dont_apply_power_sign_t<N_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _Pa(long double n) { return unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>::dont_apply_power_sign_t<Pa_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _J(long double n) { return unit<double, dimension, exponents<J_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>::dont_apply_power_sign_t<J_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _W(long double n) { return unit<double, dimension, exponents<W_EXPONENTS>, ratios<one, one, kilo, none, none, none, none>::dont_apply_power_sign_t<W_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _C(long double n) { return unit<double, dimension, exponents<C_EXPONENTS>, ratios<one, none, none, one, none, none, none>::dont_apply_power_sign_t<C_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _V(long double n) { return unit<double, dimension, exponents<V_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<V_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _F(long double n) { return unit<double, dimension, exponents<F_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<F_EXPONENTS>> { static_cast<double>(n) }; }
+        inline auto operator "" _Ω(long double n) { return unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<Ω_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _S(long double n) { return unit<double, dimension, exponents<S_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<S_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _Wb(long double n) { return unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<Wb_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _T(long double n) { return unit<double, dimension, exponents<T_EXPONENTS>, ratios<one, none, kilo, one, none, none, none>::dont_apply_power_sign_t<T_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _H(long double n) { return unit<double, dimension, exponents<H_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>::dont_apply_power_sign_t<H_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _degC(long double n) { return unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, one, none, none>::dont_apply_power_sign_t<degC_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _lm(long double n) { return unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, one>::dont_apply_power_sign_t<lm_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _lx(long double n) { return unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, one, none, none, none, none, one>::dont_apply_power_sign_t<lx_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _Bq(long double n) { return unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<one, none, none, none, none, none, none>::dont_apply_power_sign_t<Bq_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _Gy(long double n) { return unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<one, one, none, none, none, none, none>::dont_apply_power_sign_t<Gy_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _Sv(long double n) { return unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<one, one, none, none, none, none, none>::dont_apply_power_sign_t<Sv_EXPONENTS>>{ static_cast<double>(n) }; }
+        inline auto operator "" _kat(long double n) { return unit<double, dimension, exponents<kat_EXPONENTS>, ratios<one, none, none, none, none, one, none>::dont_apply_power_sign_t<kat_EXPONENTS>>{ static_cast<double>(n) }; }
     }
 
     #define define_si_derived_prefix(ShortPrefix, LongPrefix, Ratio)\
-    using ShortPrefix ## Hz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>;\
-    using ShortPrefix ## N = unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using ShortPrefix ## Pa = unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using ShortPrefix ## J = unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using ShortPrefix ## W = unit<double, dimension, exponents<W_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using ShortPrefix ## C = unit<double, dimension, exponents<C_EXPONENTS>, ratios<Ratio, none, none, Ratio, none, none, none>>;\
-    using ShortPrefix ## V = unit<double, dimension, exponents<V_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## F = unit<double, dimension, exponents<F_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## Ω = unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## S = unit<double, dimension, exponents<S_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## Wb = unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## T = unit<double, dimension, exponents<T_EXPONENTS>, ratios<Ratio, none, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## H = unit<double, dimension, exponents<H_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using ShortPrefix ## degC = unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, Ratio, none, none>>;\
-    using ShortPrefix ## lm = unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, Ratio>>;\
-    using ShortPrefix ## lx = unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, Ratio, none, none, none, none, Ratio>>;\
-    using ShortPrefix ## Bq = unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>>;\
-    using ShortPrefix ## Gy = unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
-    using ShortPrefix ## Sv = unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
-    using ShortPrefix ## kat = unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>>;\
-    using LongPrefix ## hertz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>;\
-    using LongPrefix ## newton = unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using LongPrefix ## pascal = unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using LongPrefix ## joule = unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using LongPrefix ## watt = unit<double, dimension, exponents<W_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>;\
-    using LongPrefix ## coulomb = unit<double, dimension, exponents<C_EXPONENTS>, ratios<Ratio, none, none, Ratio, none, none, none>>;\
-    using LongPrefix ## volt = unit<double, dimension, exponents<V_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## farad = unit<double, dimension, exponents<F_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## ohm = unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## siemens = unit<double, dimension, exponents<S_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## weber = unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## tesla = unit<double, dimension, exponents<T_EXPONENTS>, ratios<Ratio, none, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## henry = unit<double, dimension, exponents<H_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>;\
-    using LongPrefix ## Celsius = unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, Ratio, none, none>>;\
-    using LongPrefix ## lumen = unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, Ratio>>;\
-    using LongPrefix ## lux = unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, Ratio, none, none, none, none, Ratio>>;\
-    using LongPrefix ## becquerel = unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>>;\
-    using LongPrefix ## gray = unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
-    using LongPrefix ## sievert = unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>>;\
-    using LongPrefix ## katal = unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>>;\
+    using ShortPrefix ## Hz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Hz_EXPONENTS>>;\
+    using ShortPrefix ## N = unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<N_EXPONENTS>>;\
+    using ShortPrefix ## Pa = unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<Pa_EXPONENTS>>;\
+    using ShortPrefix ## J = unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<J_EXPONENTS>>;\
+    using ShortPrefix ## W = unit<double, dimension, exponents<W_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<W_EXPONENTS>>;\
+    using ShortPrefix ## C = unit<double, dimension, exponents<C_EXPONENTS>, ratios<Ratio, none, none, Ratio, none, none, none>::dont_apply_power_sign_t<C_EXPONENTS>>;\
+    using ShortPrefix ## V = unit<double, dimension, exponents<V_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<V_EXPONENTS>>;\
+    using ShortPrefix ## F = unit<double, dimension, exponents<F_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<F_EXPONENTS>>;\
+    using ShortPrefix ## Ω = unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Ω_EXPONENTS>>;\
+    using ShortPrefix ## S = unit<double, dimension, exponents<S_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<S_EXPONENTS>>;\
+    using ShortPrefix ## Wb = unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Wb_EXPONENTS>>;\
+    using ShortPrefix ## T = unit<double, dimension, exponents<T_EXPONENTS>, ratios<Ratio, none, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<T_EXPONENTS>>;\
+    using ShortPrefix ## H = unit<double, dimension, exponents<H_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<H_EXPONENTS>>;\
+    using ShortPrefix ## degC = unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, Ratio, none, none>::dont_apply_power_sign_t<degC_EXPONENTS>>;\
+    using ShortPrefix ## lm = unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, Ratio>::dont_apply_power_sign_t<lm_EXPONENTS>>;\
+    using ShortPrefix ## lx = unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, Ratio, none, none, none, none, Ratio>::dont_apply_power_sign_t<lx_EXPONENTS>>;\
+    using ShortPrefix ## Bq = unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Bq_EXPONENTS>>;\
+    using ShortPrefix ## Gy = unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Gy_EXPONENTS>>;\
+    using ShortPrefix ## Sv = unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Sv_EXPONENTS>>;\
+    using ShortPrefix ## kat = unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>::dont_apply_power_sign_t<kat_EXPONENTS>>;\
+    using LongPrefix ## hertz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Hz_EXPONENTS>>;\
+    using LongPrefix ## newton = unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<N_EXPONENTS>>;\
+    using LongPrefix ## pascal = unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<Pa_EXPONENTS>>;\
+    using LongPrefix ## joule = unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<J_EXPONENTS>>;\
+    using LongPrefix ## watt = unit<double, dimension, exponents<W_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<W_EXPONENTS>>;\
+    using LongPrefix ## coulomb = unit<double, dimension, exponents<C_EXPONENTS>, ratios<Ratio, none, none, Ratio, none, none, none>::dont_apply_power_sign_t<C_EXPONENTS>>;\
+    using LongPrefix ## volt = unit<double, dimension, exponents<V_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<V_EXPONENTS>>;\
+    using LongPrefix ## farad = unit<double, dimension, exponents<F_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<F_EXPONENTS>>;\
+    using LongPrefix ## ohm = unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Ω_EXPONENTS>>;\
+    using LongPrefix ## siemens = unit<double, dimension, exponents<S_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<S_EXPONENTS>>;\
+    using LongPrefix ## weber = unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Wb_EXPONENTS>>;\
+    using LongPrefix ## tesla = unit<double, dimension, exponents<T_EXPONENTS>, ratios<Ratio, none, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<T_EXPONENTS>>;\
+    using LongPrefix ## henry = unit<double, dimension, exponents<H_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<H_EXPONENTS>>;\
+    using LongPrefix ## Celsius = unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, Ratio, none, none>::dont_apply_power_sign_t<degC_EXPONENTS>>;\
+    using LongPrefix ## lumen = unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, Ratio>::dont_apply_power_sign_t<lm_EXPONENTS>>;\
+    using LongPrefix ## lux = unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, Ratio, none, none, none, none, Ratio>::dont_apply_power_sign_t<lx_EXPONENTS>>;\
+    using LongPrefix ## becquerel = unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Bq_EXPONENTS>>;\
+    using LongPrefix ## gray = unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Gy_EXPONENTS>>;\
+    using LongPrefix ## sievert = unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Sv_EXPONENTS>>;\
+    using LongPrefix ## katal = unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>::dont_apply_power_sign_t<kat_EXPONENTS>>;\
     namespace literals\
     {\
-        inline auto operator "" _ ## ShortPrefix ## Hz(long double n) { return unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::apply_power_t<Hz_EXPONENTS>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## N(long double n) { return unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Pa(long double n) { return unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## J(long double n) { return unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## W(long double n) { return unit<double, dimension, exponents<W_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## C(long double n) { return unit<double, dimension, exponents<C_EXPONENTS>, ratios<Ratio, none, none, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## V(long double n) { return unit<double, dimension, exponents<V_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## F(long double n) { return unit<double, dimension, exponents<F_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Ω(long double n) { return unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## S(long double n) { return unit<double, dimension, exponents<S_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Wb(long double n) { return unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## T(long double n) { return unit<double, dimension, exponents<T_EXPONENTS>, ratios<Ratio, none, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## H(long double n) { return unit<double, dimension, exponents<H_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## degC(long double n) { return unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, Ratio, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## lm(long double n) { return unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## lx(long double n) { return unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, Ratio, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Bq(long double n) { return unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Gy(long double n) { return unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## Sv(long double n) { return unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## kat(long double n) { return unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Hz(long double n) { return unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Hz_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## N(long double n) { return unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<N_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Pa(long double n) { return unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<Pa_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## J(long double n) { return unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<J_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## W(long double n) { return unit<double, dimension, exponents<W_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<W_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## C(long double n) { return unit<double, dimension, exponents<C_EXPONENTS>, ratios<Ratio, none, none, Ratio, none, none, none>::dont_apply_power_sign_t<C_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## V(long double n) { return unit<double, dimension, exponents<V_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<V_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## F(long double n) { return unit<double, dimension, exponents<F_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<F_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Ω(long double n) { return unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Ω_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## S(long double n) { return unit<double, dimension, exponents<S_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<S_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Wb(long double n) { return unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Wb_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## T(long double n) { return unit<double, dimension, exponents<T_EXPONENTS>, ratios<Ratio, none, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<T_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## H(long double n) { return unit<double, dimension, exponents<H_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<H_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## degC(long double n) { return unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, Ratio, none, none>::dont_apply_power_sign_t<degC_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## lm(long double n) { return unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, Ratio>::dont_apply_power_sign_t<lm_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## lx(long double n) { return unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, Ratio, none, none, none, none, Ratio>::dont_apply_power_sign_t<lx_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Bq(long double n) { return unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Bq_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Gy(long double n) { return unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Gy_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## Sv(long double n) { return unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Sv_EXPONENTS>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## kat(long double n) { return unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>::dont_apply_power_sign_t<Sv_EXPONENTS>>{ static_cast<double>(n) }; }\
     }
 
     // Visual Studio hack

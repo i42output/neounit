@@ -34,6 +34,8 @@ int main()
     using namespace neounit::si::literals;
 
     auto d0 = 1.0_us;
+    inv_us foo;
+    inv_Ms bar;
     auto f0 = 1.0 / d0;
     auto f1 = 10.0_MHz;
     auto d1 = 1.0 / f1;
@@ -80,10 +82,10 @@ int main()
 
     kilometre_sq m30 = 42.0;
     auto m31 = conversion_cast<metre_sq>(m30);
-    inv_kilometre_sq m32 = 1.0 / 42.0;
+    inv_kilometre_sq m32 = 1.0 / m30;
     auto m33 = conversion_cast<inv_metre_sq>(m32);
-    auto m34 = 1.0 / m33;
-    auto m35 = conversion_cast<inv_kilometre_sq>(m33);
+    auto m34 = conversion_cast<inv_kilometre_sq>(m33);
+    auto m35 = 1.0 / m34;
 
     auto m36 = m30 * 2.0;
     auto m37 = 2.0 * m30;
@@ -99,6 +101,8 @@ int main()
 
     auto p1 = 100.0_V;
     auto p2 = 7.0_mV;
+    milliampere a1;
+    millivolt p3 = p2;
     auto r1 = p1 / conversion_cast<ampere>(42.0_mA);
     auto r2 = p2 / conversion_cast<milliampere>(0.007_A);
 
@@ -139,8 +143,8 @@ int main()
     static_assert(std::is_same_v<decltype(m21), gram>);
     static_assert(std::is_same_v<decltype(m31), metre_sq>);
     static_assert(std::is_same_v<decltype(m33), inv_metre_sq>);
-    static_assert(std::is_same_v<decltype(m34), metre_sq>);
-    static_assert(std::is_same_v<decltype(m35), inv_kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m34), inv_kilometre_sq>);
+    static_assert(std::is_same_v<decltype(m35), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m36), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m37), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m38), kilometre_sq>);
@@ -186,8 +190,8 @@ int main()
     test_assert(near_enough(m31, 42000000.0));
     test_assert(near_enough(m32, 1.0 / 42.0));
     test_assert(near_enough(m33, 1.0 / 42000000.0));
-    test_assert(near_enough(m34, 42000000.0));
-    test_assert(near_enough(m35, 1.0 / 42.0));
+    test_assert(near_enough(m34, 1.0 / 42.0));
+    test_assert(near_enough(m35, 42.0));
     test_assert(near_enough(m36, 42.0 * 2.0));
     test_assert(near_enough(m37, 2.0 * 42.0));
     test_assert(near_enough(m38, 42.0 / 2.0));

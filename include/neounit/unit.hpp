@@ -71,19 +71,6 @@ namespace neounit
     using none = std::ratio<0>;
     using one = std::ratio<1>;
 
-    template <typename Ratio1, typename Ratio2>
-    struct combine;
-    template <typename Ratio>
-    struct combine<Ratio, Ratio> { using result_type = Ratio; };
-    template <typename Ratio>
-    struct combine<Ratio, none> { using result_type = Ratio; };
-    template <typename Ratio>
-    struct combine<none, Ratio> { using result_type = Ratio; };
-    template <>
-    struct combine<none, none> { using result_type = none; };
-    template <typename Ratio1, typename Ratio2>
-    using combine_t = typename combine<Ratio1, Ratio2>::result_type;
-    
     template <typename Ratio>
     struct apply_inverse { using result_type = std::ratio<Ratio::den, Ratio::num>; };
     template <>
@@ -180,6 +167,67 @@ namespace neounit
     template <typename Ratio, dimensional_exponent E>
     using apply_power_t = typename apply_power<Ratio, E>::result_type;
 
+    inline constexpr dimensional_exponent sign(dimensional_exponent E)
+    {
+        if (E >= 0)
+            return 1;
+        else
+            return -1;
+    }
+
+    template <dimensional_exponent E>
+    struct calc_sign
+    {
+        static constexpr dimensional_exponent result = sign(E);
+    };
+
+    template <typename Ratio, dimensional_exponent E>
+    using apply_power_sign_t = typename apply_power<Ratio, calc_sign<E>::result>::result_type;
+
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio1, typename Ratio2, 
+        bool ConvertLeft = std::is_same_v<apply_power_sign_t<Ratio1, Exponent1>, Ratio2>,
+        bool ConvertRight = std::is_same_v<apply_power_sign_t<Ratio2, Exponent2>, Ratio1>>
+    struct to_same_unit {};
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio1, typename Ratio2>
+    struct to_same_unit<Exponent1, Exponent2, Ratio1, Ratio2, true, false>
+    {
+        using result_type = apply_power_sign_t<Ratio1, Exponent1>;
+    };
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio1, typename Ratio2>
+    struct to_same_unit<Exponent1, Exponent2, Ratio1, Ratio2, false, true>
+    {
+        using result_type = apply_power_sign_t<Ratio2, Exponent2>;
+    };
+
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio1, typename Ratio2>
+    struct is_effectively_same_unit
+    {
+        static constexpr bool result =
+            !std::is_same_v<Ratio1, Ratio2> && 
+            !std::is_same_v<Ratio1, none> && 
+            !std::is_same_v<Ratio2, none> &&
+            (std::is_same_v<apply_power_sign_t<Ratio1, Exponent1>, Ratio2> ||
+            std::is_same_v<apply_power_sign_t<Ratio2, Exponent2>, Ratio1>);
+    };
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio1, typename Ratio2>
+    constexpr bool is_effectively_same_unit_v = is_effectively_same_unit<Exponent1, Exponent2, Ratio1, Ratio2>::result;
+
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio1, typename Ratio2>
+    struct combine
+    {
+        using result_type = std::enable_if_t<is_effectively_same_unit_v<Exponent1, Exponent2, Ratio1, Ratio2>, Ratio1>;
+    };
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio>
+    struct combine<Exponent1, Exponent2, Ratio, Ratio> { using result_type = Ratio; };
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio>
+    struct combine<Exponent1, Exponent2, Ratio, none> { using result_type = Ratio; };
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio>
+    struct combine<Exponent1, Exponent2, none, Ratio> { using result_type = Ratio; };
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2>
+    struct combine<Exponent1, Exponent2, none, none> { using result_type = none; };
+    template <dimensional_exponent Exponent1, dimensional_exponent Exponent2, typename Ratio1, typename Ratio2>
+    using combine_t = typename combine<Exponent1, Exponent2, Ratio1, Ratio2>::result_type;
+
     template <typename... Ratios>
     class ratios : public std::tuple<Ratios...>
     {
@@ -188,18 +236,10 @@ namespace neounit
         using inverse_t = typename ratios<apply_inverse_t<Ratios>...>;
         template <dimensional_exponent... E>
         using apply_power_t = ratios<typename neounit::apply_power_t<Ratios, E>...>;
-        template <typename Rhs>
-        struct combinable {};
-        template <typename... Ratios2>
-        struct combinable<ratios<Ratios2...>> { static constexpr bool result = ((std::is_same_v<Ratios, Ratios2> || std::is_same_v<Ratios, none> || std::is_same_v<Ratios2, none>) && ...); };
-        template <typename Rhs>
-        static constexpr bool is_combinable_v = combinable<Rhs>::result;
-        template <typename Rhs>
-        struct combine {};
-        template <typename... Ratios2>
-        struct combine<ratios<Ratios2...>> { using result_type = typename ratios<neounit::combine_t<Ratios, Ratios2>...>; };
-        template <typename Ratios2>
-        using combine_t = typename combine<Ratios2>::result_type;
+        template <dimensional_exponent... E>
+        using apply_power_sign_t = ratios<typename neounit::apply_power_sign_t<Ratios, E>...>;
+        template <dimensional_exponent... E>
+        using dont_apply_power_sign_t = ratios<Ratios...>;
     public:
         ratios() : value_type{ Ratios{}... }
         {
@@ -294,7 +334,12 @@ namespace neounit
             if constexpr (!std::is_same_v<LhsRatio, none> && !std::is_same_v<RhsRatio, none>)
             {
                 using calc = std::ratio_divide<apply_power_t<RhsRatio, RhsExponent>, apply_power_t<LhsRatio, LhsExponent>>;
-                return static_cast<T>(1.0) * calc::num / calc::den;
+                auto const num = calc::num;
+                auto const den = calc::den;
+                if constexpr (LhsExponent >= 0 || RhsExponent >= 0)
+                    return static_cast<T>(1.0) * num / den;
+                else
+                    return static_cast<T>(1.0) / num * den;
             }
             return static_cast<T>(1.0);
         };
@@ -388,7 +433,7 @@ namespace neounit
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename... LhsRatios, typename... RhsRatios>
     constexpr inline std::enable_if_t<
         !is_dimensionless_v<(LhsExponents + RhsExponents)...>, 
-        unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, ratios<typename combine_t<LhsRatios, RhsRatios>...>>> operator*(
+        unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, ratios<typename combine_t<LhsExponents, RhsExponents, LhsRatios, RhsRatios>...>>> operator*(
         unit<T, Dimension, exponents<LhsExponents...>, ratios<LhsRatios...>> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, ratios<RhsRatios...>> const& aRhs)
     {
         return static_cast<T>(aLhs) * static_cast<T>(aRhs);
@@ -402,7 +447,7 @@ namespace neounit
     }
 
     template <typename T, typename Dimension, dimensional_exponent... RhsExponents, typename RhsRatios>
-    constexpr inline std::enable_if_t<!is_dimensionless_v<(0 - RhsExponents)...>, unit<T, Dimension, exponents<(0 - RhsExponents)...>, RhsRatios>> operator/(
+    constexpr inline std::enable_if_t<!is_dimensionless_v<(0 - RhsExponents)...>, unit<T, Dimension, exponents<(0 - RhsExponents)...>, typename RhsRatios::inverse_t>> operator/(
         T const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         return static_cast<T>(aLhs) / static_cast<T>(aRhs);
