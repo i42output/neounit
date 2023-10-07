@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include <neounit/neounit.hpp>
+#include <neounit/imperial.hpp>
 
 namespace
 {
@@ -205,4 +206,15 @@ int main()
     test_assert(near_enough(p1, 100.0));
     test_assert(near_enough(r1, 100.0 / 0.042));
     test_assert(near_enough(r2, 1.0));
+
+    // imperial, just for fun. where's my pint?
+
+    using namespace neounit::imperial;
+    inch imperialLength = 42.0;
+    auto metricLength = conversion_cast<centimetre>(imperialLength);
+    test_assert(near_enough(metricLength, 106.68));
+    auto lol = conversion_cast<picoinch>(imperialLength);
+    auto lol2 = conversion_cast<nanoinch>(lol);
+    test_assert(near_enough(lol, 42e12));
+    test_assert(near_enough(lol2, 42e9));
 }
