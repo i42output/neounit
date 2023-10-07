@@ -230,6 +230,10 @@ namespace neounit::si
     #undef _MT
     #endif
 
+    define_si_derived_prefix(q, quecto)
+    define_si_derived_prefix(r, ronto)
+    define_si_derived_prefix(y, yocto)
+    define_si_derived_prefix(z, zepto)
     define_si_derived_prefix(a, atto)
     define_si_derived_prefix(f, femto)
     define_si_derived_prefix(p, pico)
@@ -246,6 +250,10 @@ namespace neounit::si
     define_si_derived_prefix(T, tera)
     define_si_derived_prefix(P, peta)
     define_si_derived_prefix(E, exa)
+    define_si_derived_prefix(Z, zetta)
+    define_si_derived_prefix(Y, yotta)
+    define_si_derived_prefix(R, ronna)
+    define_si_derived_prefix(Q, quetta)
 
     // Visual Studio hack
     #ifdef MT_
