@@ -217,11 +217,16 @@ int main()
     test_assert(near_enough(metricLength, 106.68));
     auto lol = conversion_cast<picoinch>(imperialLength);
     auto lol2 = conversion_cast<nanoinch>(lol);
+    auto lol3 = conversion_cast<kilofoot>(lol2);
     test_assert(near_enough(lol, 42e12));
     test_assert(near_enough(lol2, 42e9));
+    test_assert(near_enough(lol3, 42e9 / 1e9 / 1e3 / 12.0));
     auto imperialLength2 = conversion_cast<foot>(imperialLength);
     test_assert(near_enough(imperialLength2, imperialLength / 12.0));
     auto oneMile = 1.0_mi;
     auto oneKilometre = 1.0_km;
     test_assert(near_enough(conversion_cast<kilometre>(oneMile) / oneKilometre, 1.609344));
+    test_assert(near_enough(conversion_cast<centimetre>(1.0_ft), 12 * 2.54));
+    auto fiveYards = 5.0_yd;
+    test_assert(near_enough(conversion_cast<picometre>(fiveYards), 4.572e12));
 }
