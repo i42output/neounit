@@ -210,6 +210,8 @@ int main()
     // imperial, just for fun. where's my pint?
 
     using namespace neounit::imperial;
+    using namespace neounit::imperial::literals;
+
     inch imperialLength = 42.0;
     auto metricLength = conversion_cast<centimetre>(imperialLength);
     test_assert(near_enough(metricLength, 106.68));
@@ -217,4 +219,9 @@ int main()
     auto lol2 = conversion_cast<nanoinch>(lol);
     test_assert(near_enough(lol, 42e12));
     test_assert(near_enough(lol2, 42e9));
+    auto imperialLength2 = conversion_cast<foot>(imperialLength);
+    test_assert(near_enough(imperialLength2, imperialLength / 12.0));
+    auto oneMile = 1.0_mi;
+    auto oneKilometre = 1.0_km;
+    test_assert(near_enough(conversion_cast<kilometre>(oneMile) / oneKilometre, 1.609344));
 }
