@@ -351,8 +351,8 @@ namespace neounit
         };
     }
 
-    template <typename To, typename T, typename Dimension, typename Exponents, typename Ratios>
-    constexpr inline std::enable_if_t<std::is_same_v<typename To::exponents_type, Exponents>, To> conversion_cast(unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    template <typename To, typename T, typename Dimension, std::same_as<typename To::exponents_type> Exponents, typename Ratios>
+    constexpr inline To conversion_cast(unit<T, Dimension, Exponents, Ratios> const& aRhs)
     {
         using rhs_type = std::decay_t<decltype(aRhs)>;
         if constexpr (std::is_same_v<To, rhs_type>)
