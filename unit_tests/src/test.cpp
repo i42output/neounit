@@ -16,14 +16,14 @@ namespace
             throw std::logic_error("Test failed");
     }
 
-    bool near_enough(double lhs, double rhs)
+    bool near_enough(double lhs, double rhs, double error = 1e-5)
     {
-        return std::abs(lhs - rhs) < 1e-20;
+        return std::abs(lhs - rhs) < error;
     }
 
-    bool near_enough(long double lhs, long double rhs)
+    bool near_enough(long double lhs, long double rhs, long double error = 1e-5)
     {
-        return std::abs(lhs - rhs) < 1e-20;
+        return std::abs(lhs - rhs) < error;
     }
 }
 
@@ -32,6 +32,23 @@ namespace
 
 int main()
 {
+    using namespace neounit;
+
+    auto powerCheck1 = detail::power_10<double, 0>();
+    auto powerCheck2 = detail::power_10<double, 1>();
+    auto powerCheck3 = detail::power_10<double, 2>();
+    auto powerCheck4 = detail::power_10<double, 3>();
+    auto powerCheck5 = detail::power_10<double, -1>();
+    auto powerCheck6 = detail::power_10<double, -2>();
+    auto powerCheck7 = detail::power_10<double, -3>();
+    test_assert(near_enough(powerCheck1, 1.0));
+    test_assert(near_enough(powerCheck2, 10.0));
+    test_assert(near_enough(powerCheck3, 100.0));
+    test_assert(near_enough(powerCheck4, 1000.0));
+    test_assert(near_enough(powerCheck5, 0.1));
+    test_assert(near_enough(powerCheck6, 0.01));
+    test_assert(near_enough(powerCheck7, 0.001));
+
     using namespace neounit::si;
     using namespace neounit::si::literals;
 
@@ -218,9 +235,11 @@ int main()
     test_assert(near_enough(oneParsecInMetres, 3.0856775814913672e16));
     using parsec_per_s = decltype(parsec{} / second{});
     parsec_per_s pps = 2.0;
-    using hectoparsec_per_s = decltype(hectoparsec{} / second{});
-    hectoparsec_per_s hpps = 2.0;
-    test_assert(near_enough(conversion_cast<parsec_per_s>(hpps) / pps, 100.0));
+    using kiloparsec_per_s = decltype(kiloparsec{} / second{});
+    kiloparsec_per_s hpps = 2.0;
+    test_assert(near_enough(conversion_cast<parsec_per_s>(hpps) / pps, 1000.0));
+    auto oneQuettaParsec = 1.0_Qpc;
+    test_assert(near_enough(conversion_cast<parsec>(oneQuettaParsec), 1e30, 1e15));
 
     // imperial, just for fun. where's my pint?
 

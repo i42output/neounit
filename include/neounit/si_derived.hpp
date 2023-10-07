@@ -44,8 +44,6 @@ namespace neounit::si
 {
     // s m g A K mol cd
 
-    using kilo = std::ratio<1000>;
-
     #define Hz_EXPONENTS -1, 0, 0, 0, 0, 0, 0
     #define N_EXPONENTS -2, 1, 1, 0, 0, 0, 0
     #define Pa_EXPONENTS -2, -1, 1, 0, 0, 0, 0
@@ -161,7 +159,7 @@ namespace neounit::si
         inline auto operator "" _kat(long double n) { return unit<double, dimension, exponents<kat_EXPONENTS>, ratios<one, none, none, none, none, one, none>::dont_apply_power_sign_t<kat_EXPONENTS>>{ static_cast<double>(n) }; }
     }
 
-    #define define_si_derived_prefix(ShortPrefix, LongPrefix, Ratio)\
+    #define define_si_derived_prefix(ShortPrefix, Ratio)\
     using ShortPrefix ## Hz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Hz_EXPONENTS>>;\
     using ShortPrefix ## N = unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<N_EXPONENTS>>;\
     using ShortPrefix ## Pa = unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<Pa_EXPONENTS>>;\
@@ -182,26 +180,26 @@ namespace neounit::si
     using ShortPrefix ## Gy = unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Gy_EXPONENTS>>;\
     using ShortPrefix ## Sv = unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Sv_EXPONENTS>>;\
     using ShortPrefix ## kat = unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>::dont_apply_power_sign_t<kat_EXPONENTS>>;\
-    using LongPrefix ## hertz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Hz_EXPONENTS>>;\
-    using LongPrefix ## newton = unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<N_EXPONENTS>>;\
-    using LongPrefix ## pascal = unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<Pa_EXPONENTS>>;\
-    using LongPrefix ## joule = unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<J_EXPONENTS>>;\
-    using LongPrefix ## watt = unit<double, dimension, exponents<W_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<W_EXPONENTS>>;\
-    using LongPrefix ## coulomb = unit<double, dimension, exponents<C_EXPONENTS>, ratios<Ratio, none, none, Ratio, none, none, none>::dont_apply_power_sign_t<C_EXPONENTS>>;\
-    using LongPrefix ## volt = unit<double, dimension, exponents<V_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<V_EXPONENTS>>;\
-    using LongPrefix ## farad = unit<double, dimension, exponents<F_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<F_EXPONENTS>>;\
-    using LongPrefix ## ohm = unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Ω_EXPONENTS>>;\
-    using LongPrefix ## siemens = unit<double, dimension, exponents<S_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<S_EXPONENTS>>;\
-    using LongPrefix ## weber = unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Wb_EXPONENTS>>;\
-    using LongPrefix ## tesla = unit<double, dimension, exponents<T_EXPONENTS>, ratios<Ratio, none, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<T_EXPONENTS>>;\
-    using LongPrefix ## henry = unit<double, dimension, exponents<H_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<H_EXPONENTS>>;\
-    using LongPrefix ## Celsius = unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, Ratio, none, none>::dont_apply_power_sign_t<degC_EXPONENTS>>;\
-    using LongPrefix ## lumen = unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, Ratio>::dont_apply_power_sign_t<lm_EXPONENTS>>;\
-    using LongPrefix ## lux = unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, Ratio, none, none, none, none, Ratio>::dont_apply_power_sign_t<lx_EXPONENTS>>;\
-    using LongPrefix ## becquerel = unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Bq_EXPONENTS>>;\
-    using LongPrefix ## gray = unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Gy_EXPONENTS>>;\
-    using LongPrefix ## sievert = unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Sv_EXPONENTS>>;\
-    using LongPrefix ## katal = unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>::dont_apply_power_sign_t<kat_EXPONENTS>>;\
+    using Ratio ## hertz = unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Hz_EXPONENTS>>;\
+    using Ratio ## newton = unit<double, dimension, exponents<N_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<N_EXPONENTS>>;\
+    using Ratio ## pascal = unit<double, dimension, exponents<Pa_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<Pa_EXPONENTS>>;\
+    using Ratio ## joule = unit<double, dimension, exponents<J_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<J_EXPONENTS>>;\
+    using Ratio ## watt = unit<double, dimension, exponents<W_EXPONENTS>, ratios<Ratio, Ratio, Ratio, none, none, none, none>::dont_apply_power_sign_t<W_EXPONENTS>>;\
+    using Ratio ## coulomb = unit<double, dimension, exponents<C_EXPONENTS>, ratios<Ratio, none, none, Ratio, none, none, none>::dont_apply_power_sign_t<C_EXPONENTS>>;\
+    using Ratio ## volt = unit<double, dimension, exponents<V_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<V_EXPONENTS>>;\
+    using Ratio ## farad = unit<double, dimension, exponents<F_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<F_EXPONENTS>>;\
+    using Ratio ## ohm = unit<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Ω_EXPONENTS>>;\
+    using Ratio ## siemens = unit<double, dimension, exponents<S_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<S_EXPONENTS>>;\
+    using Ratio ## weber = unit<double, dimension, exponents<Wb_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<Wb_EXPONENTS>>;\
+    using Ratio ## tesla = unit<double, dimension, exponents<T_EXPONENTS>, ratios<Ratio, none, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<T_EXPONENTS>>;\
+    using Ratio ## henry = unit<double, dimension, exponents<H_EXPONENTS>, ratios<Ratio, Ratio, Ratio, Ratio, none, none, none>::dont_apply_power_sign_t<H_EXPONENTS>>;\
+    using Ratio ## Celsius = unit<double, dimension, exponents<degC_EXPONENTS>, ratios<none, none, none, none, Ratio, none, none>::dont_apply_power_sign_t<degC_EXPONENTS>>;\
+    using Ratio ## lumen = unit<double, dimension, exponents<lm_EXPONENTS>, ratios<none, none, none, none, none, none, Ratio>::dont_apply_power_sign_t<lm_EXPONENTS>>;\
+    using Ratio ## lux = unit<double, dimension, exponents<lx_EXPONENTS>, ratios<none, Ratio, none, none, none, none, Ratio>::dont_apply_power_sign_t<lx_EXPONENTS>>;\
+    using Ratio ## becquerel = unit<double, dimension, exponents<Bq_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Bq_EXPONENTS>>;\
+    using Ratio ## gray = unit<double, dimension, exponents<Gy_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Gy_EXPONENTS>>;\
+    using Ratio ## sievert = unit<double, dimension, exponents<Sv_EXPONENTS>, ratios<Ratio, Ratio, none, none, none, none, none>::dont_apply_power_sign_t<Sv_EXPONENTS>>;\
+    using Ratio ## katal = unit<double, dimension, exponents<kat_EXPONENTS>, ratios<Ratio, none, none, none, none, Ratio, none>::dont_apply_power_sign_t<kat_EXPONENTS>>;\
     namespace literals\
     {\
         inline auto operator "" _ ## ShortPrefix ## Hz(long double n) { return unit<double, dimension, exponents<Hz_EXPONENTS>, ratios<Ratio, none, none, none, none, none, none>::dont_apply_power_sign_t<Hz_EXPONENTS>>{ static_cast<double>(n) }; }\
@@ -232,22 +230,22 @@ namespace neounit::si
     #undef _MT
     #endif
 
-    define_si_derived_prefix(a, atto, std::atto)
-    define_si_derived_prefix(f, femto, std::femto)
-    define_si_derived_prefix(p, pico, std::pico)
-    define_si_derived_prefix(n, nano, std::nano)
-    define_si_derived_prefix(u, micro, std::micro)
-    define_si_derived_prefix(m, milli, std::milli)
-    define_si_derived_prefix(c, centi, std::centi)
-    define_si_derived_prefix(d, deci, std::deci)
-    define_si_derived_prefix(da, deca, std::deca)
-    define_si_derived_prefix(h, hecto, std::hecto)
-    define_si_derived_prefix(k, kilo, std::kilo)
-    define_si_derived_prefix(M, mega, std::mega)
-    define_si_derived_prefix(G, giga, std::giga)
-    define_si_derived_prefix(T, tera, std::tera)
-    define_si_derived_prefix(P, peta, std::peta)
-    define_si_derived_prefix(E, exa, std::exa)
+    define_si_derived_prefix(a, atto)
+    define_si_derived_prefix(f, femto)
+    define_si_derived_prefix(p, pico)
+    define_si_derived_prefix(n, nano)
+    define_si_derived_prefix(u, micro)
+    define_si_derived_prefix(m, milli)
+    define_si_derived_prefix(c, centi)
+    define_si_derived_prefix(d, deci)
+    define_si_derived_prefix(da, deca)
+    define_si_derived_prefix(h, hecto)
+    define_si_derived_prefix(k, kilo)
+    define_si_derived_prefix(M, mega)
+    define_si_derived_prefix(G, giga)
+    define_si_derived_prefix(T, tera)
+    define_si_derived_prefix(P, peta)
+    define_si_derived_prefix(E, exa)
 
     // Visual Studio hack
     #ifdef MT_

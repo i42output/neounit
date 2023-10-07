@@ -68,18 +68,70 @@ namespace neounit
         }
     };
 
-    using none = std::ratio<0>;
-    using one = std::ratio<1>;
+    template<std::intmax_t Num, std::intmax_t Denom = 1, std::intmax_t Exp = 0>
+    struct ratio : std::ratio<Num, Denom>
+    {
+        static constexpr std::intmax_t exp = Exp;
+    };
+
+    template<typename Lhs, typename Rhs>
+    struct ratio_multiply_impl;
+    template<std::intmax_t Num1, std::intmax_t Denom1, std::intmax_t Exp1, std::intmax_t Num2, std::intmax_t Denom2, std::intmax_t Exp2>
+    struct ratio_multiply_impl<ratio<Num1, Denom1, Exp1>, ratio<Num2, Denom2, Exp2>>
+    {
+        using partial_type = std::ratio_multiply<std::ratio<Num1, Denom1>, std::ratio<Num2, Denom2>>;
+        using result_type = ratio<partial_type::num, partial_type::den, Exp1 + Exp2>;
+    };
+    template<typename Lhs, typename Rhs>
+    using ratio_multiply = typename ratio_multiply_impl<Lhs, Rhs>::result_type;
+
+    template<typename Lhs, typename Rhs>
+    struct ratio_divide_impl;
+    template<std::intmax_t Num1, std::intmax_t Denom1, std::intmax_t Exp1, std::intmax_t Num2, std::intmax_t Denom2, std::intmax_t Exp2>
+    struct ratio_divide_impl<ratio<Num1, Denom1, Exp1>, ratio<Num2, Denom2, Exp2>>
+    {
+        using partial_type = std::ratio_divide<std::ratio<Num1, Denom1>, std::ratio<Num2, Denom2>>;
+        using result_type = ratio<partial_type::num, partial_type::den, Exp1 - Exp2>;
+    };
+    template<typename Lhs, typename Rhs>
+    using ratio_divide = typename ratio_divide_impl<Lhs, Rhs>::result_type;
+
+    using none = ratio<0>;
+    using one = ratio<1>;
+    using quecto = ratio<1, 1, -30>;
+    using ronto = ratio<1, 1, -27>;
+    using yocto = ratio<1, 1, -24>;
+    using zepto = ratio<1, 1, -21>;
+    using atto = ratio<1, 1, -18>;
+    using femto = ratio<1, 1, -15>;
+    using pico = ratio<1, 1, -12>;
+    using nano = ratio<1, 1, -9>;
+    using micro = ratio<1, 1, -6>;
+    using milli = ratio<1, 1, -3>;
+    using centi = ratio<1, 1, -2>;
+    using deci = ratio<1, 1, -1>;
+    using deca = ratio<1, 1, 1>;
+    using hecto = ratio<1, 1, 2>;
+    using kilo = ratio<1, 1, 3>;
+    using mega = ratio<1, 1, 6>;
+    using giga = ratio<1, 1, 9>;
+    using tera = ratio<1, 1, 12>;
+    using peta = ratio<1, 1, 15>;
+    using exa = ratio<1, 1, 18>;
+    using zetta = ratio<1, 1, 21>;
+    using yotta = ratio<1, 1, 24>;
+    using ronna = ratio<1, 1, 27>;
+    using quetta = ratio<1, 1, 30>;
 
     template <typename Ratio>
-    struct apply_inverse { using result_type = std::ratio<Ratio::den, Ratio::num>; };
+    struct apply_inverse { using result_type = ratio<Ratio::num, Ratio::den, -Ratio::exp>; };
     template <>
     struct apply_inverse<none> { using result_type = none; };
     template <typename Ratio>
     using apply_inverse_t = typename apply_inverse<Ratio>::result_type;
 
     template <typename Ratio, dimensional_exponent E>
-    struct apply_power {};
+    struct apply_power;
     template <>
     struct apply_power<none, 0> { using result_type = none; };
     template <>
@@ -125,25 +177,25 @@ namespace neounit
     template <typename Ratio>
     struct apply_power<Ratio, 0> { using result_type = one; };
     template <typename Ratio>
-    struct apply_power<Ratio, 1> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 0>::result_type>; };
+    struct apply_power<Ratio, 1> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 0>::result_type>; };
     template <typename Ratio>
-    struct apply_power<Ratio, 2> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 1>::result_type>; };
+    struct apply_power<Ratio, 2> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 1>::result_type>; };
     template <typename Ratio>
-    struct apply_power<Ratio, 3> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 2>::result_type>; };
+    struct apply_power<Ratio, 3> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 2>::result_type>; };
     template <typename Ratio>
-    struct apply_power<Ratio, 4> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 3>::result_type>; };
+    struct apply_power<Ratio, 4> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 3>::result_type>; };
     template <typename Ratio>
-    struct apply_power<Ratio, 5> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 4>::result_type>; };
+    struct apply_power<Ratio, 5> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 4>::result_type>; };
     template <typename Ratio>
-    struct apply_power<Ratio, 6> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 5>::result_type>; };
+    struct apply_power<Ratio, 6> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 5>::result_type>; };
     template <typename Ratio>
-    struct apply_power<Ratio, 7> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 6>::result_type>; };
+    struct apply_power<Ratio, 7> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 6>::result_type>; };
     template <typename Ratio>
-    struct apply_power<Ratio, 8> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 7>::result_type>; };
+    struct apply_power<Ratio, 8> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 7>::result_type>; };
     template <typename Ratio>
-    struct apply_power<Ratio, 9> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 8>::result_type>; };
+    struct apply_power<Ratio, 9> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 8>::result_type>; };
     template <typename Ratio>
-    struct apply_power<Ratio, 10> { using result_type = typename std::ratio_multiply<Ratio, typename apply_power<Ratio, 9>::result_type>; };
+    struct apply_power<Ratio, 10> { using result_type = typename ratio_multiply<Ratio, typename apply_power<Ratio, 9>::result_type>; };
     template <typename Ratio>
     struct apply_power<Ratio, -1> { using result_type = typename apply_inverse_t<typename apply_power<Ratio, 1>::result_type>; };
     template <typename Ratio>
@@ -328,18 +380,29 @@ namespace neounit
 
     namespace detail
     {
+        template <typename T, std::intmax_t Power>
+        inline constexpr T power_10()
+        {
+            if constexpr (Power < 0)
+                return static_cast<T>(0.1) * power_10<T, Power + 1>();
+            else if constexpr (Power > 0)
+                return static_cast<T>(10) * power_10<T, Power - 1>();
+            else
+                return static_cast<T>(1.0);
+        }
+
         template <typename T, dimensional_exponent LhsExponent, dimensional_exponent RhsExponent, typename LhsRatio, typename RhsRatio>
         inline constexpr T coefficient()
         {
             if constexpr (!std::is_same_v<LhsRatio, none> && !std::is_same_v<RhsRatio, none>)
             {
-                using calc = std::ratio_divide<apply_power_t<RhsRatio, RhsExponent>, apply_power_t<LhsRatio, LhsExponent>>;
+                using calc = ratio_divide<apply_power_t<RhsRatio, RhsExponent>, apply_power_t<LhsRatio, LhsExponent>>;
                 auto const num = calc::num;
                 auto const den = calc::den;
                 if constexpr (LhsExponent >= 0 || RhsExponent >= 0)
-                    return static_cast<T>(1.0) * num / den;
+                    return static_cast<T>(1.0) * num / den * power_10<T, calc::exp>();
                 else
-                    return static_cast<T>(1.0) / num * den;
+                    return static_cast<T>(1.0) / num * den * power_10<T, -calc::exp>();
             }
             return static_cast<T>(1.0);
         };

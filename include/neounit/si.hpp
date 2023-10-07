@@ -150,7 +150,7 @@ namespace neounit::si
     using inv_mole_sq = mol<-2>;
     using inv_candela_sq = cd<-2>;
 
-    #define define_si_prefix(ShortPrefix, LongPrefix, Ratio)\
+    #define define_si_prefix(ShortPrefix, Ratio)\
     template<dimensional_exponent E, typename T = double>\
     using ShortPrefix ## s = unit<T, dimension, exponents<s_EXPONENTS(E)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_sign_t<s_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
@@ -186,34 +186,34 @@ namespace neounit::si
     using inv_ ## ShortPrefix ## K_sq = unit<double, dimension, exponents<K_EXPONENTS(-2)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_sign_t<K_EXPONENTS(-2)>>;\
     using inv_ ## ShortPrefix ## mol_sq = unit<double, dimension, exponents<mol_EXPONENTS(-2)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_sign_t<mol_EXPONENTS(-2)>>;\
     using inv_ ## ShortPrefix ## cd_sq = unit<double, dimension, exponents<cd_EXPONENTS(-2)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_sign_t<cd_EXPONENTS(-2)>>;\
-    using LongPrefix ## second = unit<double, dimension, exponents<s_EXPONENTS(1)>, ratios<Ratio, none, none, none, none, none, none>>;\
-    using LongPrefix ## metre = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, Ratio, none, none, none, none, none>>;\
-    using LongPrefix ## gram = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, Ratio, none, none, none, none>>;\
-    using LongPrefix ## ampere = unit<double, dimension, exponents<A_EXPONENTS(1)>, ratios<none, none, none, Ratio, none, none, none>>;\
-    using LongPrefix ## kelvin = unit<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, Ratio, none, none>>;\
-    using LongPrefix ## mole = unit<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, Ratio, none>>;\
-    using LongPrefix ## candela = unit<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, Ratio>>;\
-    using LongPrefix ## second_sq = unit<double, dimension, exponents<s_EXPONENTS(2)>, ratios<Ratio, none, none, none, none, none, none>>;\
-    using LongPrefix ## metre_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, Ratio, none, none, none, none, none>>;\
-    using LongPrefix ## gram_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, Ratio, none, none, none, none>>;\
-    using LongPrefix ## ampere_sq = unit<double, dimension, exponents<A_EXPONENTS(2)>, ratios<none, none, none, Ratio, none, none, none>>;\
-    using LongPrefix ## kelvin_sq = unit<double, dimension, exponents<K_EXPONENTS(2)>, ratios<none, none, none, none, Ratio, none, none>>;\
-    using LongPrefix ## mole_sq = unit<double, dimension, exponents<mol_EXPONENTS(2)>, ratios<none, none, none, none, none, Ratio, none>>;\
-    using LongPrefix ## candela_sq = unit<double, dimension, exponents<cd_EXPONENTS(2)>, ratios<none, none, none, none, none, none, Ratio>>;\
-    using inv_ ## LongPrefix ## second = unit<double, dimension, exponents<s_EXPONENTS(-1)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_sign_t<s_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## metre = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## gram = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## ampere = unit<double, dimension, exponents<A_EXPONENTS(-1)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_sign_t<A_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## kelvin = unit<double, dimension, exponents<K_EXPONENTS(-1)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_sign_t<K_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## mole = unit<double, dimension, exponents<mol_EXPONENTS(-1)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_sign_t<mol_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## candela = unit<double, dimension, exponents<cd_EXPONENTS(-1)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_sign_t<cd_EXPONENTS(-1)>>;\
-    using inv_ ## LongPrefix ## second_sq = unit<double, dimension, exponents<s_EXPONENTS(-2)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_sign_t<s_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## metre_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## gram_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## ampere_sq = unit<double, dimension, exponents<A_EXPONENTS(-2)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_sign_t<A_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## kelvin_sq = unit<double, dimension, exponents<K_EXPONENTS(-2)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_sign_t<K_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## mole_sq = unit<double, dimension, exponents<mol_EXPONENTS(-2)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_sign_t<mol_EXPONENTS(-2)>>;\
-    using inv_ ## LongPrefix ## candela_sq = unit<double, dimension, exponents<cd_EXPONENTS(-2)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_sign_t<cd_EXPONENTS(-2)>>;\
+    using Ratio ## second = unit<double, dimension, exponents<s_EXPONENTS(1)>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using Ratio ## metre = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, Ratio, none, none, none, none, none>>;\
+    using Ratio ## gram = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, Ratio, none, none, none, none>>;\
+    using Ratio ## ampere = unit<double, dimension, exponents<A_EXPONENTS(1)>, ratios<none, none, none, Ratio, none, none, none>>;\
+    using Ratio ## kelvin = unit<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, Ratio, none, none>>;\
+    using Ratio ## mole = unit<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, Ratio, none>>;\
+    using Ratio ## candela = unit<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, Ratio>>;\
+    using Ratio ## second_sq = unit<double, dimension, exponents<s_EXPONENTS(2)>, ratios<Ratio, none, none, none, none, none, none>>;\
+    using Ratio ## metre_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, Ratio, none, none, none, none, none>>;\
+    using Ratio ## gram_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, Ratio, none, none, none, none>>;\
+    using Ratio ## ampere_sq = unit<double, dimension, exponents<A_EXPONENTS(2)>, ratios<none, none, none, Ratio, none, none, none>>;\
+    using Ratio ## kelvin_sq = unit<double, dimension, exponents<K_EXPONENTS(2)>, ratios<none, none, none, none, Ratio, none, none>>;\
+    using Ratio ## mole_sq = unit<double, dimension, exponents<mol_EXPONENTS(2)>, ratios<none, none, none, none, none, Ratio, none>>;\
+    using Ratio ## candela_sq = unit<double, dimension, exponents<cd_EXPONENTS(2)>, ratios<none, none, none, none, none, none, Ratio>>;\
+    using inv_ ## Ratio ## second = unit<double, dimension, exponents<s_EXPONENTS(-1)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_sign_t<s_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## metre = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## gram = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## ampere = unit<double, dimension, exponents<A_EXPONENTS(-1)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_sign_t<A_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## kelvin = unit<double, dimension, exponents<K_EXPONENTS(-1)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_sign_t<K_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## mole = unit<double, dimension, exponents<mol_EXPONENTS(-1)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_sign_t<mol_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## candela = unit<double, dimension, exponents<cd_EXPONENTS(-1)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_sign_t<cd_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## second_sq = unit<double, dimension, exponents<s_EXPONENTS(-2)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_sign_t<s_EXPONENTS(-2)>>;\
+    using inv_ ## Ratio ## metre_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, Ratio, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## Ratio ## gram_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, Ratio, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(-2)>>;\
+    using inv_ ## Ratio ## ampere_sq = unit<double, dimension, exponents<A_EXPONENTS(-2)>, ratios<none, none, none, Ratio, none, none, none>::apply_power_sign_t<A_EXPONENTS(-2)>>;\
+    using inv_ ## Ratio ## kelvin_sq = unit<double, dimension, exponents<K_EXPONENTS(-2)>, ratios<none, none, none, none, Ratio, none, none>::apply_power_sign_t<K_EXPONENTS(-2)>>;\
+    using inv_ ## Ratio ## mole_sq = unit<double, dimension, exponents<mol_EXPONENTS(-2)>, ratios<none, none, none, none, none, Ratio, none>::apply_power_sign_t<mol_EXPONENTS(-2)>>;\
+    using inv_ ## Ratio ## candela_sq = unit<double, dimension, exponents<cd_EXPONENTS(-2)>, ratios<none, none, none, none, none, none, Ratio>::apply_power_sign_t<cd_EXPONENTS(-2)>>;\
     namespace literals\
     {\
         inline auto operator "" _ ## ShortPrefix ## s(long double n) { return unit<double, dimension, exponents<s_EXPONENTS(1)>, ratios<Ratio, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
@@ -225,20 +225,28 @@ namespace neounit::si
         inline auto operator "" _ ## ShortPrefix ## cd(long double n) { return unit<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
     }
 
-    define_si_prefix(a, atto, std::atto)
-    define_si_prefix(f, femto, std::femto)
-    define_si_prefix(p, pico, std::pico)
-    define_si_prefix(n, nano, std::nano)
-    define_si_prefix(u, micro, std::micro)
-    define_si_prefix(m, milli, std::milli)
-    define_si_prefix(c, centi, std::centi)
-    define_si_prefix(d, deci, std::deci)
-    define_si_prefix(da, deca, std::deca)
-    define_si_prefix(h, hecto, std::hecto)
-    define_si_prefix(k, kilo, std::kilo)
-    define_si_prefix(M, mega, std::mega)
-    define_si_prefix(G, giga, std::giga)
-    define_si_prefix(T, tera, std::tera)
-    define_si_prefix(P, peta, std::peta)
-    define_si_prefix(E, exa, std::exa)
+    define_si_prefix(q, quecto)
+    define_si_prefix(r, ronto)
+    define_si_prefix(y, yocto)
+    define_si_prefix(z, zepto)
+    define_si_prefix(a, atto)
+    define_si_prefix(f, femto)
+    define_si_prefix(p, pico)
+    define_si_prefix(n, nano)
+    define_si_prefix(u, micro)
+    define_si_prefix(m, milli)
+    define_si_prefix(c, centi)
+    define_si_prefix(d, deci)
+    define_si_prefix(da, deca)
+    define_si_prefix(h, hecto)
+    define_si_prefix(k, kilo)
+    define_si_prefix(M, mega)
+    define_si_prefix(G, giga)
+    define_si_prefix(T, tera)
+    define_si_prefix(P, peta)
+    define_si_prefix(E, exa)
+    define_si_prefix(Z, zetta)
+    define_si_prefix(Y, yotta)
+    define_si_prefix(R, ronna)
+    define_si_prefix(Q, quetta)
 }
