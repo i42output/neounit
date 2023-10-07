@@ -5,6 +5,7 @@
 #include <cmath>
 #include <iostream>
 #include <neounit/neounit.hpp>
+#include <neounit/astronomical.hpp>
 #include <neounit/imperial.hpp>
 
 namespace
@@ -206,6 +207,20 @@ int main()
     test_assert(near_enough(p1, 100.0));
     test_assert(near_enough(r1, 100.0 / 0.042));
     test_assert(near_enough(r2, 1.0));
+
+    // astronomical
+    
+    using namespace neounit::astronomical;
+    using namespace neounit::astronomical::literals;
+
+    auto oneParsec = 1.0_pc;
+    auto oneParsecInMetres = conversion_cast<metre>(oneParsec);
+    test_assert(near_enough(oneParsecInMetres, 3.0856775814913672e16));
+    using parsec_per_s = decltype(parsec{} / second{});
+    parsec_per_s pps = 2.0;
+    using hectoparsec_per_s = decltype(hectoparsec{} / second{});
+    hectoparsec_per_s hpps = 2.0;
+    test_assert(near_enough(conversion_cast<parsec_per_s>(hpps) / pps, 100.0));
 
     // imperial, just for fun. where's my pint?
 
