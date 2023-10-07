@@ -258,5 +258,6 @@ namespace neounit::si
     // Visual Studio hack
     #ifdef MT_
     #define _MT MT_
+    #undef MT_
     #endif
 }
