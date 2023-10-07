@@ -17,12 +17,12 @@ namespace
 
     bool near_enough(double lhs, double rhs)
     {
-        return std::abs(lhs - rhs) < 1e-6;
+        return std::abs(lhs - rhs) < 1e-20;
     }
 
     bool near_enough(long double lhs, long double rhs)
     {
-        return std::abs(lhs - rhs) < 1e-6;
+        return std::abs(lhs - rhs) < 1e-20;
     }
 }
 
@@ -229,4 +229,6 @@ int main()
     test_assert(near_enough(conversion_cast<centimetre>(1.0_ft), 12 * 2.54));
     auto fiveYards = 5.0_yd;
     test_assert(near_enough(conversion_cast<picometre>(fiveYards), 4.572e12));
+    auto nineYards = fiveYards * 9.0 / 5.0;
+    test_assert(near_enough(conversion_cast<nanometre>(nineYards), 8.2296e9));
 }
