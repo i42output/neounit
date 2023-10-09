@@ -265,4 +265,14 @@ int main()
     test_assert(near_enough(conversion_cast<picometre>(fiveYards), 4.572e12));
     auto nineYards = fiveYards * 9.0 / 5.0;
     test_assert(near_enough(conversion_cast<nanometre>(nineYards), 8.2296e9));
+
+    auto oneStone = 1.0_st;
+    auto oneStoneInPounds = conversion_cast<pound>(oneStone);
+    test_assert(near_enough(oneStoneInPounds, 14.0));
+    auto oneStoneInOunces = conversion_cast<ounce>(oneStone);
+    test_assert(near_enough(oneStoneInOunces, 14.0 * 16.0));
+
+    auto oneMegaton = 1.0_Mt_;
+    auto oneMegatonInKilotons = conversion_cast<kiloton>(oneMegaton);
+    test_assert(near_enough(oneMegatonInKilotons, 1000.0));
 }
