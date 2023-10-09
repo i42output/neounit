@@ -272,6 +272,7 @@ int main()
     auto oneStoneInOunces = conversion_cast<ounce>(oneStone);
     test_assert(near_enough(oneStoneInOunces, 14.0 * 16.0));
 
+    // imperial tons not metric tons! ...
     auto oneMegaton = 1.0_Mt_;
     auto oneMegatonInKilotons = conversion_cast<kiloton>(oneMegaton);
     test_assert(near_enough(oneMegatonInKilotons, 1000.0));
