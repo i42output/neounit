@@ -266,6 +266,15 @@ int main()
     auto nineYards = fiveYards * 9.0 / 5.0;
     test_assert(near_enough(conversion_cast<nanometre>(nineYards), 8.2296e9));
 
+    test_assert(near_enough(conversion_cast<pound>(grain{ 1.0 }), 1.0 / 7000));
+    test_assert(near_enough(conversion_cast<pound>(drachm{ 1.0 }), 1.0 / 256));
+    test_assert(near_enough(conversion_cast<pound>(ounce{ 1.0 }), 1.0 / 16));
+    test_assert(near_enough(conversion_cast<pound>(pound{ 1.0 }), 1.0));
+    test_assert(near_enough(conversion_cast<pound>(stone{ 1.0 }), 14.0));
+    test_assert(near_enough(conversion_cast<pound>(quarter{ 1.0 }), 28.0));
+    test_assert(near_enough(conversion_cast<pound>(hundredweight{ 1.0 }), 112.0));
+    test_assert(near_enough(conversion_cast<pound>(ton{ 1.0 }), 2240.0));
+
     auto oneStone = 1.0_st;
     auto oneStoneInPounds = conversion_cast<pound>(oneStone);
     test_assert(near_enough(oneStoneInPounds, 14.0));

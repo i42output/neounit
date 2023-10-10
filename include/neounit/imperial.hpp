@@ -67,7 +67,7 @@ namespace neounit::imperial
     template<dimensional_exponent E, typename T = double>
     using cwt = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<5080234544, 1, -5>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>
-    using t_ = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<10160469088, 1, -7>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
+    using t_ = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<10160469088, 1, -4>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
 
     namespace literals
     {
