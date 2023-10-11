@@ -274,6 +274,8 @@ int main()
     test_assert(near_enough(conversion_cast<pound>(quarter{ 1.0 }), 28.0));
     test_assert(near_enough(conversion_cast<pound>(hundredweight{ 1.0 }), 112.0));
     test_assert(near_enough(conversion_cast<pound>(ton{ 1.0 }), 2240.0));
+    test_assert(near_enough(conversion_cast<pound>(kiloton{ 1.0 }), 2240000.0));
+    test_assert(near_enough(conversion_cast<pound>(milliton{ 1.0 }), 2.240));
 
     auto oneStone = 1.0_st;
     auto oneStoneInPounds = conversion_cast<pound>(oneStone);

@@ -82,7 +82,7 @@ namespace neounit::imperial
         inline auto operator "" _st(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<635029318, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _qr(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<1270058636, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _cwt(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<5080234544, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _t_(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<10160469088, 1, -7>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _t_(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<10160469088, 1, -4>, none, none, none, none>>{ static_cast<double>(n) }; }
     }
 
     using in_sq = in<2>;
@@ -194,7 +194,7 @@ namespace neounit::imperial
     template<dimensional_exponent E, typename T = double>\
     using ShortPrefix ## cwt = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## t_ = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -7>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## t_ = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
     using ShortPrefix ## in_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>>;\
     using ShortPrefix ## ft_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>>;\
     using ShortPrefix ## yd_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>>;\
@@ -206,7 +206,7 @@ namespace neounit::imperial
     using ShortPrefix ## st_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>>;\
     using ShortPrefix ## qr_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>>;\
     using ShortPrefix ## cwt_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>>;\
-    using ShortPrefix ## t__sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -7>, Ratio>, none, none, none, none>>;\
+    using ShortPrefix ## t__sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>>;\
     using inv_ ## ShortPrefix ## in = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     using inv_ ## ShortPrefix ## ft = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     using inv_ ## ShortPrefix ## yd = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
@@ -218,7 +218,7 @@ namespace neounit::imperial
     using inv_ ## ShortPrefix ## st = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     using inv_ ## ShortPrefix ## qr = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     using inv_ ## ShortPrefix ## cwt = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## t_ = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -7>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## t_ = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     using inv_ ## ShortPrefix ## in_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
     using inv_ ## ShortPrefix ## ft_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
     using inv_ ## ShortPrefix ## yd_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
@@ -230,7 +230,7 @@ namespace neounit::imperial
     using inv_ ## ShortPrefix ## st_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
     using inv_ ## ShortPrefix ## qr_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
     using inv_ ## ShortPrefix ## cwt_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## t__sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -7>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## t__sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
     using Ratio ## inch = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>>;\
     using Ratio ## foot = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>>;\
     using Ratio ## yard = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>>;\
@@ -242,7 +242,7 @@ namespace neounit::imperial
     using Ratio ## stone = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>>;\
     using Ratio ## quarter = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>>;\
     using Ratio ## hundredweight = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>>;\
-    using Ratio ## ton = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -7>, Ratio>, none, none, none, none>>;\
+    using Ratio ## ton = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>>;\
     using inv_ ## Ratio ## inch = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     using inv_ ## Ratio ## foot = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     using inv_ ## Ratio ## yard = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
@@ -254,7 +254,7 @@ namespace neounit::imperial
     using inv_ ## Ratio ## stone = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     using inv_ ## Ratio ## quarter = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     using inv_ ## Ratio ## hundredweight = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## ton = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -7>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## ton = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     namespace literals\
     {\
         inline auto operator "" _ ## ShortPrefix ## in(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
@@ -268,7 +268,7 @@ namespace neounit::imperial
         inline auto operator "" _ ## ShortPrefix ## st(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## qr(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## cwt(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## t_(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -7>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## t_(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
     }
 
     define_imperial_prefix(q, quecto)
