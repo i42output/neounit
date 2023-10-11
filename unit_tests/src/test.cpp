@@ -125,6 +125,10 @@ int main()
     auto r1 = p1 / conversion_cast<ampere>(42.0_mA);
     auto r2 = p2 / conversion_cast<milliampere>(0.007_A);
 
+    auto oneMegaton = 1.0_Mt;
+    auto oneMegatonInKilotons = conversion_cast<kiloton>(oneMegaton);
+    test_assert(near_enough(oneMegatonInKilotons, 1000.0));
+
     static_assert(std::is_same_v<second, s<1>>);
     static_assert(std::is_same_v<second, s<1, double>>);
     static_assert(!std::is_same_v<second, s<1, long double>>);
@@ -230,6 +234,10 @@ int main()
     using namespace neounit::astronomical;
     using namespace neounit::astronomical::literals;
 
+    test_assert(near_enough(conversion_cast<metre>(1.0_pc), 30856775814913673.0));
+    test_assert(near_enough(conversion_cast<metre>(1.0_au), 149597870700.0));
+    test_assert(near_enough(conversion_cast<metre>(1.0_ly), 9460730472580800.0));
+
     auto oneParsec = 1.0_pc;
     auto oneParsecInMetres = conversion_cast<metre>(oneParsec);
     test_assert(near_enough(oneParsecInMetres, 3.0856775814913672e16));
@@ -240,10 +248,6 @@ int main()
     test_assert(near_enough(conversion_cast<parsec_per_s>(hpps) / pps, 1000.0));
     auto oneQuettaParsec = 1.0_Qpc;
     test_assert(near_enough(conversion_cast<parsec>(oneQuettaParsec), 1e30, 1e15));
-
-    auto oneMegaton = 1.0_Mt;
-    auto oneMegatonInKilotons = conversion_cast<kiloton>(oneMegaton);
-    test_assert(near_enough(oneMegatonInKilotons, 1000.0));
 
     // imperial, just for fun. where's my pint?
 
