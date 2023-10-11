@@ -241,10 +241,15 @@ int main()
     auto oneQuettaParsec = 1.0_Qpc;
     test_assert(near_enough(conversion_cast<parsec>(oneQuettaParsec), 1e30, 1e15));
 
+    auto oneMegaton = 1.0_Mt;
+    auto oneMegatonInKilotons = conversion_cast<kiloton>(oneMegaton);
+    test_assert(near_enough(oneMegatonInKilotons, 1000.0));
+
     // imperial, just for fun. where's my pint?
 
     using namespace neounit::imperial;
     using namespace neounit::imperial::literals;
+    using imperial::literals::operator ""_ft; // clashes with si::femtoton
 
     inch imperialLength = 42.0;
     auto metricLength = conversion_cast<centimetre>(imperialLength);
@@ -260,6 +265,7 @@ int main()
     auto oneMile = 1.0_mi;
     auto oneKilometre = 1.0_km;
     test_assert(near_enough(conversion_cast<kilometre>(oneMile) / oneKilometre, 1.609344));
+
     test_assert(near_enough(conversion_cast<centimetre>(1.0_ft), 12 * 2.54));
     auto fiveYards = 5.0_yd;
     test_assert(near_enough(conversion_cast<picometre>(fiveYards), 4.572e12));
@@ -273,9 +279,10 @@ int main()
     test_assert(near_enough(conversion_cast<pound>(stone{ 1.0 }), 14.0));
     test_assert(near_enough(conversion_cast<pound>(quarter{ 1.0 }), 28.0));
     test_assert(near_enough(conversion_cast<pound>(hundredweight{ 1.0 }), 112.0));
-    test_assert(near_enough(conversion_cast<pound>(ton{ 1.0 }), 2240.0));
-    test_assert(near_enough(conversion_cast<pound>(kiloton{ 1.0 }), 2240000.0));
-    test_assert(near_enough(conversion_cast<pound>(milliton{ 1.0 }), 2.240));
+    test_assert(near_enough(conversion_cast<pound>(imperial::ton{ 1.0 }), 2240.0));
+    test_assert(near_enough(conversion_cast<pound>(si::ton{ 1.0 }), 2204.6226218));
+    test_assert(near_enough(conversion_cast<pound>(imperial::kiloton{ 1.0 }), 2240000.0));
+    test_assert(near_enough(conversion_cast<pound>(imperial::milliton{ 1.0 }), 2.240));
 
     auto oneStone = 1.0_st;
     auto oneStoneInPounds = conversion_cast<pound>(oneStone);
@@ -283,8 +290,7 @@ int main()
     auto oneStoneInOunces = conversion_cast<ounce>(oneStone);
     test_assert(near_enough(oneStoneInOunces, 14.0 * 16.0));
 
-    // imperial tons not metric tons! ...
-    auto oneMegaton = 1.0_Mt_;
-    auto oneMegatonInKilotons = conversion_cast<kiloton>(oneMegaton);
-    test_assert(near_enough(oneMegatonInKilotons, 1000.0));
+    auto oneImperialMegaton = 1.0_Mt_;
+    auto oneImperialMegatonInKilotons = conversion_cast<imperial::kiloton>(oneImperialMegaton);
+    test_assert(near_enough(oneImperialMegatonInKilotons, 1000.0));
 }

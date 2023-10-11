@@ -290,8 +290,6 @@ namespace neounit
         using apply_power_t = ratios<typename neounit::apply_power_t<Ratios, E>...>;
         template <dimensional_exponent... E>
         using apply_power_sign_t = ratios<typename neounit::apply_power_sign_t<Ratios, E>...>;
-        template <dimensional_exponent... E>
-        using dont_apply_power_sign_t = ratios<Ratios...>;
     public:
         ratios() : value_type{ Ratios{}... }
         {
