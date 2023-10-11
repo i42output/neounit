@@ -46,12 +46,6 @@ namespace neounit
     using integer = std::int32_t;
     using dimensional_exponent = integer;
 
-    namespace detail
-    {
-        template <class T, dimensional_exponent>
-        using hook = T;
-    }
-
     template <dimensional_exponent... Exponents>
     struct exponents {};
 
