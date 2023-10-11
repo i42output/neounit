@@ -181,6 +181,7 @@ int main()
     static_assert(std::is_same_v<decltype(p1), volt>);
     static_assert(std::is_same_v<decltype(p2), millivolt>);
     static_assert(std::is_same_v<decltype(r1), ohm>);
+    static_assert(std::is_same_v<decltype(r2), milliohm>);
 
     static_assert(std::is_same_v<decltype(1.0 / 1.0_s), hertz>);
     static_assert(std::is_same_v<decltype(1.0 / 1.0_Hz), second>);
