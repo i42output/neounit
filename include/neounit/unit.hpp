@@ -53,20 +53,7 @@ namespace neounit
     }
 
     template <dimensional_exponent... Exponents>
-    class exponents : public std::tuple<detail::hook<dimensional_exponent, Exponents>...>
-    {
-    public:
-        using value_type = std::tuple<detail::hook<dimensional_exponent, Exponents>...>;
-    public:
-        exponents() : value_type{ Exponents... } 
-        {
-        }
-    public:
-        value_type const& operator*() const
-        {
-            return *this;
-        }
-    };
+    struct exponents {};
 
     template<std::intmax_t Num, std::intmax_t Denom = 1, std::intmax_t Exp = 0>
     struct ratio : std::ratio<Num, Denom>
