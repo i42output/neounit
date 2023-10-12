@@ -47,23 +47,23 @@ namespace neounit::si
     #define t_EXPONENTS 0, 0, 1, 0, 0, 0, 0
 
     template<typename T = double>
-    using t = unit<T, dimension, exponents<t_EXPONENTS>, ratios<none, none, mega, none, none, none, none>>;
+    using t = scalar<T, dimension, exponents<t_EXPONENTS>, ratios<none, none, mega, none, none, none, none>>;
 
     using tonne = t<>;
     using ton = tonne;
 
     namespace literals
     {
-        inline auto operator "" _t(long double n) { return unit<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, mega, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _t(long double n) { return scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, mega, none, none, none, none>>{ static_cast<double>(n) }; }
     }
 
     #define define_si_other_prefix(ShortPrefix, Ratio)\
-    using ShortPrefix ## t = unit<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>;\
-    using Ratio ## tonne = unit<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>;\
-    using Ratio ## ton = unit<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>;\
+    using ShortPrefix ## t = scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>;\
+    using Ratio ## tonne = scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>;\
+    using Ratio ## ton = scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>;\
     namespace literals\
     {\
-        inline auto operator "" _ ## ShortPrefix ## t(long double n) { return unit<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## t(long double n) { return scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
     }
 
     define_si_other_prefix(q, quecto)

@@ -45,44 +45,44 @@ namespace neounit::imperial
     using si::dimension;
 
     template<dimensional_exponent E, typename T = double>
-    using in = unit<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<254, 10000>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
+    using in = scalar<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<254, 10000>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>
-    using ft = unit<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<254 * 12, 10000>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
+    using ft = scalar<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<254 * 12, 10000>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>
-    using yd = unit<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<254 * 12 * 3, 10000>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
+    using yd = scalar<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<254 * 12 * 3, 10000>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>
-    using mi = unit<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<1609344, 1000>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
+    using mi = scalar<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<1609344, 1000>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>
-    using gr = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<6479891, 1, -8>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
+    using gr = scalar<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<6479891, 1, -8>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>                          
-    using dr = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<17718451953125, 1, -13>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
+    using dr = scalar<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<17718451953125, 1, -13>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>                          
-    using oz = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<28349523125, 1, -9>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
+    using oz = scalar<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<28349523125, 1, -9>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>                          
-    using lb = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<45359237, 1, -5>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
+    using lb = scalar<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<45359237, 1, -5>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>                          
-    using st = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<635029318, 1, -5>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
+    using st = scalar<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<635029318, 1, -5>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>                          
-    using qr = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<1270058636, 1, -5>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
+    using qr = scalar<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<1270058636, 1, -5>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>
-    using cwt = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<5080234544, 1, -5>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
+    using cwt = scalar<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<5080234544, 1, -5>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>
-    using t_ = unit<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<10160469088, 1, -4>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
+    using t_ = scalar<T, dimension, exponents<g_EXPONENTS(E)>, typename ratios<none, none, ratio<10160469088, 1, -4>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;
 
     namespace literals
     {
-        inline auto operator "" _in(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<254, 10000>, none, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _ft(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<254 * 12, 10000>, none, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _yd(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<254 * 12 * 3, 10000>, none, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _mi(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<1609344, 1000>, none, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _gr(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<6479891, 1, -8>, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _dr(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<17718451953125, 1, -13>, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _oz(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<28349523125, 1, -9>, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _lb(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<45359237, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _st(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<635029318, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _qr(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<1270058636, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _cwt(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<5080234544, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _t_(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<10160469088, 1, -4>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _in(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<254, 10000>, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _ft(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<254 * 12, 10000>, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _yd(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<254 * 12 * 3, 10000>, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _mi(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<1609344, 1000>, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _gr(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<6479891, 1, -8>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _dr(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<17718451953125, 1, -13>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _oz(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<28349523125, 1, -9>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _lb(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<45359237, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _st(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<635029318, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _qr(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<1270058636, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _cwt(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<5080234544, 1, -5>, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _t_(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio<10160469088, 1, -4>, none, none, none, none>>{ static_cast<double>(n) }; }
     }
 
     using in_sq = in<2>;
@@ -172,103 +172,103 @@ namespace neounit::imperial
 
     #define define_imperial_prefix(ShortPrefix, Ratio)\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## in = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
+    using ShortPrefix ## in = scalar<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## ft = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
+    using ShortPrefix ## ft = scalar<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## yd = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
+    using ShortPrefix ## yd = scalar<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## mi = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
+    using ShortPrefix ## mi = scalar<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## gr = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## gr = scalar<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## dr = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## dr = scalar<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## oz = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## oz = scalar<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## lb = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## lb = scalar<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## st = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## st = scalar<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## qr = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## qr = scalar<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## cwt = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## cwt = scalar<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## t_ = unit<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
-    using ShortPrefix ## in_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>>;\
-    using ShortPrefix ## ft_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>>;\
-    using ShortPrefix ## yd_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>>;\
-    using ShortPrefix ## mi_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>>;\
-    using ShortPrefix ## gr_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>>;\
-    using ShortPrefix ## dr_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>>;\
-    using ShortPrefix ## oz_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>>;\
-    using ShortPrefix ## lb_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>>;\
-    using ShortPrefix ## st_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>>;\
-    using ShortPrefix ## qr_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>>;\
-    using ShortPrefix ## cwt_sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>>;\
-    using ShortPrefix ## t__sq = unit<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>>;\
-    using inv_ ## ShortPrefix ## in = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## ft = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## yd = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## mi = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<21609344, 1000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## gr = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## dr = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## oz = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## lb = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## st = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## qr = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## cwt = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## t_ = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## in_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## ft_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## yd_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## mi_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## gr_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## dr_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## oz_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## lb_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## st_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## qr_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## cwt_sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## t__sq = unit<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using Ratio ## inch = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>>;\
-    using Ratio ## foot = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>>;\
-    using Ratio ## yard = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>>;\
-    using Ratio ## mile = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>>;\
-    using Ratio ## grain = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>>;\
-    using Ratio ## drachm = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>>;\
-    using Ratio ## ounce = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>>;\
-    using Ratio ## pound = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>>;\
-    using Ratio ## stone = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>>;\
-    using Ratio ## quarter = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>>;\
-    using Ratio ## hundredweight = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>>;\
-    using Ratio ## ton = unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>>;\
-    using inv_ ## Ratio ## inch = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## foot = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## yard = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## mile = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## grain = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## drachm = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## ounce = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## pound = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## stone = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## quarter = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## hundredweight = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## ton = unit<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using ShortPrefix ## t_ = scalar<T, dimension, exponents<g_EXPONENTS(E)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<g_EXPONENTS(E)>>;\
+    using ShortPrefix ## in_sq = scalar<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>>;\
+    using ShortPrefix ## ft_sq = scalar<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>>;\
+    using ShortPrefix ## yd_sq = scalar<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>>;\
+    using ShortPrefix ## mi_sq = scalar<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>>;\
+    using ShortPrefix ## gr_sq = scalar<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>>;\
+    using ShortPrefix ## dr_sq = scalar<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>>;\
+    using ShortPrefix ## oz_sq = scalar<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>>;\
+    using ShortPrefix ## lb_sq = scalar<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>>;\
+    using ShortPrefix ## st_sq = scalar<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>>;\
+    using ShortPrefix ## qr_sq = scalar<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>>;\
+    using ShortPrefix ## cwt_sq = scalar<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>>;\
+    using ShortPrefix ## t__sq = scalar<double, dimension, exponents<g_EXPONENTS(2)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>>;\
+    using inv_ ## ShortPrefix ## in = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## ft = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## yd = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## mi = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<21609344, 1000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## gr = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## dr = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## oz = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## lb = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## st = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## qr = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## cwt = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## t_ = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## in_sq = scalar<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## ft_sq = scalar<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## yd_sq = scalar<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## mi_sq = scalar<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## gr_sq = scalar<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## dr_sq = scalar<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## oz_sq = scalar<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## lb_sq = scalar<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## st_sq = scalar<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## qr_sq = scalar<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## cwt_sq = scalar<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## t__sq = scalar<double, dimension, exponents<g_EXPONENTS(-2)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using Ratio ## inch = scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>>;\
+    using Ratio ## foot = scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>>;\
+    using Ratio ## yard = scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>>;\
+    using Ratio ## mile = scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>>;\
+    using Ratio ## grain = scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>>;\
+    using Ratio ## drachm = scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>>;\
+    using Ratio ## ounce = scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>>;\
+    using Ratio ## pound = scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>>;\
+    using Ratio ## stone = scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>>;\
+    using Ratio ## quarter = scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>>;\
+    using Ratio ## hundredweight = scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>>;\
+    using Ratio ## ton = scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>>;\
+    using inv_ ## Ratio ## inch = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## foot = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## yard = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## mile = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## grain = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## drachm = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## ounce = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## pound = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## stone = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## quarter = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## hundredweight = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## ton = scalar<double, dimension, exponents<g_EXPONENTS(-1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     namespace literals\
     {\
-        inline auto operator "" _ ## ShortPrefix ## in(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## ft(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## yd(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## mi(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## gr(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## dr(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## oz(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## lb(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## st(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## qr(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## cwt(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## t_(long double n) { return unit<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## in(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254, 10000>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## ft(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12, 10000>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## yd(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<254 * 12 * 3, 10000>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## mi(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<1609344, 1000>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## gr(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<6479891, 1, -8>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## dr(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<17718451953125, 1, -13>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## oz(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<28349523125, 1, -9>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## lb(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<45359237, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## st(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<635029318, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## qr(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<1270058636, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## cwt(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<5080234544, 1, -5>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## t_(long double n) { return scalar<double, dimension, exponents<g_EXPONENTS(1)>, ratios<none, none, ratio_multiply<ratio<10160469088, 1, -4>, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
     }
 
     define_imperial_prefix(q, quecto)

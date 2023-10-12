@@ -282,24 +282,33 @@ namespace neounit
         }
     };
 
-    template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    class unit
+    template <typename Dimension, typename Exponents, typename Ratios>
+    struct unit
     {
-    public:
-        using self_type = unit<T, Dimension, Exponents, Ratios>;
-        using value_type = T;
         using dimension_type = Dimension;
         using exponents_type = Exponents;
         using ratios_type = Ratios;
+    };
+
+    template <typename T, typename Dimension, typename Exponents, typename Ratios>
+    class scalar : public unit<Dimension, Exponents, Ratios>
+    {
     public:
-        unit() : iValue{}
+        using self_type = scalar<T, Dimension, Exponents, Ratios>;
+        using unit_type = unit<Dimension, Exponents, Ratios>;
+        using value_type = T;
+        using dimension_type = typename unit_type::dimension_type;
+        using exponents_type = typename unit_type::exponents_type;
+        using ratios_type = typename unit_type::ratios_type;
+    public:
+        scalar() : iValue{}
         {
         }
         template <typename U = T>
-        unit(U aValue, std::enable_if_t<std::is_same_v<std::decay_t<U>, T>, int> = {}) : iValue{ aValue }
+        scalar(U aValue, std::enable_if_t<std::is_same_v<std::decay_t<U>, T>, int> = {}) : iValue{ aValue }
         {
         }
-        unit(self_type const& aValue) : iValue{ aValue }
+        scalar(self_type const& aValue) : iValue{ aValue }
         {
         }
     public:
@@ -394,7 +403,7 @@ namespace neounit
     }
 
     template <typename To, typename T, typename Dimension, std::same_as<typename To::exponents_type> Exponents, typename Ratios>
-    constexpr inline To conversion_cast(unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    constexpr inline To conversion_cast(scalar<T, Dimension, Exponents, Ratios> const& aRhs)
     {
         using rhs_type = std::decay_t<decltype(aRhs)>;
         if constexpr (std::is_same_v<To, rhs_type>)
@@ -408,66 +417,66 @@ namespace neounit
     constexpr bool is_dimensionless_v = ((0 == First) && ((First == Rest) && ...));
 
     template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    constexpr inline unit<T, Dimension, Exponents, Ratios> operator+(
-        unit<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
+    constexpr inline scalar<T, Dimension, Exponents, Ratios> operator+(
+        scalar<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
     {
         return static_cast<T>(aLhs) + aRhs;
     }
 
     template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    constexpr inline unit<T, Dimension, Exponents, Ratios> operator+(
-        T const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    constexpr inline scalar<T, Dimension, Exponents, Ratios> operator+(
+        T const& aLhs, scalar<T, Dimension, Exponents, Ratios> const& aRhs)
     {
         return aLhs + static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    constexpr inline unit<T, Dimension, Exponents, Ratios> operator-(
-        unit<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
+    constexpr inline scalar<T, Dimension, Exponents, Ratios> operator-(
+        scalar<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
     {
         return static_cast<T>(aLhs) - aRhs;
     }
 
     template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    constexpr inline unit<T, Dimension, Exponents, Ratios> operator-(
-        T const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    constexpr inline scalar<T, Dimension, Exponents, Ratios> operator-(
+        T const& aLhs, scalar<T, Dimension, Exponents, Ratios> const& aRhs)
     {
         return aLhs - static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, typename LhsExponents, typename LhsRatios, typename RhsExponents, typename RhsRatios>
-    constexpr inline unit<T, Dimension, LhsExponents, LhsRatios> operator+(
-        unit<T, Dimension, LhsExponents, LhsRatios> const& aLhs, unit<T, Dimension, RhsExponents, RhsRatios> const& aRhs)
+    constexpr inline scalar<T, Dimension, LhsExponents, LhsRatios> operator+(
+        scalar<T, Dimension, LhsExponents, LhsRatios> const& aLhs, scalar<T, Dimension, RhsExponents, RhsRatios> const& aRhs)
     {
         static_assert(std::is_same_v<LhsExponents, RhsExponents> && std::is_same_v<LhsRatios, RhsRatios>);
         return static_cast<T>(aLhs) + static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, typename LhsExponents, typename LhsRatios, typename RhsExponents, typename RhsRatios>
-    constexpr inline unit<T, Dimension, LhsExponents, LhsRatios> operator-(
-        unit<T, Dimension, LhsExponents, LhsRatios> const& aLhs, unit<T, Dimension, RhsExponents, RhsRatios> const& aRhs)
+    constexpr inline scalar<T, Dimension, LhsExponents, LhsRatios> operator-(
+        scalar<T, Dimension, LhsExponents, LhsRatios> const& aLhs, scalar<T, Dimension, RhsExponents, RhsRatios> const& aRhs)
     {
         static_assert(std::is_same_v<LhsExponents, RhsExponents> && std::is_same_v<LhsRatios, RhsRatios>);
         return static_cast<T>(aLhs) - static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    constexpr inline unit<T, Dimension, Exponents, Ratios> operator*(
-        unit<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
+    constexpr inline scalar<T, Dimension, Exponents, Ratios> operator*(
+        scalar<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
     {
         return static_cast<T>(aLhs) * aRhs;
     }
 
     template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    constexpr inline unit<T, Dimension, Exponents, Ratios> operator*(
-        T const& aLhs, unit<T, Dimension, Exponents, Ratios> const& aRhs)
+    constexpr inline scalar<T, Dimension, Exponents, Ratios> operator*(
+        T const& aLhs, scalar<T, Dimension, Exponents, Ratios> const& aRhs)
     {
         return aLhs * static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, typename Exponents, typename Ratios>
-    constexpr inline unit<T, Dimension, Exponents, Ratios> operator/(
-        unit<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
+    constexpr inline scalar<T, Dimension, Exponents, Ratios> operator/(
+        scalar<T, Dimension, Exponents, Ratios> const& aLhs, T const& aRhs)
     {
         return static_cast<T>(aLhs) / aRhs;
     }
@@ -475,36 +484,36 @@ namespace neounit
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename... LhsRatios, typename... RhsRatios>
     constexpr inline std::enable_if_t<
         !is_dimensionless_v<(LhsExponents + RhsExponents)...>, 
-        unit<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, ratios<typename combine_t<LhsExponents, RhsExponents, LhsRatios, RhsRatios>...>>> operator*(
-        unit<T, Dimension, exponents<LhsExponents...>, ratios<LhsRatios...>> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, ratios<RhsRatios...>> const& aRhs)
+        scalar<T, Dimension, exponents<(LhsExponents + RhsExponents)...>, ratios<typename combine_t<LhsExponents, RhsExponents, LhsRatios, RhsRatios>...>>> operator*(
+        scalar<T, Dimension, exponents<LhsExponents...>, ratios<LhsRatios...>> const& aLhs, scalar<T, Dimension, exponents<RhsExponents...>, ratios<RhsRatios...>> const& aRhs)
     {
         return static_cast<T>(aLhs) * static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
     constexpr inline std::enable_if_t<is_dimensionless_v<(LhsExponents + RhsExponents)...>, T> operator*(
-        unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
+        scalar<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, scalar<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         return static_cast<T>(aLhs) * static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, dimensional_exponent... RhsExponents, typename RhsRatios>
-    constexpr inline std::enable_if_t<!is_dimensionless_v<(0 - RhsExponents)...>, unit<T, Dimension, exponents<(0 - RhsExponents)...>, typename RhsRatios::inverse_t>> operator/(
-        T const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
+    constexpr inline std::enable_if_t<!is_dimensionless_v<(0 - RhsExponents)...>, scalar<T, Dimension, exponents<(0 - RhsExponents)...>, typename RhsRatios::inverse_t>> operator/(
+        T const& aLhs, scalar<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         return static_cast<T>(aLhs) / static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, dimensional_exponent... RhsExponents, typename RhsRatios>
     constexpr inline std::enable_if_t<is_dimensionless_v<(0 - RhsExponents)...>, T> operator/(
-        T const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
+        T const& aLhs, scalar<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         return static_cast<T>(aLhs) / static_cast<T>(aRhs);
     }
 
     template <typename T, typename Dimension, dimensional_exponent... LhsExponents, dimensional_exponent... RhsExponents, typename LhsRatios, typename RhsRatios>
     constexpr inline auto operator/(
-        unit<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, unit<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
+        scalar<T, Dimension, exponents<LhsExponents...>, LhsRatios> const& aLhs, scalar<T, Dimension, exponents<RhsExponents...>, RhsRatios> const& aRhs)
     {
         return aLhs * (static_cast<T>(1.0) / aRhs);
     }

@@ -45,17 +45,17 @@ namespace neounit::astronomical
     using si::dimension;
 
     template<dimensional_exponent E, typename T = double>
-    using pc = unit<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<30856775814913673, 1>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
+    using pc = scalar<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<30856775814913673, 1>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>
-    using au = unit<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<149597870700, 1>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
+    using au = scalar<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<149597870700, 1>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
     template<dimensional_exponent E, typename T = double>
-    using ly = unit<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<9460730472580800, 1>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
+    using ly = scalar<T, dimension, exponents<m_EXPONENTS(E)>, typename ratios<none, ratio<9460730472580800, 1>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;
 
     namespace literals
     {
-        inline auto operator "" _pc(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<30856775814913673, 1>, none, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _au(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<149597870700, 1>, none, none, none, none, none>>{ static_cast<double>(n) }; }
-        inline auto operator "" _ly(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<9460730472580800, 1>, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _pc(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<30856775814913673, 1>, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _au(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<149597870700, 1>, none, none, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _ly(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio<9460730472580800, 1>, none, none, none, none, none>>{ static_cast<double>(n) }; }
     }
 
     using pc_sq = pc<2>;
@@ -82,31 +82,31 @@ namespace neounit::astronomical
 
     #define define_astronomical_prefix(ShortPrefix, Ratio)\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## pc = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
+    using ShortPrefix ## pc = scalar<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## au = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
+    using ShortPrefix ## au = scalar<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
     template<dimensional_exponent E, typename T = double>\
-    using ShortPrefix ## ly = unit<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
-    using ShortPrefix ## pc_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>>;\
-    using ShortPrefix ## au_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>>;\
-    using ShortPrefix ## ly_sq = unit<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>>;\
-    using inv_ ## ShortPrefix ## pc = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## au = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## ly = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## ShortPrefix ## pc_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## au_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using inv_ ## ShortPrefix ## ly_sq = unit<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
-    using Ratio ## parsec = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>>;\
-    using Ratio ## astronomicalunit = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>>;\
-    using Ratio ## lightyear = unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>>;\
-    using inv_ ## Ratio ## parsec = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## astronomicalunit = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
-    using inv_ ## Ratio ## lightyear = unit<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using ShortPrefix ## ly = scalar<T, dimension, exponents<m_EXPONENTS(E)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(E)>>;\
+    using ShortPrefix ## pc_sq = scalar<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>>;\
+    using ShortPrefix ## au_sq = scalar<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>>;\
+    using ShortPrefix ## ly_sq = scalar<double, dimension, exponents<m_EXPONENTS(2)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>>;\
+    using inv_ ## ShortPrefix ## pc = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## au = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## ly = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## ShortPrefix ## pc_sq = scalar<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## au_sq = scalar<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using inv_ ## ShortPrefix ## ly_sq = scalar<double, dimension, exponents<m_EXPONENTS(-2)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-2)>>;\
+    using Ratio ## parsec = scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>>;\
+    using Ratio ## astronomicalunit = scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>>;\
+    using Ratio ## lightyear = scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>>;\
+    using inv_ ## Ratio ## parsec = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## astronomicalunit = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
+    using inv_ ## Ratio ## lightyear = scalar<double, dimension, exponents<m_EXPONENTS(-1)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>::apply_power_sign_t<m_EXPONENTS(-1)>>;\
     namespace literals\
     {\
-        inline auto operator "" _ ## ShortPrefix ## pc(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## au(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
-        inline auto operator "" _ ## ShortPrefix ## ly(long double n) { return unit<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## pc(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<30856775814913673, 1>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## au(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<149597870700, 1>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## ly(long double n) { return scalar<double, dimension, exponents<m_EXPONENTS(1)>, ratios<none, ratio_multiply<ratio<9460730472580800, 1>, Ratio>, none, none, none, none, none>>{ static_cast<double>(n) }; }\
     }
 
     define_astronomical_prefix(q, quecto)
