@@ -156,30 +156,45 @@ namespace neounit::si
     using neounit::to_u8string;
 
     template <dimension D>
-    struct dimension_as_string { static constexpr std::u8string_view string = u8""; };
-    template <> struct dimension_as_string<dimension::Time> { static constexpr std::u8string_view string = u8"s"; };
-    template <> struct dimension_as_string<dimension::Length> { static constexpr std::u8string_view string = u8"m"; };
-    template <> struct dimension_as_string<dimension::Mass> { static constexpr std::u8string_view string = u8"g"; };
-    template <> struct dimension_as_string<dimension::ElectricCurrent> { static constexpr std::u8string_view string = u8"A"; };
-    template <> struct dimension_as_string<dimension::AbsoluteTemperature> { static constexpr std::u8string_view string = u8"K"; };
-    template <> struct dimension_as_string<dimension::AmountOfSubstance> { static constexpr std::u8string_view string = u8"mol"; };
-    template <> struct dimension_as_string<dimension::LuminousIntensity> { static constexpr std::u8string_view string = u8"cd"; };
+    struct dimension_as_string { static constexpr std::string_view string = ""; };
+    template <> struct dimension_as_string<dimension::Time> { static constexpr std::string_view string = "s"; };
+    template <> struct dimension_as_string<dimension::Length> { static constexpr std::string_view string = "m"; };
+    template <> struct dimension_as_string<dimension::Mass> { static constexpr std::string_view string = "g"; };
+    template <> struct dimension_as_string<dimension::ElectricCurrent> { static constexpr std::string_view string = "A"; };
+    template <> struct dimension_as_string<dimension::AbsoluteTemperature> { static constexpr std::string_view string = "K"; };
+    template <> struct dimension_as_string<dimension::AmountOfSubstance> { static constexpr std::string_view string = "mol"; };
+    template <> struct dimension_as_string<dimension::LuminousIntensity> { static constexpr std::string_view string = "cd"; };
+
+    template <dimension D>
+    struct dimension_as_u8string { static constexpr std::u8string_view string = u8""; };
+    template <> struct dimension_as_u8string<dimension::Time> { static constexpr std::u8string_view string = u8"s"; };
+    template <> struct dimension_as_u8string<dimension::Length> { static constexpr std::u8string_view string = u8"m"; };
+    template <> struct dimension_as_u8string<dimension::Mass> { static constexpr std::u8string_view string = u8"g"; };
+    template <> struct dimension_as_u8string<dimension::ElectricCurrent> { static constexpr std::u8string_view string = u8"A"; };
+    template <> struct dimension_as_u8string<dimension::AbsoluteTemperature> { static constexpr std::u8string_view string = u8"K"; };
+    template <> struct dimension_as_u8string<dimension::AmountOfSubstance> { static constexpr std::u8string_view string = u8"mol"; };
+    template <> struct dimension_as_u8string<dimension::LuminousIntensity> { static constexpr std::u8string_view string = u8"cd"; };
 
     template <dimension D, dimensional_exponent E, typename Ratio>
-    inline std::u8string base_units_to_u8string()
+    inline std::string base_unit_to_string()
     {
         if constexpr (E == 0)
-            return u8"";
-        auto result = std::u8string{ ratio_short_prefix<apply_power_sign_t<Ratio, E>>::prefix } + std::u8string{ dimension_as_string<D>::string };
+            return "";
+        auto result = std::string{ ratio_short_prefix<apply_power_sign_t<Ratio, E>>::prefix } + std::string{ dimension_as_string<D>::string };
         if constexpr (E != 1)
-            result += power_to_u8string<E>();
+            result += ("^" + std::to_string(E));
         return result;
     }
 
     template <dimension D, dimensional_exponent E, typename Ratio>
-    inline std::string base_units_to_string()
+    inline std::u8string base_unit_to_u8string()
     {
-        return to_string(to_u8string<D, E, Ratio>());
+        if constexpr (E == 0)
+            return u8"";
+        auto result = std::u8string{ ratio_short_u8prefix<apply_power_sign_t<Ratio, E>>::prefix } + std::u8string{ dimension_as_u8string<D>::string };
+        if constexpr (E != 1)
+            result += power_to_u8string<E>();
+        return result;
     }
 
     namespace detail
@@ -200,10 +215,28 @@ namespace neounit::si
         constexpr std::size_t unit_position_v = unit_position_t<I>::position;
 
         template <dimensional_exponent... Exponent, typename... Ratio, std::size_t... Is>
+        inline std::string base_units_to_string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const&, std::index_sequence<Is...>)
+        {
+            thread_local std::array<std::string, 7> tPartialResult;
+            ((tPartialResult[unit_position_v<Is>] = si::base_unit_to_string<as_dimension_v<Is>, Exponent, Ratio>()), ...);
+            thread_local std::string result;
+            result.clear();
+            for (auto const& u : tPartialResult)
+            {
+                if (u.empty())
+                    continue;
+                if (!result.empty())
+                    result += " ";
+                result += u;
+            }
+            return result;
+        }
+
+        template <dimensional_exponent... Exponent, typename... Ratio, std::size_t... Is>
         inline std::u8string base_units_to_u8string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const&, std::index_sequence<Is...>)
         {
             thread_local std::array<std::u8string, 7> tPartialResult;
-            ((tPartialResult[unit_position_v<Is>] = si::base_units_to_u8string<as_dimension_v<Is>, Exponent, Ratio>()) , ...);
+            ((tPartialResult[unit_position_v<Is>] = si::base_unit_to_u8string<as_dimension_v<Is>, Exponent, Ratio>()) , ...);
             thread_local std::u8string result;
             result.clear();
             for (auto const& u : tPartialResult)
@@ -227,7 +260,7 @@ namespace neounit::si
     template <dimensional_exponent... Exponent, typename... Ratio>
     inline std::string base_units_to_string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const& aUnit)
     {
-        return to_string(base_units_to_u8string(aUnit));
+        return detail::base_units_to_string(aUnit, std::make_index_sequence<sizeof...(Exponent)>{});
     }
 
     #define define_si_prefix(ShortPrefix, Ratio)\
