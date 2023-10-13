@@ -1,4 +1,4 @@
-// unit.hpp
+﻿// unit.hpp
 /*
  *  Copyright (c) 2023 Leigh Johnston.
  *
@@ -39,11 +39,51 @@
 #include <numeric>
 #include <limits>
 #include <ratio>
+#include <unordered_map>
+#include <string>
 
 namespace neounit
 {
     using integer = std::int32_t;
     using dimensional_exponent = integer;
+
+    inline std::u8string to_u8string(std::string_view const& aString)
+    {
+        return { reinterpret_cast<char8_t const*>(aString.data()), reinterpret_cast<char8_t const*>(aString.data()) + aString.length() };
+    }
+
+    inline std::string to_string(std::u8string_view const& aString)
+    {
+        return { reinterpret_cast<char const*>(aString.data()), reinterpret_cast<char const*>(aString.data()) + aString.length() };
+    }
+
+    template <dimensional_exponent E>
+    inline std::u8string power_to_u8string()
+    {
+        static std::unordered_map<char8_t, std::u8string> digits
+        {
+            { u8'0' , u8"⁰" },
+            { u8'1' , u8"¹" },
+            { u8'2' , u8"²" },
+            { u8'3' , u8"³" },
+            { u8'4' , u8"⁴" },
+            { u8'5' , u8"⁵" },
+            { u8'6' , u8"⁶" },
+            { u8'7' , u8"⁷" },
+            { u8'8' , u8"⁸" },
+            { u8'9' , u8"⁹" },
+            { u8'-' , u8"⁻" }
+        };
+        thread_local std::u8string partialResult;
+        partialResult = to_u8string(std::to_string(E));
+        thread_local std::u8string result;
+        result.clear();
+        for (auto const& digit : partialResult)
+        {
+            result += digits.at(digit);
+        }
+        return result;
+    }
 
     template <dimensional_exponent... Exponents>
     struct exponents {};
@@ -102,6 +142,33 @@ namespace neounit
     using yotta = ratio<1, 1, 24>;
     using ronna = ratio<1, 1, 27>;
     using quetta = ratio<1, 1, 30>;
+
+    template <typename R>
+    struct ratio_short_prefix { static constexpr std::u8string_view prefix = u8""; };
+    template <> struct ratio_short_prefix<quecto> { static constexpr std::u8string_view prefix = u8"q"; };
+    template <> struct ratio_short_prefix<ronto> { static constexpr std::u8string_view prefix = u8"r"; };
+    template <> struct ratio_short_prefix<yocto> { static constexpr std::u8string_view prefix = u8"y"; };
+    template <> struct ratio_short_prefix<zepto> { static constexpr std::u8string_view prefix = u8"z"; };
+    template <> struct ratio_short_prefix<atto> { static constexpr std::u8string_view prefix = u8"a"; };
+    template <> struct ratio_short_prefix<femto> { static constexpr std::u8string_view prefix = u8"f"; };
+    template <> struct ratio_short_prefix<pico> { static constexpr std::u8string_view prefix = u8"p"; };
+    template <> struct ratio_short_prefix<nano> { static constexpr std::u8string_view prefix = u8"n"; };
+    template <> struct ratio_short_prefix<micro> { static constexpr std::u8string_view prefix = u8"u"; };
+    template <> struct ratio_short_prefix<milli> { static constexpr std::u8string_view prefix = u8"m"; };
+    template <> struct ratio_short_prefix<centi> { static constexpr std::u8string_view prefix = u8"c"; };
+    template <> struct ratio_short_prefix<deci> { static constexpr std::u8string_view prefix = u8"d"; };
+    template <> struct ratio_short_prefix<deca> { static constexpr std::u8string_view prefix = u8"da"; };
+    template <> struct ratio_short_prefix<hecto> { static constexpr std::u8string_view prefix = u8"h"; };
+    template <> struct ratio_short_prefix<kilo> { static constexpr std::u8string_view prefix = u8"k"; };
+    template <> struct ratio_short_prefix<mega> { static constexpr std::u8string_view prefix = u8"M"; };
+    template <> struct ratio_short_prefix<giga> { static constexpr std::u8string_view prefix = u8"G"; };
+    template <> struct ratio_short_prefix<tera> { static constexpr std::u8string_view prefix = u8"T"; };
+    template <> struct ratio_short_prefix<peta> { static constexpr std::u8string_view prefix = u8"P"; };
+    template <> struct ratio_short_prefix<exa> { static constexpr std::u8string_view prefix = u8"E"; };
+    template <> struct ratio_short_prefix<zetta> { static constexpr std::u8string_view prefix = u8"Z"; };
+    template <> struct ratio_short_prefix<yotta> { static constexpr std::u8string_view prefix = u8"Y"; };
+    template <> struct ratio_short_prefix<ronna> { static constexpr std::u8string_view prefix = u8"R"; };
+    template <> struct ratio_short_prefix<quetta> { static constexpr std::u8string_view prefix = u8"Q"; };
 
     template <typename Ratio>
     struct apply_inverse { using result_type = ratio<Ratio::num, Ratio::den, -Ratio::exp>; };

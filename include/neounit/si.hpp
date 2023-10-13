@@ -1,4 +1,4 @@
-// si.hpp
+﻿// si.hpp
 /*
  *  Copyright (c) 2023 Leigh Johnston.
  *
@@ -36,6 +36,7 @@
 #pragma once
 
 #include <cstdint>
+#include <array>
 #include <string>
 
 #include <neounit/unit.hpp>
@@ -151,6 +152,84 @@ namespace neounit::si
     using inv_mole_sq = mol<-2>;
     using inv_candela_sq = cd<-2>;
 
+    using neounit::to_string;
+    using neounit::to_u8string;
+
+    template <dimension D>
+    struct dimension_as_string { static constexpr std::u8string_view string = u8""; };
+    template <> struct dimension_as_string<dimension::Time> { static constexpr std::u8string_view string = u8"s"; };
+    template <> struct dimension_as_string<dimension::Length> { static constexpr std::u8string_view string = u8"m"; };
+    template <> struct dimension_as_string<dimension::Mass> { static constexpr std::u8string_view string = u8"g"; };
+    template <> struct dimension_as_string<dimension::ElectricCurrent> { static constexpr std::u8string_view string = u8"A"; };
+    template <> struct dimension_as_string<dimension::AbsoluteTemperature> { static constexpr std::u8string_view string = u8"K"; };
+    template <> struct dimension_as_string<dimension::AmountOfSubstance> { static constexpr std::u8string_view string = u8"mol"; };
+    template <> struct dimension_as_string<dimension::LuminousIntensity> { static constexpr std::u8string_view string = u8"cd"; };
+
+    template <dimension D, dimensional_exponent E, typename Ratio>
+    inline std::u8string base_units_to_u8string()
+    {
+        if constexpr (E == 0)
+            return u8"";
+        auto result = std::u8string{ ratio_short_prefix<apply_power_sign_t<Ratio, E>>::prefix } + std::u8string{ dimension_as_string<D>::string };
+        if constexpr (E != 1)
+            result += power_to_u8string<E>();
+        return result;
+    }
+
+    template <dimension D, dimensional_exponent E, typename Ratio>
+    inline std::string base_units_to_string()
+    {
+        return to_string(to_u8string<D, E, Ratio>());
+    }
+
+    namespace detail
+    {
+        template <std::size_t I>
+        constexpr dimension as_dimension_v = static_cast<dimension>(I);
+        template <dimension D>
+        constexpr std::size_t as_integer_v = static_cast<std::size_t>(D);
+        template <std::size_t I> struct unit_position_t {};
+        template <> struct unit_position_t<as_integer_v<dimension::Time>> { static constexpr std::size_t position = 2u; };
+        template <> struct unit_position_t<as_integer_v<dimension::Length>> { static constexpr std::size_t position = 0u; };
+        template <> struct unit_position_t<as_integer_v<dimension::Mass>> { static constexpr std::size_t position = 1u; };
+        template <> struct unit_position_t<as_integer_v<dimension::ElectricCurrent>> { static constexpr std::size_t position = 3u; };
+        template <> struct unit_position_t<as_integer_v<dimension::AbsoluteTemperature>> { static constexpr std::size_t position = 4u; };
+        template <> struct unit_position_t<as_integer_v<dimension::AmountOfSubstance>> { static constexpr std::size_t position = 5u; };
+        template <> struct unit_position_t<as_integer_v<dimension::LuminousIntensity>> { static constexpr std::size_t position = 6u; };
+        template <std::size_t I>
+        constexpr std::size_t unit_position_v = unit_position_t<I>::position;
+
+        template <dimensional_exponent... Exponent, typename... Ratio, std::size_t... Is>
+        inline std::u8string base_units_to_u8string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const&, std::index_sequence<Is...>)
+        {
+            thread_local std::array<std::u8string, 7> tPartialResult;
+            ((tPartialResult[unit_position_v<Is>] = si::base_units_to_u8string<as_dimension_v<Is>, Exponent, Ratio>()) , ...);
+            thread_local std::u8string result;
+            result.clear();
+            for (auto const& u : tPartialResult)
+            {
+                if (u.empty())
+                    continue;
+                if (!result.empty())
+                    result += u8"⋅";
+                result += u;
+            }
+            return result;
+        }
+    }
+
+    template <dimensional_exponent... Exponent, typename... Ratio>
+    inline std::u8string base_units_to_u8string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const& aUnit)
+    {
+        return detail::base_units_to_u8string(aUnit, std::make_index_sequence<sizeof...(Exponent)>{});
+    }
+
+    template <dimensional_exponent... Exponent, typename... Ratio>
+    inline std::string base_units_to_string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const& aUnit)
+    {
+        return to_string(base_units_to_u8string(aUnit));
+    }
+
     #define define_si_prefix(ShortPrefix, Ratio)\
     template<dimensional_exponent E, typename T = double>\
     using ShortPrefix ## s = scalar<T, dimension, exponents<s_EXPONENTS(E)>, ratios<Ratio, none, none, none, none, none, none>::apply_power_sign_t<s_EXPONENTS(E)>>;\
@@ -224,13 +303,7 @@ namespace neounit::si
         inline auto operator "" _ ## ShortPrefix ## K(long double n) { return scalar<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, Ratio, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## mol(long double n) { return scalar<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, Ratio, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## cd(long double n) { return scalar<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
-    }
-
-    template <dimensional_exponent... Exponent, typename... Ratio>
-    inline std::string to_string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const&)
-    {
-        return ""; ///< @ todo
-    }
+    }\
 
     define_si_prefix(q, quecto)
     define_si_prefix(r, ronto)

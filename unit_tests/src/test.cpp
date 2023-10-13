@@ -1,4 +1,4 @@
-// test.cpp : This file contains the 'main' function. Program execution begins and ends there.
+﻿// test.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
 
 #include <type_traits>
@@ -229,6 +229,15 @@ int main()
     test_assert(near_enough(p1, 100.0));
     test_assert(near_enough(r1, 100.0 / 0.042));
     test_assert(near_enough(r2, 1.0));
+
+    test_assert(base_units_to_u8string(1.0_m) == u8"m");
+    test_assert(base_units_to_u8string(1.0_m * 1.0_s) == u8"m⋅s");
+    test_assert(base_units_to_string(1.0_m * 1.0_s) == reinterpret_cast<char const*>(u8"m⋅s"));
+    test_assert(base_units_to_u8string(1.0_m / 1.0_s) == u8"m⋅s⁻¹");
+    test_assert(base_units_to_u8string(1.0_m / 1.0_s / 1.0_s) == u8"m⋅s⁻²");
+    test_assert(base_units_to_u8string(1.0_km / 1.0_ms) == u8"km⋅ms⁻¹");
+    test_assert(base_units_to_u8string(1.0_Ω) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
+    test_assert(base_units_to_u8string(1.0_ohm) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
 
     // astronomical
     

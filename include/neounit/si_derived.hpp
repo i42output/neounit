@@ -146,6 +146,7 @@ namespace neounit::si
         inline auto operator "" _V(long double n) { return scalar<double, dimension, exponents<V_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _F(long double n) { return scalar<double, dimension, exponents<F_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _Ω(long double n) { return scalar<double, dimension, exponents<Ω_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
+        inline auto operator "" _ohm(long double n) { return scalar<double, dimension, exponents<Ω_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _S(long double n) { return scalar<double, dimension, exponents<S_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _Wb(long double n) { return scalar<double, dimension, exponents<Wb_EXPONENTS>, ratios<one, one, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _T(long double n) { return scalar<double, dimension, exponents<T_EXPONENTS>, ratios<one, none, kilo, one, none, none, none>>{ static_cast<double>(n) }; }
@@ -211,6 +212,7 @@ namespace neounit::si
         inline auto operator "" _ ## ShortPrefix ## V(long double n) { return scalar<double, dimension, exponents<V_EXPONENTS>, ratios<Ratio, Ratio, ratio_multiply<kilo, Ratio>, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## F(long double n) { return scalar<double, dimension, exponents<F_EXPONENTS>, ratios<Ratio, Ratio, ratio_multiply<kilo, Ratio>, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## Ω(long double n) { return scalar<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, ratio_multiply<kilo, Ratio>, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
+        inline auto operator "" _ ## ShortPrefix ## ohm(long double n) { return scalar<double, dimension, exponents<Ω_EXPONENTS>, ratios<Ratio, Ratio, ratio_multiply<kilo, Ratio>, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## S(long double n) { return scalar<double, dimension, exponents<S_EXPONENTS>, ratios<Ratio, Ratio, ratio_multiply<kilo, Ratio>, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## Wb(long double n) { return scalar<double, dimension, exponents<Wb_EXPONENTS>, ratios<Ratio, Ratio, ratio_multiply<kilo, Ratio>, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## T(long double n) { return scalar<double, dimension, exponents<T_EXPONENTS>, ratios<Ratio, none, ratio_multiply<kilo, Ratio>, Ratio, none, none, none>>{ static_cast<double>(n) }; }\
