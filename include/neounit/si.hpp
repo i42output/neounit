@@ -36,6 +36,7 @@
 #pragma once
 
 #include <cstdint>
+#include <string>
 
 #include <neounit/unit.hpp>
 
@@ -223,6 +224,12 @@ namespace neounit::si
         inline auto operator "" _ ## ShortPrefix ## K(long double n) { return scalar<double, dimension, exponents<K_EXPONENTS(1)>, ratios<none, none, none, none, Ratio, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## mol(long double n) { return scalar<double, dimension, exponents<mol_EXPONENTS(1)>, ratios<none, none, none, none, none, Ratio, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## cd(long double n) { return scalar<double, dimension, exponents<cd_EXPONENTS(1)>, ratios<none, none, none, none, none, none, Ratio>>{ static_cast<double>(n) }; }\
+    }
+
+    template <dimensional_exponent... Exponent, typename... Ratio>
+    inline std::string to_string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const&)
+    {
+        return ""; ///< @ todo
     }
 
     define_si_prefix(q, quecto)

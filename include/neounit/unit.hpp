@@ -36,7 +36,6 @@
 #pragma once
 
 #include <cstdint>
-#include <tuple>
 #include <numeric>
 #include <limits>
 #include <ratio>
@@ -262,24 +261,13 @@ namespace neounit
     using combine_t = typename combine<Exponent1, Exponent2, Ratio1, Ratio2>::result_type;
 
     template <typename... Ratios>
-    class ratios : public std::tuple<Ratios...>
+    struct ratios
     {
-    public:
-        using value_type = std::tuple<Ratios...>;
         using inverse_t = typename ratios<apply_inverse_t<Ratios>...>;
         template <dimensional_exponent... E>
         using apply_power_t = ratios<typename neounit::apply_power_t<Ratios, E>...>;
         template <dimensional_exponent... E>
         using apply_power_sign_t = ratios<typename neounit::apply_power_sign_t<Ratios, E>...>;
-    public:
-        ratios() : value_type{ Ratios{}... }
-        {
-        }
-    public:
-        value_type const& operator*() const
-        {
-            return *this;
-        }
     };
 
     template <typename Dimension, typename Exponents, typename Ratios>
