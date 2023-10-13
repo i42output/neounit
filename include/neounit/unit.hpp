@@ -60,7 +60,7 @@ namespace neounit
     template <dimensional_exponent E>
     inline std::u8string power_to_u8string()
     {
-        static std::unordered_map<char8_t, std::u8string> digits
+        static std::unordered_map<char8_t, std::u8string> const digits
         {
             { u8'0' , u8"⁰" },
             { u8'1' , u8"¹" },
