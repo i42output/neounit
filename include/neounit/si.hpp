@@ -252,15 +252,15 @@ namespace neounit::si
     }
 
     template <dimensional_exponent... Exponent, typename... Ratio>
-    inline std::u8string base_units_to_u8string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const& aUnit)
-    {
-        return detail::base_units_to_u8string(aUnit, std::make_index_sequence<sizeof...(Exponent)>{});
-    }
-
-    template <dimensional_exponent... Exponent, typename... Ratio>
     inline std::string base_units_to_string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const& aUnit)
     {
         return detail::base_units_to_string(aUnit, std::make_index_sequence<sizeof...(Exponent)>{});
+    }
+
+    template <dimensional_exponent... Exponent, typename... Ratio>
+    inline std::u8string base_units_to_u8string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const& aUnit)
+    {
+        return detail::base_units_to_u8string(aUnit, std::make_index_sequence<sizeof...(Exponent)>{});
     }
 
     #define define_si_prefix(ShortPrefix, Ratio)\

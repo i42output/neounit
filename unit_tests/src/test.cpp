@@ -246,6 +246,20 @@ int main()
     test_assert(base_units_to_u8string(1.0_Ω) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
     test_assert(base_units_to_u8string(1.0_ohm) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
 
+    test_assert(derived_unit_to_string(1.0_Hz) == "Hz");
+    test_assert(derived_unit_to_string(1.0_MHz) == "MHz");
+    test_assert(derived_unit_to_string(1.0_Ω) == "ohm");
+    test_assert(derived_unit_to_string(1.0_ohm) == "ohm");
+    test_assert(derived_unit_to_string(1.0_degC) == "degC");
+    test_assert(derived_unit_to_string(1.0_nT) == "nT");
+
+    test_assert(derived_unit_to_u8string(1.0_Hz) == u8"Hz");
+    test_assert(derived_unit_to_u8string(1.0_MHz) == u8"MHz");
+    test_assert(derived_unit_to_u8string(1.0_Ω) == u8"Ω");
+    test_assert(derived_unit_to_u8string(1.0_ohm) == u8"Ω");
+    test_assert(derived_unit_to_u8string(1.0_degC) == u8"°C");
+    test_assert(derived_unit_to_u8string(1.0_nT) == u8"nT");
+
     // astronomical
     
     using namespace neounit::astronomical;

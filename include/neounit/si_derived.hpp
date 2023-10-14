@@ -36,6 +36,7 @@
 #pragma once
 
 #include <cstdint>
+#include <tuple>
 
 #include <neounit/unit.hpp>
 #include <neounit/si.hpp>
@@ -104,11 +105,43 @@ namespace neounit::si
     template<typename T = double>
     using Bq = scalar<T, dimension, exponents<Bq_EXPONENTS>, ratios<one, none, none, none, none, none, none>>;
     template<typename T = double>
-    using Gy  = scalar<T, dimension, exponents<Gy_EXPONENTS>, ratios<one, one, none, none, none, none, none>>;
+    using Gy = scalar<T, dimension, exponents<Gy_EXPONENTS>, ratios<one, one, none, none, none, none, none>>;
     template<typename T = double>
     using Sv = scalar<T, dimension, exponents<Sv_EXPONENTS>, ratios<one, one, none, none, none, none, none>>;
     template<typename T = double>
     using kat = scalar<T, dimension, exponents<kat_EXPONENTS>, ratios<one, none, none, none, none, one, none>>;
+
+    template <std::size_t N, typename... Ts>
+    using nth_type_of_t = typename std::tuple_element<N, std::tuple<Ts...>>::type;
+    template <std::size_t N, typename Ratios>
+    struct nth_ratio {};
+    template <std::size_t N, typename... Ratios>
+    struct nth_ratio<N, ratios<Ratios...>> { using result_type = typename nth_type_of_t<N, Ratios...>; };
+    template <int N, typename Ratios> using nth_ratio_t = typename nth_ratio<N, Ratios>::result_type;
+
+    template <typename Unit> struct unit_key {};
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<Hz_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<N_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<Pa_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<J_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<W_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<C_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<V_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<F_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<Ω_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<S_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<Wb_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<T_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<H_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<degC_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 4; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<lm_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 6; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<lx_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 6; };
+    /* (alias of Hz) */ // template <typename Ratios> struct unit_key<unit<dimension, exponents<Bq_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<Gy_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    /* (alias of Gy) */ // template <typename Ratios> struct unit_key<unit<dimension, exponents<Sv_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Ratios> struct unit_key<unit<dimension, exponents<kat_EXPONENTS>, Ratios>> { static constexpr std::size_t key = 0; };
+    template <typename Unit>
+    using ratio_key_t = nth_ratio_t<unit_key<Unit>::key, typename Unit::ratios_type>;
 
     using hertz = Hz<>;
     using radian = rad<>;
@@ -158,6 +191,79 @@ namespace neounit::si
         inline auto operator "" _Gy(long double n) { return scalar<double, dimension, exponents<Gy_EXPONENTS>, ratios<one, one, none, none, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _Sv(long double n) { return scalar<double, dimension, exponents<Sv_EXPONENTS>, ratios<one, one, none, none, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _kat(long double n) { return scalar<double, dimension, exponents<kat_EXPONENTS>, ratios<one, none, none, none, none, one, none>>{ static_cast<double>(n) }; }
+    }
+
+    using neounit::to_string;
+    using neounit::to_u8string;
+
+    template <typename Unit>
+    struct derived_unit_as_string { static constexpr std::string_view string = ""; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<Hz_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "Hz"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<N_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "NX"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<Pa_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "Pa"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<J_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "J"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<W_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "W"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<C_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "C"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<V_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "V"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<F_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "F"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<Ω_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "ohm"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<S_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "S"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<Wb_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "Wb"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<T_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "T"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<H_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "H"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<degC_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "degC"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<lm_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "lm"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<lx_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "lx"; };
+    /* (alias of Hz) */ // template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<Bq_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "Bq"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<Gy_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "Gy"; };
+    /* (alias of Gy) */ // template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<Sv_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "Sv"; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<kat_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "kat"; };
+
+    template <typename Unit>
+    struct derived_unit_as_u8string { static constexpr std::u8string_view string = u8""; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<Hz_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"Hz"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<N_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"NX"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<Pa_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"Pa"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<J_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"J"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<W_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"W"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<C_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"C"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<V_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"V"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<F_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"F"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<Ω_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"Ω"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<S_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"S"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<Wb_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"Wb"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<T_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"T"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<H_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"H"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<degC_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"°C"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<lm_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"lm"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<lx_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"lx"; };
+    /* (alias of Hz) */ // template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<Bq_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"Bq"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<Gy_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"Gy"; };
+    /* (alias of Gy) */ // template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<Sv_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"Sv"; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<kat_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"kat"; };
+
+    template <typename Unit>
+    inline std::string derived_unit_to_string()
+    {
+        return std::string{ ratio_short_prefix<ratio_key_t<Unit>>::prefix } + std::string{ derived_unit_as_string<Unit>::string };
+    }
+
+    template <typename Unit>
+    inline std::u8string derived_unit_to_u8string()
+    {
+        return std::u8string{ ratio_short_u8prefix<ratio_key_t<Unit>>::prefix } + std::u8string{ derived_unit_as_u8string<Unit>::string };
+    }
+
+    template <dimensional_exponent... Exponent, typename... Ratio>
+    inline std::string derived_unit_to_string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const& aUnit)
+    {
+        return derived_unit_to_string<unit<dimension, exponents<Exponent...>, ratios<Ratio...>>>();
+    }
+
+    template <dimensional_exponent... Exponent, typename... Ratio>
+    inline std::u8string derived_unit_to_u8string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const& aUnit)
+    {
+        return derived_unit_to_u8string<unit<dimension, exponents<Exponent...>, ratios<Ratio...>>>();
     }
 
     #define define_si_derived_prefix(ShortPrefix, Ratio)\
