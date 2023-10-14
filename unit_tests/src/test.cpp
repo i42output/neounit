@@ -235,6 +235,7 @@ int main()
     test_assert(base_units_to_string(1.0_m / 1.0_s) == "m s^-1");
     test_assert(base_units_to_string(1.0_m / 1.0_s / 1.0_s) == "m s^-2");
     test_assert(base_units_to_string(1.0_km / 1.0_ms) == "km ms^-1");
+    test_assert(base_units_to_string(1.0_km / 1.0_h) == "km h^-1");
     test_assert(base_units_to_string(1.0_Ω) == "m^2 kg s^-3 A^-2");
     test_assert(base_units_to_string(1.0_ohm) == "m^2 kg s^-3 A^-2");
 
@@ -243,6 +244,7 @@ int main()
     test_assert(base_units_to_u8string(1.0_m / 1.0_s) == u8"m⋅s⁻¹");
     test_assert(base_units_to_u8string(1.0_m / 1.0_s / 1.0_s) == u8"m⋅s⁻²");
     test_assert(base_units_to_u8string(1.0_km / 1.0_ms) == u8"km⋅ms⁻¹");
+    test_assert(base_units_to_u8string(1.0_km / 1.0_h) == u8"km⋅h⁻¹");
     test_assert(base_units_to_u8string(1.0_Ω) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
     test_assert(base_units_to_u8string(1.0_ohm) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
 

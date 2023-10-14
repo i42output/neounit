@@ -44,25 +44,36 @@ namespace neounit::si
 {
     // s m g A K mol cd
 
+    #define h_EXPONENTS 1, 0, 0, 0, 0, 0, 0
     #define t_EXPONENTS 0, 0, 1, 0, 0, 0, 0
 
-    template<typename T = double>
-    using t = scalar<T, dimension, exponents<t_EXPONENTS>, ratios<none, none, mega, none, none, none, none>>;
+    template<typename T = double> using h = scalar<T, dimension, exponents<h_EXPONENTS>, ratios<ratio<60 * 60>, none, none, none, none, none, none>>;
+    template<typename T = double> using t = scalar<T, dimension, exponents<t_EXPONENTS>, ratios<none, none, mega, none, none, none, none>>;
 
+    using hour = h<>;
     using tonne = t<>;
     using ton = tonne;
 
     namespace literals
     {
+        inline auto operator "" _h(long double n) { return scalar<double, dimension, exponents<h_EXPONENTS>, ratios<ratio<60 * 60>, none, none, none, none, none, none>>{ static_cast<double>(n) }; }
         inline auto operator "" _t(long double n) { return scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, mega, none, none, none, none>>{ static_cast<double>(n) }; }
     }
 
+    template <dimensional_exponent E> struct base_unit_pre_exponent_to_string<dimension::Time, E, ratio<60 * 60>> { static inline auto const value = std::string{ ratio_short_prefix<apply_power_sign_t<ratio<60 * 60>, E>>::prefix } + "h"; };
+    template <dimensional_exponent E> struct base_unit_pre_exponent_to_u8string<dimension::Time, E, ratio<60 * 60>> { static inline auto const value = std::u8string{ ratio_short_u8prefix<apply_power_sign_t<ratio<60 * 60>, E>>::prefix } + u8"h"; };
+
     #define define_si_other_prefix(ShortPrefix, Ratio)\
+    template <dimensional_exponent E> struct base_unit_pre_exponent_to_string<dimension::Time, E, ratio_multiply<ratio<60 * 60>, Ratio>> { static inline auto const value = std::string{ ratio_short_prefix<apply_power_sign_t<Ratio, E>>::prefix } + "h"; };\
+    template <dimensional_exponent E> struct base_unit_pre_exponent_to_u8string<dimension::Time, E, ratio_multiply<ratio<60 * 60>, Ratio>> { static inline auto const value = std::u8string{ ratio_short_u8prefix<apply_power_sign_t<Ratio, E>>::prefix } + u8"h"; };\
+    using ShortPrefix ## hour = scalar<double, dimension, exponents<h_EXPONENTS>, ratios<ratio_multiply<ratio<60 * 60>, Ratio>, none, none, none, none, none, none>>;\
     using ShortPrefix ## t = scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>;\
+    using Ratio ## hour = scalar<double, dimension, exponents<h_EXPONENTS>, ratios<ratio_multiply<ratio<60 * 60>, Ratio>, none, none, none, none, none, none>>;\
     using Ratio ## tonne = scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>;\
     using Ratio ## ton = scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>;\
     namespace literals\
     {\
+        inline auto operator "" _ ## ShortPrefix ## h(long double n) { return scalar<double, dimension, exponents<h_EXPONENTS>, ratios<ratio_multiply<ratio<60 * 60>, Ratio>, none, none, none, none, none, none>>{ static_cast<double>(n) }; }\
         inline auto operator "" _ ## ShortPrefix ## t(long double n) { return scalar<double, dimension, exponents<t_EXPONENTS>, ratios<none, none, ratio_multiply<mega, Ratio>, none, none, none, none>>{ static_cast<double>(n) }; }\
     }
 

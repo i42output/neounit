@@ -176,26 +176,42 @@ namespace neounit::si
     template <> struct dimension_as_u8string<dimension::LuminousIntensity> { static constexpr std::u8string_view string = u8"cd"; };
 
     template <dimension D, dimensional_exponent E, typename Ratio>
+    struct base_unit_pre_exponent_to_string
+    {
+        static inline auto const value = std::string{ ratio_short_prefix<apply_power_sign_t<Ratio, E>>::prefix } + std::string{ dimension_as_string<D>::string };
+    };
+    template <dimension D, dimensional_exponent E, typename Ratio>
+    const std::string base_unit_pre_exponent_to_string_v = base_unit_pre_exponent_to_string<D, E, Ratio>::value;
+
+    template <dimension D, dimensional_exponent E, typename Ratio>
     inline std::string base_unit_to_string()
     {
         if constexpr (E == 0)
             return "";
-        auto result = std::string{ ratio_short_prefix<apply_power_sign_t<Ratio, E>>::prefix } + std::string{ dimension_as_string<D>::string };
+        auto result = base_unit_pre_exponent_to_string_v<D, E, Ratio>;
         if constexpr (E != 1)
             result += ("^" + std::to_string(E));
         return result;
-    }
+    };
+
+    template <dimension D, dimensional_exponent E, typename Ratio>
+    struct base_unit_pre_exponent_to_u8string
+    {
+        static inline auto const value = std::u8string{ ratio_short_u8prefix<apply_power_sign_t<Ratio, E>>::prefix } + std::u8string{ dimension_as_u8string<D>::string };
+    };
+    template <dimension D, dimensional_exponent E, typename Ratio>
+    const std::u8string base_unit_pre_exponent_to_u8string_v = base_unit_pre_exponent_to_u8string<D, E, Ratio>::value;
 
     template <dimension D, dimensional_exponent E, typename Ratio>
     inline std::u8string base_unit_to_u8string()
     {
         if constexpr (E == 0)
             return u8"";
-        auto result = std::u8string{ ratio_short_u8prefix<apply_power_sign_t<Ratio, E>>::prefix } + std::u8string{ dimension_as_u8string<D>::string };
+        auto result = base_unit_pre_exponent_to_u8string_v<D, E, Ratio>;
         if constexpr (E != 1)
             result += power_to_u8string<E>();
         return result;
-    }
+    };
 
     namespace detail
     {
@@ -236,7 +252,7 @@ namespace neounit::si
         inline std::u8string base_units_to_u8string(unit<dimension, exponents<Exponent...>, ratios<Ratio...>> const&, std::index_sequence<Is...>)
         {
             thread_local std::array<std::u8string, 7> tPartialResult;
-            ((tPartialResult[unit_position_v<Is>] = si::base_unit_to_u8string<as_dimension_v<Is>, Exponent, Ratio>()) , ...);
+            ((tPartialResult[unit_position_v<Is>] = si::base_unit_to_u8string<as_dimension_v<Is>, Exponent, Ratio>()), ...);
             thread_local std::u8string result;
             result.clear();
             for (auto const& u : tPartialResult)
