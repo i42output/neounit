@@ -27,8 +27,13 @@ namespace
     }
 }
 
+//#define STATIC_CHECK_0
 //#define STATIC_CHECK_1
 //#define STATIC_CHECK_2
+//#define STATIC_CHECK_3
+//#define STATIC_CHECK_4
+//#define STATIC_CHECK_5
+//#define STATIC_CHECK_6
 
 int main()
 {
@@ -67,6 +72,9 @@ int main()
     kilogram m3 = m1 + m2;
     kilogram m4 = m3 - m2;
     auto m5 = m1 * m2;
+#ifdef STATIC_CHECK_0
+    auto bad0 = m5 + m1; // compilation failure if enabled
+#endif
     auto m6 = m1 / m2;
     auto m7 = m5 / m1;
     auto m8 = m5 / m1 / m1;
@@ -110,10 +118,18 @@ int main()
     auto m37 = 2.0 * m30;
     auto m38 = m30 / 2.0;
     auto m39 = 2.0 / m30;
-    auto m40 = m30 + 2.0;
-    auto m41 = 2.0 + m30;
-    auto m42 = m30 - 2.0;
-    auto m43 = 2.0 - m30;
+#ifdef STATIC_CHECK_3
+    auto bad3 = m30 + 2.0; // compilation failure if enabled
+#endif
+#ifdef STATIC_CHECK_4
+    auto bad4 = 2.0 + m30; // compilation failure if enabled
+#endif
+#ifdef STATIC_CHECK_5
+    auto bad5 = m30 - 2.0; // compilation failure if enabled
+#endif
+#ifdef STATIC_CHECK_6
+    auto bad6 = 2.0 - m30; // compilation failure if enabled
+#endif
 
     auto m50 = -m30;
     auto m51 = +m30;
@@ -172,10 +188,6 @@ int main()
     static_assert(std::is_same_v<decltype(m37), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m38), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m39), inv_kilometre_sq>);
-    static_assert(std::is_same_v<decltype(m40), kilometre_sq>);
-    static_assert(std::is_same_v<decltype(m41), kilometre_sq>);
-    static_assert(std::is_same_v<decltype(m42), kilometre_sq>);
-    static_assert(std::is_same_v<decltype(m43), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m50), kilometre_sq>);
     static_assert(std::is_same_v<decltype(m51), kilometre_sq>);
     static_assert(std::is_same_v<decltype(p1), volt>);
@@ -220,10 +232,6 @@ int main()
     test_assert(near_enough(m37, 2.0 * 42.0));
     test_assert(near_enough(m38, 42.0 / 2.0));
     test_assert(near_enough(m39, 2.0 / 42.0));
-    test_assert(near_enough(m40, 42.0 + 2.0));
-    test_assert(near_enough(m41, 2.0 + 42.0));
-    test_assert(near_enough(m42, 42.0 - 2.0));
-    test_assert(near_enough(m43, 2.0 - 42.0));
     test_assert(near_enough(m50, -42.0));
     test_assert(near_enough(m51, 42.0));
     test_assert(near_enough(p1, 100.0));
