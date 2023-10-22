@@ -246,6 +246,7 @@ int main()
     test_assert(base_units_to_string(1.0_km / 1.0_h) == "km h^-1");
     test_assert(base_units_to_string(1.0_Ω) == "m^2 kg s^-3 A^-2");
     test_assert(base_units_to_string(1.0_ohm) == "m^2 kg s^-3 A^-2");
+    test_assert(base_units_to_string(1.0 / 1.0_MHz) == "us");
 
     test_assert(base_units_to_u8string(1.0_m) == u8"m");
     test_assert(base_units_to_u8string(1.0_m * 1.0_s) == u8"m⋅s");
@@ -255,9 +256,11 @@ int main()
     test_assert(base_units_to_u8string(1.0_km / 1.0_h) == u8"km⋅h⁻¹");
     test_assert(base_units_to_u8string(1.0_Ω) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
     test_assert(base_units_to_u8string(1.0_ohm) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
+    test_assert(base_units_to_u8string(1.0 / 1.0_MHz) == u8"us");
 
     test_assert(derived_unit_to_string(1.0_Hz) == "Hz");
     test_assert(derived_unit_to_string(1.0_MHz) == "MHz");
+    test_assert(derived_unit_to_string(1.0 / 1.0_MHz) == "us");
     test_assert(derived_unit_to_string(1.0_Ω) == "ohm");
     test_assert(derived_unit_to_string(1.0_ohm) == "ohm");
     test_assert(derived_unit_to_string(1.0_degC) == "degC");
@@ -265,6 +268,7 @@ int main()
 
     test_assert(derived_unit_to_u8string(1.0_Hz) == u8"Hz");
     test_assert(derived_unit_to_u8string(1.0_MHz) == u8"MHz");
+    test_assert(derived_unit_to_u8string(1.0 / 1.0_MHz) == u8"us");
     test_assert(derived_unit_to_u8string(1.0_Ω) == u8"Ω");
     test_assert(derived_unit_to_u8string(1.0_ohm) == u8"Ω");
     test_assert(derived_unit_to_u8string(1.0_degC) == u8"°C");
