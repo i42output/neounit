@@ -205,13 +205,13 @@ namespace neounit::si
 
     template <typename Unit>
     struct derived_unit_as_string {};
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_string<unit<dimension, exponents<s_EXPONENTS(E)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::Time>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_string<unit<dimension, exponents<m_EXPONENTS(E)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::Length>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_string<unit<dimension, exponents<g_EXPONENTS(E)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::Mass>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_string<unit<dimension, exponents<A_EXPONENTS(E)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::ElectricCurrent>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_string<unit<dimension, exponents<K_EXPONENTS(E)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::AbsoluteTemperature>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_string<unit<dimension, exponents<mol_EXPONENTS(E)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::AmountOfSubstance>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_string<unit<dimension, exponents<cd_EXPONENTS(E)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::LuminousIntensity>::string; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<s_EXPONENTS(1)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::Time>::string; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<m_EXPONENTS(1)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::Length>::string; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<g_EXPONENTS(1)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::Mass>::string; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<A_EXPONENTS(1)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::ElectricCurrent>::string; };
+    /* (alias of degC) */ // template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<K_EXPONENTS(1)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::AbsoluteTemperature>::string; };
+    template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<mol_EXPONENTS(1)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::AmountOfSubstance>::string; };
+    /* (alias of lm) */ // template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<cd_EXPONENTS(1)>, Ratios>> { static constexpr std::string_view string = dimension_as_string<dimension::LuminousIntensity>::string; };
     template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<Hz_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "Hz"; };
     template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<N_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "NX"; };
     template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<Pa_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "Pa"; };
@@ -234,14 +234,14 @@ namespace neounit::si
     template <typename Ratios> struct derived_unit_as_string<unit<dimension, exponents<kat_EXPONENTS>, Ratios>> { static constexpr std::string_view string = "kat"; };
 
     template <typename Unit>
-    struct derived_unit_as_u8string { inline static const std::string string = base_units_to_u8string<Unit>(); };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_u8string<unit<dimension, exponents<s_EXPONENTS(E)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::Time>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_u8string<unit<dimension, exponents<m_EXPONENTS(E)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::Length>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_u8string<unit<dimension, exponents<g_EXPONENTS(E)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::Mass>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_u8string<unit<dimension, exponents<A_EXPONENTS(E)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::ElectricCurrent>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_u8string<unit<dimension, exponents<K_EXPONENTS(E)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::AbsoluteTemperature>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_u8string<unit<dimension, exponents<mol_EXPONENTS(E)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::AmountOfSubstance>::string; };
-    template <typename Ratios, dimensional_exponent E> struct derived_unit_as_u8string<unit<dimension, exponents<cd_EXPONENTS(E)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::LuminousIntensity>::string; };
+    struct derived_unit_as_u8string {};
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<s_EXPONENTS(1)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::Time>::string; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<m_EXPONENTS(1)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::Length>::string; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<g_EXPONENTS(1)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::Mass>::string; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<A_EXPONENTS(1)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::ElectricCurrent>::string; };
+    /* (alias of degC) */ // template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<K_EXPONENTS(1)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::AbsoluteTemperature>::string; };
+    template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<mol_EXPONENTS(1)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::AmountOfSubstance>::string; };
+    /* (alias of lm) */ // template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<cd_EXPONENTS(1)>, Ratios>> { static constexpr std::u8string_view string = dimension_as_u8string<dimension::LuminousIntensity>::string; };
     template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<Hz_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"Hz"; };
     template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<N_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"NX"; };
     template <typename Ratios> struct derived_unit_as_u8string<unit<dimension, exponents<Pa_EXPONENTS>, Ratios>> { static constexpr std::u8string_view string = u8"Pa"; };

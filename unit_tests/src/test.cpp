@@ -16,6 +16,12 @@ namespace
             throw std::logic_error("Test failed");
     }
 
+    template <typename T, typename U>
+    void test_equality(T const& lhs, U const& rhs)
+    {
+        test_assert(lhs == rhs);
+    }
+
     bool near_enough(double lhs, double rhs, double error = 1e-5)
     {
         return std::abs(lhs - rhs) < error;
@@ -238,41 +244,45 @@ int main()
     test_assert(near_enough(r1, 100.0 / 0.042));
     test_assert(near_enough(r2, 1.0));
 
-    test_assert(base_units_to_string(1.0_m) == "m");
-    test_assert(base_units_to_string(1.0_m * 1.0_s) == "m s");
-    test_assert(base_units_to_string(1.0_m / 1.0_s) == "m s^-1");
-    test_assert(base_units_to_string(1.0_m / 1.0_s / 1.0_s) == "m s^-2");
-    test_assert(base_units_to_string(1.0_km / 1.0_ms) == "km ms^-1");
-    test_assert(base_units_to_string(1.0_km / 1.0_h) == "km h^-1");
-    test_assert(base_units_to_string(1.0_Ω) == "m^2 kg s^-3 A^-2");
-    test_assert(base_units_to_string(1.0_ohm) == "m^2 kg s^-3 A^-2");
-    test_assert(base_units_to_string(1.0 / 1.0_MHz) == "us");
+    test_equality(base_units_to_string(1.0_m), "m");
+    test_equality(base_units_to_string(1.0_m * 1.0_s), "m s");
+    test_equality(base_units_to_string(1.0_m / 1.0_s), "m s^-1");
+    test_equality(base_units_to_string(1.0_m / 1.0_s / 1.0_s), "m s^-2");
+    test_equality(base_units_to_string(1.0_km / 1.0_ms), "km ms^-1");
+    test_equality(base_units_to_string(1.0_km / 1.0_h), "km h^-1");
+    test_equality(base_units_to_string(1.0_Ω), "m^2 kg s^-3 A^-2");
+    test_equality(base_units_to_string(1.0_ohm), "m^2 kg s^-3 A^-2");
+    test_equality(base_units_to_string(1.0 / 1.0_MHz), "us");
 
-    test_assert(base_units_to_u8string(1.0_m) == u8"m");
-    test_assert(base_units_to_u8string(1.0_m * 1.0_s) == u8"m⋅s");
-    test_assert(base_units_to_u8string(1.0_m / 1.0_s) == u8"m⋅s⁻¹");
-    test_assert(base_units_to_u8string(1.0_m / 1.0_s / 1.0_s) == u8"m⋅s⁻²");
-    test_assert(base_units_to_u8string(1.0_km / 1.0_ms) == u8"km⋅ms⁻¹");
-    test_assert(base_units_to_u8string(1.0_km / 1.0_h) == u8"km⋅h⁻¹");
-    test_assert(base_units_to_u8string(1.0_Ω) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
-    test_assert(base_units_to_u8string(1.0_ohm) == u8"m²⋅kg⋅s⁻³⋅A⁻²");
-    test_assert(base_units_to_u8string(1.0 / 1.0_MHz) == u8"us");
+    test_equality(base_units_to_u8string(1.0_m), u8"m");
+    test_equality(base_units_to_u8string(1.0_m * 1.0_s), u8"m⋅s");
+    test_equality(base_units_to_u8string(1.0_m / 1.0_s), u8"m⋅s⁻¹");
+    test_equality(base_units_to_u8string(1.0_m / 1.0_s / 1.0_s), u8"m⋅s⁻²");
+    test_equality(base_units_to_u8string(1.0_km / 1.0_ms), u8"km⋅ms⁻¹");
+    test_equality(base_units_to_u8string(1.0_km / 1.0_h), u8"km⋅h⁻¹");
+    test_equality(base_units_to_u8string(1.0_Ω), u8"m²⋅kg⋅s⁻³⋅A⁻²");
+    test_equality(base_units_to_u8string(1.0_ohm), u8"m²⋅kg⋅s⁻³⋅A⁻²");
+    test_equality(base_units_to_u8string(1.0 / 1.0_MHz), u8"us");
 
-    test_assert(derived_unit_to_string(1.0_Hz) == "Hz");
-    test_assert(derived_unit_to_string(1.0_MHz) == "MHz");
-    test_assert(derived_unit_to_string(1.0 / 1.0_MHz) == "us");
-    test_assert(derived_unit_to_string(1.0_Ω) == "ohm");
-    test_assert(derived_unit_to_string(1.0_ohm) == "ohm");
-    test_assert(derived_unit_to_string(1.0_degC) == "degC");
-    test_assert(derived_unit_to_string(1.0_nT) == "nT");
+    test_equality(derived_unit_to_string(1.0_Hz), "Hz");
+    test_equality(derived_unit_to_string(1.0_MHz), "MHz");
+    //test_equality(derived_unit_to_string(1.0_MHz * 1.0_MHz), "MHz^2"); ///< @todo
+    test_equality(derived_unit_to_string(1.0 / 1.0_MHz), "us");
+    //test_equality(derived_unit_to_string(1.0 / (1.0_MHz * 1.0_MHz)), "us^2"); ///< @todo
+    test_equality(derived_unit_to_string(1.0_Ω), "ohm");
+    test_equality(derived_unit_to_string(1.0_ohm), "ohm");
+    test_equality(derived_unit_to_string(1.0_degC), "degC");
+    test_equality(derived_unit_to_string(1.0_nT), "nT");
 
-    test_assert(derived_unit_to_u8string(1.0_Hz) == u8"Hz");
-    test_assert(derived_unit_to_u8string(1.0_MHz) == u8"MHz");
-    test_assert(derived_unit_to_u8string(1.0 / 1.0_MHz) == u8"us");
-    test_assert(derived_unit_to_u8string(1.0_Ω) == u8"Ω");
-    test_assert(derived_unit_to_u8string(1.0_ohm) == u8"Ω");
-    test_assert(derived_unit_to_u8string(1.0_degC) == u8"°C");
-    test_assert(derived_unit_to_u8string(1.0_nT) == u8"nT");
+    test_equality(derived_unit_to_u8string(1.0_Hz), u8"Hz");
+    test_equality(derived_unit_to_u8string(1.0_MHz), u8"MHz");
+    //test_equality(derived_unit_to_u8string(1.0_MHz * 1.0_MHz), u8"MHz²"); ///< @todo
+    test_equality(derived_unit_to_u8string(1.0 / 1.0_MHz), u8"us");
+    //test_equality(derived_unit_to_u8string(1.0 / (1.0_MHz * 1.0_MHz)), u8"us²"); ///< @todo
+    test_equality(derived_unit_to_u8string(1.0_Ω), u8"Ω");
+    test_equality(derived_unit_to_u8string(1.0_ohm), u8"Ω");
+    test_equality(derived_unit_to_u8string(1.0_degC), u8"°C");
+    test_equality(derived_unit_to_u8string(1.0_nT), u8"nT");
 
     // astronomical
     
